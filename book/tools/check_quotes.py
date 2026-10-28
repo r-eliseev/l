@@ -11,14 +11,29 @@
 from __future__ import annotations
 
 import importlib.util
+import os
 import re
 import sys
 from pathlib import Path
 
 BOOK = Path(__file__).resolve().parent.parent
-SCRATCH = Path.home() / "AppData/Local/hermes/cache/scratch"
-SP = Path.home() / (
-    "AppData/Local/hermes/skills/research/grounded-citations/scripts/sources.py"
+
+
+def hermes_home() -> Path:
+    """Каталог Hermes: одинаково на Windows и Linux."""
+    val = os.environ.get("HERMES_HOME", "").strip()
+    if val:
+        return Path(val)
+    if os.name == "nt":
+        return Path.home() / "AppData/Local/hermes"
+    return Path.home() / ".hermes"
+
+
+HERMES = hermes_home()
+SCRATCH = HERMES / "cache/scratch"
+SP = (
+    HERMES
+    / "skills/research/grounded-citations/scripts/sources.py"
 )
 
 # id источника -> файл с текстом страницы в кэше извлечения
@@ -42,6 +57,8 @@ LATIN = re.compile(r"[A-Za-z]")
 
 
 def load_matcher():
+    if not SP.exists():
+        raise FileNotFoundError(f"Не найден скрипт ledger: {SP}")
     spec = importlib.util.spec_from_file_location("sources", SP)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
@@ -91,6 +108,12 @@ def _matches(quote: str, source: str) -> bool:
 
 
 def main() -> int:
+    if not SP.exists():
+        print(
+            "Проверка цитат пропущена: нет скрипта ledger "
+            f"({SP}). Запускать на машине автора."
+        )
+        return 0
     mod = load_matcher()
     evidence = {
         sid: (SCRATCH / name).read_text(encoding="utf-8")
@@ -98,8 +121,12 @@ def main() -> int:
         if (SCRATCH / name).exists()
     }
     if not evidence:
-        print("Нет кэша извлечений — проверять нечего.")
-        return 1
+        print(
+            "Проверка цитат пропущена: нет локального кэша извлечений "
+            f"({SCRATCH}). Источники страниц лежат вне репозитория, "
+            "поэтому проверка выполняется только на машине автора."
+        )
+        return 0
 
     fix = "--fix" in sys.argv
     problems: list[str] = []

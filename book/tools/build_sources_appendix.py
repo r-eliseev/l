@@ -8,13 +8,26 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 import re
 from pathlib import Path
 
 BOOK = Path(__file__).resolve().parent.parent
+
+
+def hermes_home() -> Path:
+    """Каталог Hermes: одинаково на Windows и Linux."""
+    val = os.environ.get("HERMES_HOME", "").strip()
+    if val:
+        return Path(val)
+    if os.name == "nt":
+        return Path.home() / "AppData/Local/hermes"
+    return Path.home() / ".hermes"
+
+
 SP = (
-    Path.home()
-    / "AppData/Local/hermes/skills/research/grounded-citations/scripts/sources.py"
+    hermes_home()
+    / "skills/research/grounded-citations/scripts/sources.py"
 )
 
 OUT = BOOK / "src" / "chapters" / "app-d-sources.md"
@@ -31,15 +44,28 @@ INTRO = """# Приложение Г. Источники
 """
 
 
-def load_ledger() -> dict:
+def load_ledger() -> dict | None:
+    """Читает ledger цитат. None — если ledger недоступен (например, в CI)."""
+    if not SP.exists():
+        return None
     spec = importlib.util.spec_from_file_location("sources", SP)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
-    return json.loads(mod.resolve_ledger_path(None).read_text(encoding="utf-8"))
+    path = mod.resolve_ledger_path(None)
+    if not path.exists():
+        return None
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def main() -> None:
     ledger = load_ledger()
+    if ledger is None:
+        print(
+            "Приложение «Источники» не пересобрано: ledger недоступен "
+            f"({SP}). Ledger лежит вне репозитория, поэтому приложение "
+            "обновляется только на машине автора. Существующий файл сохранён."
+        )
+        return
     sources = sorted(ledger["sources"], key=lambda s: s["id"])
 
     used = collect_used_ids()
