@@ -1,6 +1,6 @@
 # Промежуточная сборка EPUB
-book/.build/
-book/dist/preview/
+books/*/.build/
+books/*/dist/preview/
 
 # Python
 __pycache__/

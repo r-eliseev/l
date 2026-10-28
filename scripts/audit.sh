@@ -2,7 +2,7 @@
 # Сигналы устаревания (борьба с энтропией): то, что находится механически.
 # Использование: scripts/audit.sh [дней-занятости] [дней-устаревания-доков] [дней-для-опыта]
 #   дней-занятости: после скольких дней занятость задачи считается подозрительной (по умолчанию 7);
-#   дней-устаревания-доков: насколько документ должен отстать от кода в book/src/, чтобы попасть в список (по умолчанию 30);
+#   дней-устаревания-доков: насколько документ должен отстать от кода в books/*/src/, чтобы попасть в список (по умолчанию 30);
 #   дней-для-опыта: записи опыта со статусом «действует» старше этого срока попадают в список (по умолчанию 90).
 # Смысловую сверку документации с кодом выполняет агент по docs/audit.md.
 # Код возврата 1 только если не пройдены проверки scripts/check.sh.
@@ -33,9 +33,9 @@ echo; echo "== 3. Задачи, которые ждут человека (planne
 waiting=$(bash scripts/list-tasks.sh planned; bash scripts/list-tasks.sh blocked)
 if [ -n "$waiting" ]; then echo "$waiting" | sed 's/^/  /'; else echo "  нет"; fi
 
-echo; echo "== 4. Документы, которые, возможно, устарели (отстали от кода в book/src/ на $doc_days дн. и больше)"
+echo; echo "== 4. Документы, которые, возможно, устарели (отстали от кода в books/*/src/ на $doc_days дн. и больше)"
 if git rev-parse --git-dir >/dev/null 2>&1; then
-  code_t=$(git log -1 --format=%ct -- "book/src" 2>/dev/null)
+  code_t=$(git log -1 --format=%ct -- "books" 2>/dev/null)
   if [ -n "$code_t" ]; then
     found=0
     for f in docs/architecture.md docs/conventions.md docs/product.md docs/specs/*.md; do
@@ -48,7 +48,7 @@ if git rev-parse --git-dir >/dev/null 2>&1; then
     done
     [ $found -eq 1 ] || echo "  нет"
   else
-    echo "  нет истории коммитов для book/src/: пропущено"
+    echo "  нет истории коммитов для books/: пропущено"
   fi
 else
   echo "  это не git-репозиторий: пропущено"

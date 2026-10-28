@@ -21,10 +21,10 @@
 
 - Ledger цитат — источник истины: id, URL, дословные цитаты. Живёт вне
   репозитория (`%LOCALAPPDATA%/hermes/cache/citations/ledger.json`).
-- `book/src/quotes.json` — снимок ledger, из него берут номера и тексты.
-- `book/tools/check_quotes.py` сравнивает каждую цитату главы с текстом
+- `books/ddd-praktika/src/quotes.json` — снимок ledger, из него берут номера и тексты.
+- `tools/check_quotes.py` сравнивает каждую цитату главы с текстом
   источника; `--fix` перепривязывает её к правильному номеру.
-- Приложение «Источники» генерируется `book/tools/build_sources_appendix.py`
+- Приложение «Источники» генерируется `tools/build_sources_appendix.py`
   из ledger, а не пишется руками.
 
 ## Альтернативы

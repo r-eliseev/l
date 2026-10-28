@@ -1,0 +1,48 @@
+{
+  "slug": "eks-course",
+  "title": "EKS на практике",
+  "subtitle": "Обычный Kubernetes и то, что добавляет AWS",
+  "author": "Ира",
+  "language": "ru",
+  "epub_filename": "eks-course.epub",
+  "structure": "src/structure.json",
+  "cover": {
+    "title_lines": ["EKS", "на практике"],
+    "subtitle_line": "",
+    "tagline_lines": ["Обычный Kubernetes", "и то, что добавляет AWS"]
+  },
+  "sources": {
+    "appendix": {
+      "file": "app-c-sources",
+      "intro": "# Приложение В. Источники\n\n*Все утверждения о версиях, ценах и поведении сервисов AWS в курсе снабжены\nномером в квадратных скобках. Ниже — перечень источников с адресами и\nдословными цитатами, на которые опирается текст.*\n\n*Цитаты приведены в том виде, в каком они звучат в оригинале, — чтобы можно\nбыло проверить формулировку, не доверяя пересказу.*\n\n",
+      "howto": "Номер в квадратных скобках после утверждения означает: это утверждение\nопирается на источник под этим номером в перечне ниже.\n"
+    },
+    "groups": [
+      {"title": "Документация AWS по EKS", "ids": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]},
+      {"title": "Kubernetes и kind", "ids": [13, 14, 15]},
+      {"title": "Прочее", "ids": []}
+    ]
+  },
+  "contract": {
+    "sections": [
+      "## Общее",
+      "## В EKS",
+      "## Частые ошибки",
+      "## Проверка себя",
+      "## Источники главы"
+    ],
+    "section_prefix_match": true,
+    "questions": {"min": 2, "max": 6},
+    "thoughts": {},
+    "answers_inline": true,
+    "details_required": false,
+    "citations": true,
+    "sources_section": "## Источники главы",
+    "code": {
+      "language": "bash",
+      "package": "",
+      "path": "",
+      "must_match_package": false
+    }
+  }
+}

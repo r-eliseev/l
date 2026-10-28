@@ -1,42 +1,28 @@
 """Линтер глав: проверяет структуру, ссылки на источники и качество кода.
 
+Контракт главы приходит из `books/<slug>/book.json`, поэтому линтер один на
+все книги репозитория.
+
 Запуск:
-    python tools/lint_book.py
+    python tools/lint_book.py --book ddd-praktika
+    python tools/lint_book.py --book ddd-praktika --json
 """
 
 from __future__ import annotations
 
+import argparse
 import ast
 import json
 import re
 import sys
 from pathlib import Path
 
-BOOK = Path(__file__).resolve().parent.parent
-SRC = BOOK / "src"
-CHAPTERS = SRC / "chapters"
-CODE = BOOK / "code"
-
-REQUIRED_SECTIONS = [
-    "## Введение",
-    "## Основной материал",
-    "## Пример в коде",
-    "## Разбор примера",
-    "## Ловушки",
-    "## Проверь себя",
-    "## Размышления",
-    "## Что дальше",
-    "## Источники главы",
-]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from bookmeta import Book, load_book  # noqa: E402
 
 CODE_BLOCK = re.compile(r"```python\n(.*?)```", re.S)
-FILE_REF = re.compile(r"`(ddd_examples/[A-Za-z0-9_/\.]+\.py)`")
+FILE_REF = re.compile(r"`([A-Za-z0-9_]+/[A-Za-z0-9_/\.]+\.py)`")
 CITE = re.compile(r"\[(\d+)\]")
-
-# Допустимые не-ASCII символы: кириллица, типографика, стрелки, знаки.
-ALLOWED_NON_ASCII = re.compile(
-    r"[Ѐ-ӿ‐-―‘’“”–—… «»°·•≈×≤≥→←⇒∈≠−]"
-)
 
 problems: list[str] = []
 
@@ -48,7 +34,9 @@ def fail(msg: str) -> None:
 def check_chars(text: str, path: Path) -> None:
     """Ищет символы из других письменностей — признак замены слов при вводе."""
     for i, line in enumerate(text.split("\n"), 1):
-        for m in re.finditer(r"[^\x00-\x7FЀ-ӿ‐-―‘’“”–—…«»°·•≈×≤≥→←⇒∈≠−]", line):
+        for m in re.finditer(
+            r"[^\x00-\x7FЀ-ӿ‐-―‘’“”–—…«»°·•≈×≤≥→←⇒∈≠−]", line
+        ):
             bad = m.group(0)
             fail(
                 f"{path.name}:{i}: посторонний символ {bad!r} (U+{ord(bad):04X}) — "
@@ -57,9 +45,17 @@ def check_chars(text: str, path: Path) -> None:
             break
 
 
-def check_sections(path: Path, text: str) -> None:
-    for section in REQUIRED_SECTIONS:
-        if section not in text:
+def check_sections(text: str, path: Path, contract: dict) -> None:
+    required = contract.get("sections", [])
+    prefix = contract.get("section_prefix_match", False)
+    headings = re.findall(r"(?m)^(#{2,3})\s+(.+)$", text)
+    for section in required:
+        wanted = section.lstrip("#").strip()
+        found = any(
+            h.strip() == wanted or (prefix and h.strip().startswith(wanted))
+            for _, h in headings
+        )
+        if not found:
             fail(f"{path.name}: нет секции «{section}»")
 
 
@@ -67,11 +63,13 @@ DETAILS_OPEN = re.compile(r"<details\b[^>]*>", re.I)
 DETAILS_CLOSE = re.compile(r"</details>", re.I)
 
 
-def check_details(text: str, path: Path) -> None:
+def check_details(text: str, path: Path, contract: dict) -> None:
+    if not contract.get("details_required", True):
+        return
     opens = DETAILS_OPEN.findall(text)
     closes = DETAILS_CLOSE.findall(text)
     if not opens:
-        fail(f"{path.name}: в секции «Размышления» нет скрытых ответов (<details>)")
+        fail(f"{path.name}: нет скрытых ответов (<details>)")
     if len(opens) != len(closes):
         fail(f"{path.name}: непарные <details> — открыто {len(opens)}, закрыто {len(closes)}")
     for tag in opens:
@@ -94,13 +92,14 @@ def check_citations(
 
     # Ограничение «не больше трёх ссылок» относится к прозе: перечни
     # источников в конце главы это не касается, там номера идут списком.
-    prose = text.split("## Источники главы", 1)[0]
+    prose = text
+    sources_section = "## Источники главы"
+    if sources_section in text:
+        prose = text.split(sources_section, 1)[0]
     for line in prose.split("\n"):
         found = CITE.findall(line)
         if len(found) > max_per_line:
-            fail(
-                f"{path.name}: больше {max_per_line} ссылок в строке: {line[:70]}"
-            )
+            fail(f"{path.name}: больше {max_per_line} ссылок в строке: {line[:70]}")
 
 
 def _parses(code: str) -> bool:
@@ -157,18 +156,6 @@ def _count_questions(section: str) -> int:
     return count
 
 
-def _normalize_code(text: str) -> str:
-    """Нормализует код для сравнения: убирает пробелы вокруг знаков и
-    пустые строки — форматирование в книге может отличаться от исходника."""
-    lines = []
-    for line in text.split("\n"):
-        line = line.rstrip()
-        if not line.strip():
-            continue
-        lines.append(line.strip())
-    return "\n".join(lines)
-
-
 def _strip_docstrings(code: str) -> str:
     """Убирает содержимое docstring'ов, оставляя сами строки-разделители.
 
@@ -188,8 +175,8 @@ def _strip_docstrings(code: str) -> str:
             if body and isinstance(body[0], ast.Expr):
                 value = body[0].value
                 if isinstance(value, ast.Constant) and isinstance(value.value, str):
-                    start = body[0].lineno - 1
-                    end = body[0].end_lineno or body[0].lineno
+                    start = value.lineno - 1
+                    end = value.end_lineno or value.lineno
                     drop.update(range(start, end))
     return "\n".join(
         line for index, line in enumerate(lines) if index not in drop
@@ -278,87 +265,133 @@ def check_appendix(path: Path, text: str, valid_ids: set[str]) -> None:
                 fail(f"{path.name}: в перечне есть неизвестный источник [{sid}]")
 
 
-def check_questions(text: str, path: Path) -> None:
-    """В «Проверь себя» должно быть 5–8 вопросов."""
-    try:
-        section = text.split("## Проверь себя", 1)[1].split("## Размышления", 1)[0]
-    except IndexError:
+def check_questions(text: str, path: Path, contract: dict) -> None:
+    """В «Проверь себя» должно быть заданное число вопросов."""
+    rules = contract.get("questions") or {}
+    if not rules:
         return
+    header = "## Проверь себя"
+    if header not in text:
+        fail(f"{path.name}: нет секции «{header}»")
+        return
+    section = text.split(header, 1)[1]
+    for stop in ("## Размышления", "## Частые ошибки", "## Что дальше"):
+        if stop in section:
+            section = section.split(stop, 1)[0]
+            break
     questions = _count_questions(section)
-    if questions < 5:
-        fail(f"{path.name}: в «Проверь себя» всего {questions} вопросов (нужно 5–8)")
-    if questions > 8:
-        fail(f"{path.name}: в «Проверь себя» {questions} вопросов (максимум 8)")
-    if re.search(r"Ответ\s*[:.]", section):
+    low = rules.get("min", 0)
+    high = rules.get("max", 99)
+    if questions < low:
+        fail(f"{path.name}: в «Проверь себя» всего {questions} вопросов (нужно {low}–{high})")
+    if questions > high:
+        fail(f"{path.name}: в «Проверь себя» {questions} вопросов (максимум {high})")
+    if not contract.get("answers_inline", False) and re.search(r"Ответ\s*[:.]", section):
         fail(f"{path.name}: в «Проверь себя» есть ответы — их быть не должно")
 
 
-def check_thoughts(text: str, path: Path) -> None:
-    try:
-        section = text.split("## Размышления", 1)[1].split("## Что дальше", 1)[0]
-    except IndexError:
+def check_thoughts(text: str, path: Path, contract: dict) -> None:
+    rules = contract.get("thoughts") or {}
+    if not rules:
         return
+    if "## Размышления" not in text:
+        fail(f"{path.name}: нет секции «## Размышления»")
+        return
+    section = text.split("## Размышления", 1)[1]
+    for stop in ("## Что дальше", "## Частые ошибки"):
+        if stop in section:
+            section = section.split(stop, 1)[0]
+            break
     details = re.findall(r"<details.*?</details>", section, re.S)
-    if len(details) < 2:
-        fail(f"{path.name}: в «Размышления» {len(details)} скрытых ответов (нужно 2–4)")
-    if len(details) > 4:
-        fail(f"{path.name}: в «Размышления» {len(details)} скрытых ответов (максимум 4)")
+    low = rules.get("min", 0)
+    high = rules.get("max", 99)
+    if len(details) < low:
+        fail(f"{path.name}: в «Размышления» {len(details)} скрытых ответов (нужно {low}–{high})")
+    if len(details) > high:
+        fail(f"{path.name}: в «Размышления» {len(details)} скрытых ответов (максимум {high})")
     questions = [
         line for line in section.split("\n")
         if line.strip().endswith("?") and not line.strip().startswith("<")
     ]
-    if len(questions) < 2:
+    if len(questions) < low:
         fail(f"{path.name}: в «Размышления» мало вопросов")
 
 
 def main() -> int:
-    quotes = json.loads((SRC / "quotes.json").read_text(encoding="utf-8"))
-    valid_ids = set(quotes.keys())
+    parser = argparse.ArgumentParser(description="Линтер глав книги")
+    parser.add_argument("--book", required=True, help="slug или путь к книге")
+    parser.add_argument("--json", action="store_true", help="вывод в JSON")
+    args = parser.parse_args()
 
-    package_files = {
-        p.relative_to(CODE).as_posix()
-        for p in (CODE / "ddd_examples").rglob("*.py")
-    }
-    package_sources = {
-        p.relative_to(CODE).as_posix(): p.read_text(encoding="utf-8")
-        for p in (CODE / "ddd_examples").rglob("*.py")
-    }
+    book: Book = load_book(args.book)
+    contract = book.contract
 
-    # Приложения и введение не являются главами: у них другая структура,
-    # поэтому к ним применяется свой набор проверок.
-    chapters = [
-        p for p in sorted(CHAPTERS.glob("*.md"))
-        if not p.name.startswith("00-") and not p.name.startswith("app-")
-    ]
-    appendices = sorted(CHAPTERS.glob("app-*.md"))
+    quotes_path = book.src / "quotes.json"
+    valid_ids: set[str] = set()
+    if quotes_path.exists():
+        valid_ids = set(json.loads(quotes_path.read_text(encoding="utf-8")).keys())
+    elif contract.get("citations"):
+        print(f"ОШИБКА: нет банка источников {quotes_path}")
+        return 1
+
+    code_dir = book.code_dir()
+    package_name = contract.get("code", {}).get("package", "")
+    package_files: set[str] = set()
+    package_sources: dict[str, str] = {}
+    if code_dir and package_name:
+        package_root = code_dir / package_name
+        if package_root.exists():
+            package_files = {
+                p.relative_to(code_dir).as_posix() for p in package_root.rglob("*.py")
+            }
+            package_sources = {
+                p.relative_to(code_dir).as_posix(): p.read_text(encoding="utf-8")
+                for p in package_root.rglob("*.py")
+            }
+        else:
+            print(f"ОШИБКА: нет пакета {package_root}")
+            return 1
+
+    chapters = book.chapter_files()
+    appendices = book.appendix_files()
     if not chapters:
         print("Нет ни одной главы.")
         return 1
 
-    print(f"Проверяю {len(chapters)} файл(ов) в {CHAPTERS}\n")
+    print(f"Проверяю {len(chapters)} глав(ы) книги «{book.title}» в {book.chapters}\n")
 
     for path in chapters:
+        if not path.exists():
+            fail(f"{path.name}: файл главы не найден (проверь оглавление)")
+            continue
         text = path.read_text(encoding="utf-8")
         check_chars(text, path)
-        check_sections(path, text)
-        check_details(text, path)
-        check_citations(text, path, valid_ids)
-        check_code(text, path, package_files)
-        check_code_matches_package(text, path, package_sources)
-        check_questions(text, path)
-        check_thoughts(text, path)
+        check_sections(text, path, contract)
+        check_details(text, path, contract)
+        if contract.get("citations"):
+            check_citations(text, path, valid_ids)
+        if package_files:
+            check_code(text, path, package_files)
+            if contract.get("code", {}).get("must_match_package", True):
+                check_code_matches_package(text, path, package_sources)
+        check_questions(text, path, contract)
+        check_thoughts(text, path, contract)
 
     for path in appendices:
+        if not path.exists():
+            fail(f"{path.name}: файл приложения не найден (проверь оглавление)")
+            continue
         check_appendix(path, path.read_text(encoding="utf-8"), valid_ids)
 
-    if problems:
+    if args.json:
+        print(json.dumps({"book": book.slug, "problems": problems}, ensure_ascii=False, indent=2))
+    elif problems:
         print(f"Проблем: {len(problems)}\n")
         for p in problems:
             print(f"  ✗ {p}")
-        return 1
-
-    print("Все проверки пройдены.")
-    return 0
+    else:
+        print("Все проверки пройдены.")
+    return 1 if problems else 0
 
 
 if __name__ == "__main__":

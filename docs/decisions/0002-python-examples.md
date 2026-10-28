@@ -35,4 +35,4 @@ Python 3.11+, только стандартная библиотека. Тест
   отвергает выдуманный.
 - `dataclass` с полем по умолчанию в базовом классе запрещает наследнику
   добавить обязательные поля — поэтому `occurred_at` объявлен keyword-only.
-  Это видно в `book/code/ddd_examples/shared/events.py`.
+  Это видно в `books/ddd-praktika/code/ddd_examples/shared/events.py`.

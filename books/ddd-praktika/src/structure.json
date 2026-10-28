@@ -1,7 +1,8 @@
 {
-  "title": "Domain-Driven Design на практике",
-  "subtitle": "От моделирования домена к работающему коду",
-  "language": "ru",
+  "front": {
+    "file": "00-front",
+    "title": "Введение"
+  },
   "parts": [
     {
       "n": 1,

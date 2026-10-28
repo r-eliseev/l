@@ -4,7 +4,7 @@
 в коде, лежит рядом и запускается.
 
 ```
-book/
+books/ddd-praktika/
   src/            исходники глав
     STYLE.md      контракт: формат главы, стиль, правила цитирования
     structure.json  оглавление: части, главы, приложения
@@ -13,32 +13,37 @@ book/
   code/           пакет с примерами и тестами
     ddd_examples/ домен: shared, subscriptions, billing, strategic, anemic
     tests/        unittest-тесты
-  tools/          сборка и проверки
   dist/           готовый EPUB и превью
 ```
 
 ## Сборка
 
 ```bash
-cd book
+BOOK=ddd-praktika
 
 # 1. код должен работать
-cd code && python -m unittest discover -s tests -v && cd ..
+cd books/$BOOK/code && python -m unittest discover -s tests -v && cd -
 
 # 2. главы должны соответствовать контракту
-python tools/lint_book.py
+python tools/lint_book.py --book $BOOK
 
-# 3. пересобрать приложение с источниками из ledger цитат
-python tools/build_sources_appendix.py
+# 3. цитаты дословны и привязаны верно
+python tools/check_quotes.py --book $BOOK
 
-# 4. собрать EPUB
-python tools/build_epub.py
+# 4. текст без машинных следов
+python tools/check_ai_tells.py --book $BOOK
 
-# 5. проверить пакет
-python tools/validate_epub.py
+# 5. пересобрать приложение с источниками из ledger цитат
+python tools/build_sources_appendix.py --book $BOOK
+
+# 6. собрать EPUB
+python tools/build_epub.py --book $BOOK
+
+# 7. проверить пакет
+python tools/validate_epub.py --book $BOOK
 ```
 
-Результат: `dist/ddd-praktika.epub`.
+Результат: `books/ddd-praktika/dist/ddd-praktika.epub`.
 
 ## Как устроены проверки
 

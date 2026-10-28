@@ -4,9 +4,9 @@
 Книга «Domain-Driven Design на практике»: 20 глав в 5 частях, работающие примеры кода на Python и сборка EPUB. Исходники глав — book/src/chapters, пакет с примерами и тестами — book/code, сборка и проверки — book/tools.
 
 ## Команды
-- Сборка: `python book/tools/build_sources_appendix.py && python book/tools/build_epub.py && python book/tools/validate_epub.py`
+- Сборка: `python tools/build_sources_appendix.py && python tools/build_epub.py && python tools/validate_epub.py`
 - Тесты: `cd book/code && python -m unittest discover -s tests`
-- Линтер/форматирование: `python book/tools/lint_book.py && python book/tools/check_quotes.py`
+- Линтер/форматирование: `python tools/lint_book.py && python tools/check_quotes.py`
 - Проверка харнеса (документация, задачи, навыки, опыт): `scripts/check.sh`
 - Сигналы устаревания (аудит): `scripts/audit.sh`
 - Список навыков: `scripts/list-skills.sh`
@@ -46,36 +46,36 @@
 - Периодическая сверка документации с кодом и поиск зависших задач выполняются по просьбе пользователя по правилам из `docs/audit.md`.
 
 ## Главные правила кода
-- Код в главах — только реальный фрагмент `book/code/ddd_examples/`. Линтер
+- Код в главах — только реальный фрагмент `books/ddd-praktika/code/ddd_examples/`. Линтер
   проверяет это автоматически; выдуманный код отвергается.
 - Новый класс в пакете появляется только вместе с главой, которая его
   показывает, и с тестом.
 - Объект-значение — `frozen=True`. Изменяемость — ошибка.
 - Проверки инвариантов живут в агрегате. Логика в сервисе приложения,
   вызывающая домен, — ошибка (анемичная модель).
-- Цитата — дословная и с номером источника из `book/src/quotes.json`.
-  Перед коммитом — `python book/tools/check_quotes.py --fix`.
-- Глава пишется по контракту из `book/src/STYLE.md`: девять секций в том же
+- Цитата — дословная и с номером источника из `books/ddd-praktika/src/quotes.json`.
+  Перед коммитом — `python tools/check_quotes.py --fix`.
+- Глава пишется по контракту из `books/ddd-praktika/src/STYLE.md`: девять секций в том же
   порядке, 5–8 вопросов без ответов, 2–4 скрытых ответа.
 - Один домен на всю книгу: подписка на кофе, четыре bounded context'а.
   Свои выдуманные примеры в главах не заводим.
-- Нумерация глав — только в `book/src/structure.json`.
+- Нумерация глав — только в `books/ddd-praktika/src/structure.json`.
 - Текст — русский, термины в оригинале с переводом при первом упоминании.
 - После правок — тесты, линтер, цитаты, пересборка, валидация, `scripts/check.sh`.
 
 Подробности: `docs/conventions.md`
 
 ## Запреты
-- Не меняй `book/src/structure.json`, `book/src/quotes.json`, `book/src/STYLE.md`
-  и содержимое `book/dist/` без явной просьбы.
-- Не редактируй сгенерированный XHTML в `book/.build/` — правь Markdown или
+- Не меняй `books/ddd-praktika/src/structure.json`, `books/ddd-praktika/src/quotes.json`, `books/ddd-praktika/src/STYLE.md`
+  и содержимое `books/ddd-praktika/dist/` без явной просьбы.
+- Не редактируй сгенерированный XHTML в `books/ddd-praktika/.build/` — правь Markdown или
   сборщик и пересобирай.
 - Не удаляй и не переписывай существующие ADR. Устаревшее помечай статусом
   «заменено на NNNN» и ссылкой на новое решение.
 - Не выдумывай факты в документации, навыках и опыте. Если не знаешь, пиши
   «неизвестно» и добавляй вопрос в `docs/status.md`.
 - Не меняй видимость репозитория и не делай его публичным без явной просьбы.
-- Не коммить `book/.build/` и `book/dist/preview/` — они в `.gitignore`.
+- Не коммить `books/ddd-praktika/.build/` и `books/ddd-praktika/dist/preview/` — они в `.gitignore`.
 
 ## Если что-то неясно
 Запиши вопрос в `docs/status.md` в раздел «Открытые вопросы» и продолжай с наиболее безопасным допущением, явно его указав. Если вопрос по задаче, пиши его в «Комментарии» задачи (см. `docs/tasks.md`).

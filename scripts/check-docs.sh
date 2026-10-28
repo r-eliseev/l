@@ -42,8 +42,8 @@ done < <(find . -name '*.md' -not -path './.git/*' -not -path './node_modules/*'
 base="${BASE_REF:-origin/main}"
 if git rev-parse --verify -q "$base" >/dev/null 2>&1; then
   changed="$(git diff --name-only "$base"...HEAD 2>/dev/null)"
-  if echo "$changed" | grep -qE '^book/src/' && ! echo "$changed" | grep -qE '^(docs|tasks)/'; then
-    echo "ПРЕДУПРЕЖДЕНИЕ: изменён код в book/src/, но docs/ и tasks/ не затронуты"
+  if echo "$changed" | grep -qE '^books/[^/]+/src/' && ! echo "$changed" | grep -qE '^(docs|tasks)/'; then
+    echo "ПРЕДУПРЕЖДЕНИЕ: изменён код в books/*/src/, но docs/ и tasks/ не затронуты"
   fi
 fi
 

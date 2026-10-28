@@ -3,6 +3,7 @@ on:
   pull_request:
   push:
     branches: [main]
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -11,9 +12,37 @@ jobs:
         with: { fetch-depth: 0 }
       - run: BASE_REF=origin/${{ github.base_ref }} bash scripts/check.sh
 
-  # Книга: тесты пакета, линтер глав, дословность цитат, сборка и валидация EPUB.
-  book:
+  # Список книг: каждая книга — это каталог books/<slug> с файлом book.json.
+  # Читается из репозитория, а не зашит в workflow: новая книга попадает
+  # в CI сама, без правки этого файла.
+  books_matrix:
     runs-on: ubuntu-latest
+    outputs:
+      books: ${{ steps.list.outputs.books }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: |
+          books=$(python -c "
+          import json, os
+          names = []
+          for entry in sorted(os.listdir('books')):
+              path = os.path.join('books', entry)
+              if os.path.isfile(os.path.join(path, 'book.json')):
+                  names.append(entry)
+          print(json.dumps(names))
+          ")
+          echo "books=$books" >> "$GITHUB_OUTPUT"
+
+  # Книги: для каждой — тесты пакета, линтер глав, дословность цитат,
+  # проверка текста на машинные следы, сборка и валидация EPUB.
+  books:
+    needs: books_matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        book: ${{ fromJson(needs.books_matrix.outputs.books) }}
     steps:
       - uses: actions/checkout@v4
 
@@ -25,26 +54,30 @@ jobs:
         run: python -m pip install --quiet markdown pygments pillow
 
       - name: Тесты пакета с примерами
-        working-directory: book/code
+        if: hashFiles(format('books/{0}/code/tests/**', matrix.book)) != ''
+        working-directory: books/${{ matrix.book }}/code
         run: python -m unittest discover -s tests -v
 
       - name: Линтер глав
-        run: python book/tools/lint_book.py
+        run: python tools/lint_book.py --book ${{ matrix.book }}
 
       - name: Дословность цитат
-        run: python book/tools/check_quotes.py
+        run: python tools/check_quotes.py --book ${{ matrix.book }}
+
+      - name: Машинные следы в тексте
+        run: python tools/check_ai_tells.py --book ${{ matrix.book }}
 
       - name: Сборка EPUB
         run: |
-          python book/tools/build_sources_appendix.py
-          python book/tools/build_epub.py
+          python tools/build_sources_appendix.py --book ${{ matrix.book }}
+          python tools/build_epub.py --book ${{ matrix.book }}
 
       - name: Валидация EPUB
-        run: python book/tools/validate_epub.py
+        run: python tools/validate_epub.py --book ${{ matrix.book }}
 
       - name: Артефакт сборки
         uses: actions/upload-artifact@v4
         with:
-          name: ddd-praktika-epub
-          path: book/dist/ddd-praktika.epub
+          name: ${{ matrix.book }}-epub
+          path: books/${{ matrix.book }}/dist/*.epub
           if-no-files-found: error

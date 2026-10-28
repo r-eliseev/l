@@ -3,20 +3,27 @@
 Книга обещает: всё, что стоит в кавычках и приписано источнику, взято из
 него дословно. Этот скрипт проверяет обещание по факту.
 
+Карта «источник → файл с текстом страницы» лежит в
+`books/<slug>/src/evidence-map.json`: файлы извлечений лежат вне репозитория,
+в локальном кэше, поэтому на другой машине проверка пропускается.
+
 Запуск:
-    python tools/check_quotes.py           # только отчёт
-    python tools/check_quotes.py --fix     # исправить привязки автоматически
+    python tools/check_quotes.py --book ddd-praktika
+    python tools/check_quotes.py --book ddd-praktika --fix
 """
 
 from __future__ import annotations
 
+import argparse
 import importlib.util
+import json
 import os
 import re
 import sys
 from pathlib import Path
 
-BOOK = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from bookmeta import load_book  # noqa: E402
 
 
 def hermes_home() -> Path:
@@ -31,25 +38,16 @@ def hermes_home() -> Path:
 
 HERMES = hermes_home()
 SCRATCH = HERMES / "cache/scratch"
-SP = (
-    HERMES
-    / "skills/research/grounded-citations/scripts/sources.py"
-)
+SP = HERMES / "skills/research/grounded-citations/scripts/sources.py"
 
-# id источника -> файл с текстом страницы в кэше извлечения
-FILEMAP = {
-    1: "ddd_ref_norm.txt", 2: "ddd_domainlanguage_ddd.txt", 3: "ddd_fowler_anemic.txt",
-    4: "ddd_fowler_bounded.txt", 5: "ddd_fowler_ubiquitous.txt", 6: "ddd_monolith_first.txt",
-    7: "ddd_azure_domain_analysis.txt", 8: "ddd_azure_tactical.txt",
-    9: "ddd_azure_boundaries.txt", 10: "ddd_acl_azure.txt", 11: "ddd_ctxmapper.txt",
-    12: "ddd_ctxmapper_docs.txt", 13: "ddd_ctxmap_readme.txt", 14: "ddd_dddcrew_resources.txt",
-    15: "ddd_ddd_starter.txt", 16: "ddd_wiki_ddd.txt", 18: "ddd_qlerify_es.txt",
-    19: "ddd_ddd_debate.txt", 20: "ddd_marston_full.md", 21: "ddd_evans_infoq.txt",
-    22: "ddd_ddd_distilled_strat.txt", 23: "ddd_cockburn_hex.txt", 24: "ddd_brandolini_es.txt",
-    25: "ddd_domain_storytelling.txt", 26: "ddd_ctxmap_raw.txt", 27: "ddd_fowler_valueobject.txt",
-    28: "ddd_fowler_eventsourcing.txt", 29: "ddd_fowler_transactionscript.txt",
-    30: "ddd_fowler_cqrs.txt", 31: "ddd_azure_cqrs.txt", 32: "ddd_mslearn_ddd_cqrs.txt",
-}
+# Копия ledger-скрипта лежит в репозитории — она приоритетнее: репозиторий
+# должен работать на любой машине, где установлен Hermes, и без него.
+REPO_SP = (
+    Path(__file__).resolve().parent.parent
+    / "skills/grounded-citations/scripts/sources.py"
+)
+if REPO_SP.exists():
+    SP = REPO_SP
 
 QUOTE_RE = re.compile(r"«([^»]{20,600})»")
 CYRILLIC = re.compile(r"[Ѐ-ӿ]")
@@ -68,8 +66,8 @@ def load_matcher():
 def is_quotation(text: str) -> bool:
     """Отделяет цитату от обычного выделения.
 
-    Цитата — преимущественно латинский текст. Русские фразы в кавычках —
-    это выделения терминов, а не цитаты из источников.
+    Цитата — преимущественно латинский текст. Русские фразы в кавычках — это
+    выделения терминов, а не цитаты из источников.
     """
     cyr = len(CYRILLIC.findall(text))
     lat = len(LATIN.findall(text))
@@ -108,16 +106,38 @@ def _matches(quote: str, source: str) -> bool:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description="Проверка дословности цитат")
+    parser.add_argument("--book", required=True, help="slug или путь к книге")
+    parser.add_argument("--fix", action="store_true", help="исправить привязки")
+    args = parser.parse_args()
+
+    book = load_book(args.book)
+    if not book.contract.get("citations"):
+        print(f"Книга «{book.title}»: цитаты не проверяются (контракт без цитат).")
+        return 0
+
     if not SP.exists():
         print(
             "Проверка цитат пропущена: нет скрипта ledger "
             f"({SP}). Запускать на машине автора."
         )
         return 0
+
+    map_path = book.src / "evidence-map.json"
+    if not map_path.exists():
+        print(
+            f"Проверка цитат пропущена: нет карты извлечений {map_path}. "
+            "Файлы страниц лежат вне репозитория, поэтому проверка "
+            "выполняется только на машине автора."
+        )
+        return 0
+
+    filemap: dict[str, str] = json.loads(map_path.read_text(encoding="utf-8"))
+
     mod = load_matcher()
     evidence = {
-        sid: (SCRATCH / name).read_text(encoding="utf-8")
-        for sid, name in FILEMAP.items()
+        int(sid): (SCRATCH / name).read_text(encoding="utf-8")
+        for sid, name in filemap.items()
         if (SCRATCH / name).exists()
     }
     if not evidence:
@@ -128,12 +148,13 @@ def main() -> int:
         )
         return 0
 
-    fix = "--fix" in sys.argv
     problems: list[str] = []
     fixed = 0
 
-    for path in sorted((BOOK / "src" / "chapters").glob("*.md")):
-        if path.name == "app-d-sources.md":
+    for path in book.all_content_files():
+        if not path.exists():
+            continue
+        if path.name.startswith("app-d-sources"):
             continue
         text = path.read_text(encoding="utf-8")
         original = text
@@ -164,7 +185,7 @@ def main() -> int:
                     f"{path.name}: цитата приписана [{sid}], а найдена в "
                     f"[{found_in[0]}] — «{quote[:70]}»"
                 )
-                if fix:
+                if args.fix:
                     # Заменяем ближайшую ссылку, стоящую после цитаты.
                     # Окно поиска широкое: цитата может быть разбита
                     # переносами строк, и её хвост длиннее, чем кажется.
@@ -190,7 +211,7 @@ def main() -> int:
                     f"{found_in}, приписана [{sid}] — «{quote[:70]}»"
                 )
 
-        if fix and text != original:
+        if args.fix and text != original:
             path.write_text(text, encoding="utf-8")
 
     if problems:
