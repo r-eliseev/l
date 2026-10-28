@@ -1,0 +1,251 @@
+{
+ "1": {
+  "url": "https://www.domainlanguage.com/wp-content/uploads/2016/05/DDD_Reference_2015-03.pdf",
+  "title": "Eric Evans — Domain-Driven Design Reference (2015, PDF)",
+  "quotes": [
+   "ubiquitous language A language structured around the domain model and used by all team members within a bounded context to connect all the activities of the team with the software.",
+   "bounded context A description of a boundary (typically a subsystem, or the work of a particular team) within which a particular model is defined and applicable.",
+   "Domain-Driven Design is an approach to the development of complex software in which we: 1. Focus on the core domain. 2. Explore models in a creative collaboration of domain practitioners and software practitioners. 3. Speak a ubiquitous language within an explicitly bounded context.",
+   "When you care only about the attributes and logic of an element of the model, classify it as a value object.",
+   "Treat the value object as immutable.",
+   "Cluster the entities and value objects into aggregates and define boundaries around each.",
+   "Choose one entity to be the root of each aggregate, and allow external objects to hold references to the root only",
+   "Within an aggregate boundary, apply consistency rules synchronously. Across boundaries, handle updates asynchronously.",
+   "Recognize that a change in the language is a change to the model.",
+   "Model information about activity in the domain as a series of discrete events.",
+   "For each type of aggregate that needs global access, create a service that can provide the illusion of an in-memory collection of all objects of that aggregate's root type."
+  ]
+ },
+ "2": {
+  "url": "https://www.domainlanguage.com/ddd",
+  "title": "Domain Language — DDD resources",
+  "quotes": [
+   "This reference guide provides a quick and authoritative summary of the key concepts of Domain-Driven Design. It is not meant as a learning introduction to the subject."
+  ]
+ },
+ "3": {
+  "url": "https://martinfowler.com/bliki/AnemicDomainModel.html",
+  "title": "Martin Fowler — Anemic Domain Model",
+  "quotes": [
+   "The basic symptom of an Anemic Domain Model is that at first blush it looks like the real thing."
+  ]
+ },
+ "4": {
+  "url": "https://martinfowler.com/bliki/BoundedContext.html",
+  "title": "Martin Fowler — Bounded Context",
+  "quotes": [
+   "total unification of the domain model for a large system will not be feasible or cost-effective"
+  ]
+ },
+ "5": {
+  "url": "https://martinfowler.com/bliki/UbiquitousLanguage.html",
+  "title": "Martin Fowler — Ubiquitous Language",
+  "quotes": [
+   "Ubiquitous Language is the term Eric Evans uses in Domain Driven Design for the practice of building up a common, rigorous language between developers and users."
+  ]
+ },
+ "6": {
+  "url": "https://martinfowler.com/bliki/MonolithFirst.html",
+  "title": "Martin Fowler — Monolith First",
+  "quotes": [
+   "you\nshouldn't start a new project with microservices, even if you're\nsure your application will be big enough to make it worthwhile."
+  ]
+ },
+ "7": {
+  "url": "https://learn.microsoft.com/en-us/azure/architecture/microservices/model/domain-analysis",
+  "title": "Azure Architecture Center — Use domain analysis to model microservices",
+  "quotes": [
+   "Core subdomains provide a competitive advantage.",
+   "Supporting subdomains keep the business operational but don't differentiate it from competitors.",
+   "Generic subdomains represent problems that the industry already solved."
+  ]
+ },
+ "8": {
+  "url": "https://learn.microsoft.com/en-us/azure/architecture/microservices/model/tactical-domain-driven-design",
+  "title": "Azure Architecture Center — Use tactical DDD to design microservices",
+  "quotes": [
+   "As a general principle, design a microservice to be no smaller than an aggregate and no larger than a bounded context.",
+   "When business logic lives outside the entity in service classes, you create an anemic domain model.",
+   "Prefer value objects as your default modeling choice."
+  ]
+ },
+ "9": {
+  "url": "https://learn.microsoft.com/en-us/azure/architecture/microservices/model/microservice-boundaries",
+  "title": "Azure Architecture Center — Identify microservice boundaries",
+  "quotes": [
+   "But if you start from a carefully designed domain model, you can more easily define the correct size and scope of each microservice."
+  ]
+ },
+ "10": {
+  "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/anti-corruption-layer",
+  "title": "Azure Architecture Center — Anti-Corruption Layer pattern",
+  "quotes": [
+   "Implement a facade or adapter layer between different subsystems that don't share the same semantics.",
+   "Eric Evans first described this pattern in Domain-Driven Design: Tackling Complexity in the Heart of Software ."
+  ]
+ },
+ "11": {
+  "url": "https://contextmapper.org",
+  "title": "ContextMapper — modeling framework for strategic DDD",
+  "quotes": [
+   "ContextMapper is an open source project providing a Domain-specific Language and Tools for Strategic Domain-driven Design (DDD), Context Mapping, Bounded Context Modeling, and Service Decomposition."
+  ]
+ },
+ "12": {
+  "url": "https://contextmapper.org/docs/home",
+  "title": "ContextMapper — documentation",
+  "quotes": [
+   "Context Mapper is a modular and extensible modeling framework for Domain-driven Design (DDD) and its strategic patterns."
+  ]
+ },
+ "13": {
+  "url": "https://github.com/ddd-crew/context-mapping/blob/master/README.md",
+  "title": "ddd-crew — Context Mapping (patterns cheat sheet)",
+  "quotes": [
+   "There are nine context map patterns and three different team relationships."
+  ]
+ },
+ "14": {
+  "url": "https://github.com/ddd-crew/free-ddd-learning-resources",
+  "title": "ddd-crew — Free DDD Learning Resources",
+  "quotes": [
+   "A collection of resources for learning DDD. All are free to access."
+  ]
+ },
+ "15": {
+  "url": "https://github.com/ddd-crew/ddd-starter-modelling-process",
+  "title": "ddd-crew — DDD starter modelling process",
+  "quotes": [
+   "If you're new to DDD or just not sure where to start, this process can reduce your cognitive load."
+  ]
+ },
+ "16": {
+  "url": "https://en.wikipedia.org/wiki/Domain-driven_design",
+  "title": "Wikipedia — Domain-driven design",
+  "quotes": [
+   "The term was coined by Eric Evans in his book of the same name published in 2003."
+  ]
+ },
+ "18": {
+  "url": "https://www.qlerify.com/post/event-storming-the-complete-guide",
+  "title": "Qlerify — Event Storming: the complete guide",
+  "quotes": [
+   "- Big Picture – Used to explore a complex business domain collaboratively. Useful when the scope is large or unclear.",
+   "- Process Modeling – Focuses on detailing a specific business process from start to finish. Useful when the starting point and the goal of the process are clear.",
+   "- Software Design – Extends Process Modeling to include designing the architecture of a software system, including aggregates, commands, and bounded con"
+  ]
+ },
+ "19": {
+  "url": "https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate",
+  "title": "Advanced Beginner — DDD Debate: proponents vs skeptics",
+  "quotes": [
+   "most DDD I have witnessed was a ‘festival of unnecessary complexity’."
+  ]
+ },
+ "20": {
+  "url": "https://tonymarston.net/php-mysql/dont-do-domain-driven-design.html",
+  "title": "Tony Marston — Why I don't do Domain Driven Design",
+  "quotes": [
+   "Why I don't do Domain Driven Design",
+   "While DDD contains many principles and practices, I regard these as \"suggestions\" and not \"rules\", which means that I am free to either follow them, in whole or in part, or ignore them altogether.",
+   "Where I find a simpler way to achieve an objective then I will follow the KISS principle and ignore the KICK alternative."
+  ]
+ },
+ "21": {
+  "url": "https://www.infoq.com/articles/eric-evans-ddd-matters-today",
+  "title": "InfoQ — Eric Evans on why DDD Matters Today",
+  "quotes": [
+   "Fundamentally, DDD is the principle that we should be focusing on the deep issues of the domain our users are engaged in"
+  ]
+ },
+ "22": {
+  "url": "https://l-lin.github.io/architecture/ddd/ddd-distilled/ddd-distilled---strategic-design-with-bounded-contexts-and-ubiquitous-language",
+  "title": "DDD Distilled — strategic design notes",
+  "quotes": [
+   "A Bounded Context is a semantic contextual boundary."
+  ]
+ },
+ "23": {
+  "url": "https://alistaircockburn.com/Hexagonal-Architecture",
+  "title": "Alistair Cockburn — Hexagonal Architecture",
+  "quotes": [
+   "Allow an application to equally be driven by users, programs, automated test or batch scripts, and to be developed and tested in isolation from its eventual run-time devices and databases."
+  ]
+ },
+ "24": {
+  "url": "https://www.infoq.com/news/2014/06/dddx-brandolini-eventstorming",
+  "title": "InfoQ — Domain Modelling Using Event Storming (Alberto Brandolini)",
+  "quotes": [
+   "Gather all domain experts and developers in a room, provide them with a paper roll, lots of colored post-its and a facilitator and they may in hours create the best model ever"
+  ]
+ },
+ "25": {
+  "url": "https://www.oreilly.com/library/view/domain-storytelling-a/9780137458974/app01.xhtml",
+  "title": "O'Reilly — Domain Storytelling: history of the method",
+  "quotes": [
+   "Domain Storytelling: A Collaborative, Visual, and Agile Way to Build Domain-Driven Software"
+  ]
+ },
+ "26": {
+  "url": "https://raw.githubusercontent.com/ddd-crew/context-mapping/master/README.md",
+  "title": "ddd-crew — Context Mapping README (raw, полные определения паттернов)",
+  "quotes": [
+   "A protocol that gives access to your subsystem as a set of services.",
+   "Eliminate the complexity of translation between bounded contexts by slavishly adhering to the model of the upstream team.",
+   "As a downstream client, create an isolating layer to provide your system with functionality of the upstream system in terms of your own domain model.",
+   "Designate with an explicit boundary some subset of the domain model that the teams agree to share. Keep this kernel small.",
+   "Where development failure in either of two contexts would result in delivery failure for both, forge a partnership between the teams in charge of the two contexts.",
+   "Establish a clear customer/supplier relationship between the two teams, meaning downstream priorities factor into upstream planning.",
+   "Use a well-documented shared language that can express the necessary domain information as a common medium of communication, translating as necessary into and out of that language.",
+   "Declare a bounded context to have no connection to the others at all, allowing developers to find simple, specialized solutions within this small scope",
+   "A (part of a) system which is a mess by having mixed models and inconsistent boundaries.",
+   "Prefer small context maps for explicit questions",
+   "Work with smaller context maps, aimed to answer specific questions."
+  ]
+ },
+ "27": {
+  "url": "https://martinfowler.com/bliki/ValueObject.html",
+  "title": "Martin Fowler — Value Object",
+  "quotes": [
+   "Objects that are equal due to the value of their properties, in this case their x and y coordinates, are called value objects."
+  ]
+ },
+ "28": {
+  "url": "https://martinfowler.com/eaaDev/EventSourcing.html",
+  "title": "Martin Fowler — Event Sourcing",
+  "quotes": [
+   "Capture all changes to an application state as a sequence of events."
+  ]
+ },
+ "29": {
+  "url": "https://martinfowler.com/eaaCatalog/transactionScript.html",
+  "title": "Martin Fowler — Transaction Script",
+  "quotes": [
+   "Organizes business logic by procedures where each procedure handles a single request from the presentation."
+  ]
+ },
+ "30": {
+  "url": "https://martinfowler.com/bliki/CQRS.html",
+  "title": "Martin Fowler — CQRS",
+  "quotes": [
+   "CQRS stands for Command Query Responsibility Segregation. It's a pattern that I first heard described by Greg Young.",
+   "At its heart is the notion that you can use a different model to update information than the model you use to read information.",
+   "For some situations, this separation can be valuable, but beware that for most systems CQRS adds risky complexity."
+  ]
+ },
+ "31": {
+  "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs",
+  "title": "Azure Architecture Center — CQRS pattern",
+  "quotes": [
+   "A common pattern is to have the write model publish events when it updates the database, which the read model uses to refresh its data.",
+   "The read and write representations of data often differ."
+  ]
+ },
+ "32": {
+  "url": "https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/implement-value-objects",
+  "title": "Microsoft Learn — Implementing value objects (.NET DDD+CQRS)",
+  "quotes": [
+   "Their immutable nature allows them to be reused; they can be interchangeable objects, since their values are the same and they have no identity."
+  ]
+ }
+}

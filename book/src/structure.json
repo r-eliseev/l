@@ -1,0 +1,63 @@
+{
+  "title": "Domain-Driven Design на практике",
+  "subtitle": "От моделирования домена к работающему коду",
+  "language": "ru",
+  "parts": [
+    {
+      "n": 1,
+      "title": "Часть I. Язык и границы",
+      "chapters": [
+        {"file": "01-what-is-ddd", "title": "Что такое DDD и зачем он нужен", "minutes": 18},
+        {"file": "02-ubiquitous-language", "title": "Единый язык: как договариться о словах", "minutes": 20},
+        {"file": "03-bounded-context", "title": "Ограниченный контекст: где кончается модель", "minutes": 22},
+        {"file": "04-subdomains", "title": "Поддомены и ядро бизнеса", "minutes": 18}
+      ]
+    },
+    {
+      "n": 2,
+      "title": "Часть II. Стратегический дизайн",
+      "chapters": [
+        {"file": "05-context-map", "title": "Карта контекстов: как связаны части системы", "minutes": 24},
+        {"file": "06-event-storming", "title": "Event Storming: разговор, который заменяет документ", "minutes": 22},
+        {"file": "07-strategy-boundaries", "title": "Стратегия, тактика и границы сервисов", "minutes": 20}
+      ]
+    },
+    {
+      "n": 3,
+      "title": "Часть III. Тактический дизайн",
+      "chapters": [
+        {"file": "08-entity", "title": "Сущность: идентичность и её время", "minutes": 20},
+        {"file": "09-value-object", "title": "Объект-значение: правила без лишней сложности", "minutes": 22},
+        {"file": "10-aggregate", "title": "Агрегат: граница транзакций и инвариантов", "minutes": 24},
+        {"file": "11-repository", "title": "Репозиторий: доступ к агрегатам на языке домена", "minutes": 18},
+        {"file": "12-domain-events", "title": "Доменные события: факты вместо вызовов", "minutes": 22},
+        {"file": "13-domain-services", "title": "Доменные сервисы, спецификации и фабрики", "minutes": 20}
+      ]
+    },
+    {
+      "n": 4,
+      "title": "Часть IV. Архитектура и подходы",
+      "chapters": [
+        {"file": "14-anemic-model", "title": "Анемичная модель: как распознать и вылечить", "minutes": 22},
+        {"file": "15-hexagonal", "title": "Слои и гексагональная архитектура", "minutes": 20},
+        {"file": "16-event-sourcing-cqrs", "title": "Event Sourcing и CQRS: расширение границ", "minutes": 22}
+      ]
+    },
+    {
+      "n": 5,
+      "title": "Часть V. Практика",
+      "chapters": [
+        {"file": "17-modelling-process", "title": "Процесс моделирования: от хаоса к модели", "minutes": 24},
+        {"file": "18-tools", "title": "Инструменты: ContextMapper, ddd-crew и другие", "minutes": 16},
+        {"file": "19-critique", "title": "Критика и границы применимости DDD", "minutes": 22},
+        {"file": "20-adoption", "title": "Как внедрять DDD в команде и компании", "minutes": 20}
+      ]
+    }
+  ],
+  "appendices": [
+    {"file": "app-a-glossary", "title": "Приложение А. Глоссарий"},
+    {"file": "app-b-patterns", "title": "Приложение Б. Паттерны DDD кратко"},
+    {"file": "app-c-code", "title": "Приложение В. Полный пример: структура и запуск"},
+    {"file": "app-d-sources", "title": "Приложение Г. Источники"}
+  ]
+}

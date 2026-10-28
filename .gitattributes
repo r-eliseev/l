@@ -1,0 +1,11 @@
+# Текст нормализуем в LF: иначе сборка зависит от ОС автора,
+# а diff'ы в Markdown засоряются переносами строк.
+* text=auto eol=lf
+
+# Бинарные файлы не трогаем
+*.epub binary
+*.zip binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.pdf binary
