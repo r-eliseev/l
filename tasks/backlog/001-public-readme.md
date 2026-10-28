@@ -1,8 +1,8 @@
 ---
 id: 001
 status: todo
-assignee: hermes-setup
-claimed: 2026-10-28T20:05:15Z
+assignee:
+claimed:
 created: 2026-10-28
 ---
 
