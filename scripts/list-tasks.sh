@@ -7,7 +7,7 @@ cd "$(dirname "$0")/.."
 if [ "${1:-}" = "--main" ]; then
   shift
   git fetch -q "$T_REMOTE" "$T_BRANCH" || exit 1
-  tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
+  tmp=$(t_path "$(mktemp -d)"); trap 'rm -rf "$tmp"' EXIT
   git archive "$T_REMOTE/$T_BRANCH" tasks | tar -x -C "$tmp" || exit 1
   cd "$tmp"
 fi

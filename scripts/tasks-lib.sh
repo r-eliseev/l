@@ -42,10 +42,21 @@ _task_drop() { git -C "$1" worktree remove --force "$2/wt" >/dev/null 2>&1; rm -
 # Если кто-то успел запушить раньше, начинает заново на свежей версии (до 10 раз).
 # Функция получает путь к копии и возвращает: 0 — закоммитить, 100 — менять нечего,
 # любое другое число — прервать с этим кодом. Ваша рабочая копия не затрагивается.
+# t_path <путь>: приводит путь к виду, который одинаково понимают bash и
+# нативный git. На Windows mktemp отдаёт /tmp/... (это %TEMP%), а git
+# читает /tmp как C:\tmp — worktree создаётся не там, где его ищет скрипт.
+# cygpath -m даёт C:/..., что понимают оба. На других системах путь не меняется.
+t_path() {
+  case "$1" in
+    [A-Za-z]:*) printf '%s' "$1" ;;
+    *) cygpath -m "$1" 2>/dev/null || printf '%s' "$1" ;;
+  esac
+}
+
 task_on_main() {
   local fn="$1" msg="$2" repo tmp rc i err=""
   repo=$(git rev-parse --show-toplevel) || return 1
-  tmp=$(mktemp -d) || return 1
+  tmp=$(t_path "$(mktemp -d)") || return 1
   for i in 1 2 3 4 5 6 7 8 9 10; do
     # неудачный fetch тоже повторяем: параллельные процессы в одном клоне могут на миг заблокировать ссылку
     if ! err=$(git -C "$repo" fetch -q "$T_REMOTE" "$T_BRANCH" 2>&1); then sleep 1; continue; fi
