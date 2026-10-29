@@ -1,0 +1,51 @@
+# Event Storming – The Complete Guide | Qlerify
+URL: https://www.qlerify.com/post/event-storming-the-complete-guide
+Published: 2025-07-24
+Author: Staffan Palopää
+
+Event Storming – The Complete Guide | Qlerify
+
+# Event Storming – The Complete Guide
+
+Staffan Palopää
+
+July 24, 2025 20 min
+
+## Introduction
+
+Event Storming, created by Alberto Brandolini, is a flexible workshop format used to collaboratively explore complex business domains. It’s the most effective method we’ve seen for understanding business processes, solving problems, and agreeing on priorities. It naturally engages stakeholders and helps build alignment between different departments within an organization. 
+
+## What is a Complex Domain
+
+> "A network of interdependent agents influencing each other" —Alberto Brandolini
+
+In an organization, a complex domain arises when tasks are carried out in multiple steps, involving several teams or individuals. An example could be a recruitment process, where multiple stakeholders—HR, the hiring manager, team members, and security—must evaluate a candidate from different perspectives. The decision-making is collaborative, and success depends on factors like team fit, timing, communication, and adaptability.
+
+Even with clear goals, the outcome is not entirely predictable, and each hiring situation may require a different approach to ensure effective onboarding and long-term success.
+
+When a domain is complex, the real challenge in software projects is not writing code faster—it's understanding the domain or business processes more quickly. It's about identifying the right problem to solve.
+
+While we have many tools to help us write software faster, there are still very few that help us understand the domain more effectively. This is where Event Storming comes to the rescue.
+
+## Domain Events
+
+Event Storming uses a building block called a Domain Event. A Domain Event is something that happens and is relevant to the business or organization.
+
+## Levels of Event Storming
+
+Event Storming can be done at different levels and for different purposes. The three most common variations are:
+
+- Big Picture – Used to explore a complex business domain collaboratively. Useful when the scope is large or unclear.
+- Process Modeling – Focuses on detailing a specific business process from start to finish. Useful when the starting point and the goal of the process are clear.
+- Software Design – Extends Process Modeling to include designing the architecture of a software system, including aggregates, commands, and bounded contexts.
+
+At all levels, Event Storming is based on Domain Events placed along a timeline, but each level introduces new kinds of elements into the notation:
+
+## Big Picture Event Storming
+
+The main purpose of Big Picture Event Storming is to maximize learning by collaboratively exploring a business domain. The goal is to create a shared understanding across departments or silos and to agree on which problems are most critical to solve. During the workshop, inconsistencies are automatically visualized. Example scenarios include:
+
+- Project kickoff
+- Startup kickoff
+- Organization reboot
+- Onboarding new team m

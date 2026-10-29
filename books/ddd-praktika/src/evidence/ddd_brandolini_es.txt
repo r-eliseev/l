@@ -1,0 +1,27 @@
+[InfoQ Homepage](/)[News](/news)Domain Modelling Using Event Storming
+
+# Domain Modelling Using Event Storming
+
+ Lire ce contenu en [ franÃ§ais ](/fr/news/2014/07/dddx-brandolini-eventstorming)
+
+Jun 25, 2014 1 min read
+
+#### Write for InfoQ
+
+**Feed your curiosity.**Help 550k+ global
+senior developers
+each month stay ahead.[Get in touch](https://www.infoq.com/write-for-infoq/)
+
+Gather all domain experts and developers in a room, provide them with a paper roll, lots of colored post-its and a facilitator and they may in hours create the best model ever, [Alberto Brandolini](http://ziobrando.blogspot.se/)[suggested](https://skillsmatter.com/skillscasts/5193-alberto-brandolini#video) at the recent [DDD Exchange](https://skillsmatter.com/conferences/1776-ddd-exchange-2014) conference in London.
+
+Alberto, a [DDD](http://en.wikipedia.org/wiki/Domain-driven_design) and agile trainer, describes event storming as a meeting where you put all the key stakeholders in the same room with an unlimited modelling space using stickers as domain events. The people to invite should be those who bring the questions and those who know the answers.
+
+Alberto compares this with a [walking skeleton](http://alistair.cockburn.us/Walking+skeleton) for an implementation where you want to touch all important components as early as possible to discover any potential problems. In modelling it’s about touching all relevant people as soon as possible with the value lying in the interaction between people, each one should interact with each of all the others.
+
+This is an exploratory process, where Alberto wants to avoid all constraints as much as possible. He wants full attention and therefore makes it hard to do other things; no one sits down, no laptops or other potentially disturbing elements.
+
+Alberto has found it powerful to focus on domain events, a verb of the past which describes a state transition and this is so easy that all can participate and contribute to the model. With all key events described and put along a timeline it’s easy to get people tell stories to describe concrete scenarios and edge cases. By following the story in the model inconsistencies can be found which can improve the model. An advantage Alberto really likes is that data is not discussed, no data models or databases, just the process.
+
+A model Alberto thinks few people have seen is a system view of the whole company. Creating this model makes it easier for domain experts to realize how to improve the whole system.
+
+[ Next year’s DDD Exchange](https://skillsmatter.com/conferences/6453-ddd-exchange-2015) is scheduled for 19th June 2015 and registration is open.

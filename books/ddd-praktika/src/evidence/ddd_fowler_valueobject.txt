@@ -1,0 +1,141 @@
+# [Value Object](https://martinfowler.com/bliki/ValueObject.html)
+When programming, I often find it's useful to represent things as a compound. A
+2D coordinate consists of an x value and y value. An amount of money
+consists of a number and a currency. A date range consists of start and end dates, which
+themselves can be compounds of year, month, and day.
+As I do this, I run into the question of whether two compound objects are the same.
+If I have two point objects that both represent the Cartesian coordinates
+of (2,3), it makes sense to treat them as equal. Objects that are equal due to the value
+of their properties, in this case their x and y coordinates, are called value
+objects.
+But unless I'm careful when programming, I may not get that
+behavior in my programs
+Say I want to represent a point in JavaScript.
+```
+const p1 = {x: 2, y: 3};
+const p2 = {x: 2, y: 3};
+assert(p1 !== p2);  // NOT what I want
+```
+
+...
+
+For this test, I don't have to worry about
+what's in the order. Similarly I might rely on a unique order number, testing to see if
+Alice's order number is on the delivery list.
+Therefore I find it useful to think of two classes of object: value objects and reference
+objects, depending on how I tell them apart 1 . I need to ensure that I know how I expect each
+object to handle equality and to program them so they behave according to my
+expectations. How I do that depends on the programming language I'm working in.
+
+...
+
+But if I'm not in a functional language, I can still often create value objects. In
+Java for example, the default point class behaves how I'd like.
+```
+assertEquals(new Point(2, 3), new Point(2, 3)); // Java
+```
+The way this works is that the point class overrides the default `equals` method with the tests for the values. 2 3
+2: Strictly this is done in awt.geom.Point2D, which is a superclass of awt.Point
+
+...
+
+```
+const p1 = new Point(2,3);
+const p2 = new Point(2,3);
+assert(p1.equals(p2));
+```
+The problem with JavaScript here is that this equals method I defined is a mystery to
+any other JavaScript library.
+```
+const somePoints = [new Point(2,3)];
+const p = new Point(2,3);
+assert.isFalse(somePoints.includes(p)); // not what I want
+
+//so I have to do this
+assert(somePoints.some(i => i.equals(p)));
+```
+This isn't an issue in Java because `Object.equals` is defined in the core library and all other libraries use it
+for comparisons ( `==` is usually used only for primitives).
+One of the nice consequences of value objects is that I don't need to care about
+whether I have a reference to the same object in memory or a different reference with an
+equal value. However if I'm not careful that happy ignorance can lead to a problem,
+which I'll illustrate with a bit of Java.
+
+...
+
+This is an example of an [Aliasing Bug](https://martinfowler.com/bliki/AliasingBug.html) , I change a date in one place
+and it has consequences beyond what I expected 4 . To avoid
+aliasing bugs I follow a simple but important rule: **value objects should be
+immutable** . If I want to change my party date, I create a new
+object instead.
+
+...
+
+Of course, it makes it much easier to treat value objects as immutable if they really
+are immutable. With objects I can usually do this by simply not providing any setting
+methods. So my earlier JavaScript class would look like this: 5
+5: This isn't strictly immutable since a client can manipulate the `_data` property. But a suitably disciplined team can make it immutable in practice.
+If I was concerned that a team wouldn't be disciplined enough I might use `freeze` . Indeed I could just use freeze on a simple JavaScript object,
+but I prefer the explicitness of a class with declared accessors.
+```
+class Point {
+  constructor(x, y) {
+    this._data = {x: x, y: y};
+  }
+  get x() {return this._data.x;}
+  get y() {return this._data.y;}
+  equals (other) {
+    return this.x === other.x && this.y === other.y;
+  }
+}
+```
+
+...
+
+It's often a good idea to replace common primitives, such as strings, with appropriate
+value objects. While I can represent a telephone number as a string, turning into a
+telephone number object makes variables and parameters more explicit (with type checking
+when the language supports it), a natural focus for validation, and avoiding
+inapplicable behaviors (such as doing arithmetic on integer id numbers).
+Small objects, such as points, monies, or ranges, are good examples of value objects.
+But larger structures can often be programmed as value objects if they don't have any
+conceptual identity or don't need share references around a program. This is a more
+natural fit with functional languages that default to immutability. 7
+
+...
+
+I find that value objects, particularly small ones, are often overlooked - seen as
+too trivial to be worth thinking about. But once I've spotted a good set of value
+objects, I find I can create a rich behavior over them. For taste of this try using a [Range class](https://martinfowler.com/eaaDev/Range.html) and see how it prevents all sorts of duplicate
+fiddling with start and end attributes by using richer behaviors.
+
+...
+
+## Further Reading
+One source of terminological confusion is that around the turn of the century some
+J2EE literature used “value object” for [Data Transfer Object](https://martinfowler.com/eaaCatalog/dataTransferObject.html) . That usage has
+mostly disappeared by now, but you might run into it.
+
+## Notes
+1: In Domain-Driven Design the [Evans Classification](https://martinfowler.com/bliki/EvansClassification.html) contrasts value
+objects with entities. I consider entities to be a common form of reference object,
+but use the term “entity” only within domain models while the reference/value object
+dichotomy is useful for all code.
+2: Strictly this is done in awt.geom.Point2D, which is a superclass of awt.Point
+3: Most object comparisons in Java are done with `equals` - which is
+itself a bit awkward since I have to remember to use that rather than the equals
+operator `==` . This is annoying, but Java programmers soon get used to it
+since String behaves the same way. Other OO languages can avoid this - Ruby uses the `==` operator, but allows it to be overridden.
+
+...
+
+5: This isn't strictly immutable since a client can manipulate the `_data` property. But a suitably disciplined team can make it immutable in practice.
+If I was concerned that a team wouldn't be disciplined enough I might use `freeze` . Indeed I could just use freeze on a simple JavaScript object,
+but I prefer the explicitness of a class with declared accessors.
+
+...
+
+7: Immutability is valuable for reference objects too - if a sales order doesn't change
+during a get request, then making it immutable is valuable; and that would make it
+safe to copy it, if that were useful. But that wouldn't make the sales order be a
+value object if I'm determining equality based on a unique order number.

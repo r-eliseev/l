@@ -138,20 +138,41 @@ def check_code(text: str, path: Path, package_files: set[str]) -> None:
             fail(f"{path.name}: ссылка на несуществующий файл пакета: {ref}")
 
 
-def _count_questions(section: str) -> int:
+def _count_questions(section: str, end_marks: tuple[str, ...] = ("?",)) -> int:
     """Считает вопросы в секции.
 
-    Элементы нумерованного или маркированного списка могут быть перенесены
-    на несколько строк, поэтому сначала склеиваем весь текст в одну строку,
-    а затем делим его по маркерам элементов списка.
+    Вопрос — элемент списка, у которого вопросительная строка кончается
+    на знак из `end_marks`. Ответ может идти следом (в курсе он дан
+    курсивом в скобках) — на подсчёт он не влияет: сначала отрезаем
+    ответ, потом смотрим на оставшееся.
+
+    Знак окончания задаётся контрактом: в книге вопрос заканчивается
+    вопросительным знаком, в курсе встречается и императивная форма
+    («Назовите три способа…»).
     """
-    flat = " ".join(line.strip() for line in section.split("\n"))
-    flat = re.sub(r"\s+", " ", flat)
-    items = re.split(r"(?=(?:\d+[.)]|[-*])\s+)", flat)
+    items: list[list[str]] = []
+    current: list[str] = []
+    for line in section.split("\n"):
+        if re.match(r"^\s*(?:\d+[.)]|[-*+])\s+\S", line):
+            if current:
+                items.append(current)
+            current = [line]
+        elif current:
+            current.append(line)
+    if current:
+        items.append(current)
+
     count = 0
     for item in items:
-        item = item.strip()
-        if re.match(r"^(?:\d+[.)]|[-*])\s+\S", item) and item.endswith("?"):
+        text = "\n".join(item)
+        # Ответ в скобках курсивом отрезаем: он не часть вопроса.
+        cut = re.split(r"\(\*|\*\(", text, maxsplit=1)[0].strip()
+        if not cut:
+            continue
+        # Вопрос либо в первой строке, либо перенесён — но заканчивается
+        # знаком из end_marks.
+        head = cut.split("\n")[0].strip()
+        if head.endswith(tuple(end_marks)) or cut.endswith(tuple(end_marks)):
             count += 1
     return count
 
@@ -266,20 +287,25 @@ def check_appendix(path: Path, text: str, valid_ids: set[str]) -> None:
 
 
 def check_questions(text: str, path: Path, contract: dict) -> None:
-    """В «Проверь себя» должно быть заданное число вопросов."""
+    """В секции самопроверки должно быть заданное число вопросов."""
     rules = contract.get("questions") or {}
     if not rules:
         return
-    header = "## Проверь себя"
+    header = contract.get("questions_section", "## Проверь себя")
     if header not in text:
         fail(f"{path.name}: нет секции «{header}»")
         return
     section = text.split(header, 1)[1]
-    for stop in ("## Размышления", "## Частые ошибки", "## Что дальше"):
+    for stop in (
+        contract.get("thoughts_section", "## Размышления"),
+        "## Частые ошибки",
+        contract.get("after_questions_section", "## Что дальше"),
+    ):
         if stop in section:
             section = section.split(stop, 1)[0]
             break
-    questions = _count_questions(section)
+    marks = tuple(rules.get("end_marks", ["?"]))
+    questions = _count_questions(section, marks)
     low = rules.get("min", 0)
     high = rules.get("max", 99)
     if questions < low:
@@ -294,11 +320,12 @@ def check_thoughts(text: str, path: Path, contract: dict) -> None:
     rules = contract.get("thoughts") or {}
     if not rules:
         return
-    if "## Размышления" not in text:
-        fail(f"{path.name}: нет секции «## Размышления»")
+    header = contract.get("thoughts_section", "## Размышления")
+    if header not in text:
+        fail(f"{path.name}: нет секции «{header}»")
         return
-    section = text.split("## Размышления", 1)[1]
-    for stop in ("## Что дальше", "## Частые ошибки"):
+    section = text.split(header, 1)[1]
+    for stop in (contract.get("thoughts_stop", "## Что дальше"), "## Частые ошибки"):
         if stop in section:
             section = section.split(stop, 1)[0]
             break

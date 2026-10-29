@@ -3,9 +3,9 @@
 Книга обещает: всё, что стоит в кавычках и приписано источнику, взято из
 него дословно. Этот скрипт проверяет обещание по факту.
 
-Карта «источник → файл с текстом страницы» лежит в
-`books/<slug>/src/evidence-map.json`: файлы извлечений лежат вне репозитория,
-в локальном кэше, поэтому на другой машине проверка пропускается.
+Тексты источников лежат в репозитории: `books/<slug>/src/evidence/`.
+Карта «id → файл» — `books/<slug>/src/evidence-map.json`. Поэтому проверка
+работает одинаково на любой машине и в CI.
 
 Запуск:
     python tools/check_quotes.py --book ddd-praktika
@@ -17,7 +17,6 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
-import os
 import re
 import sys
 from pathlib import Path
@@ -25,29 +24,14 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from bookmeta import load_book  # noqa: E402
 
-
-def hermes_home() -> Path:
-    """Каталог Hermes: одинаково на Windows и Linux."""
-    val = os.environ.get("HERMES_HOME", "").strip()
-    if val:
-        return Path(val)
-    if os.name == "nt":
-        return Path.home() / "AppData/Local/hermes"
-    return Path.home() / ".hermes"
-
-
-HERMES = hermes_home()
-SCRATCH = HERMES / "cache/scratch"
-SP = HERMES / "skills/research/grounded-citations/scripts/sources.py"
-
-# Копия ledger-скрипта лежит в репозитории — она приоритетнее: репозиторий
-# должен работать на любой машине, где установлен Hermes, и без него.
-REPO_SP = (
+# Матчер дословности лежит в навыке grounded-citations, копия которого есть
+# в этом репозитории: skills/grounded-citations/scripts/sources.py.
+# Он понимает разметку страницы: markdown-ссылки схлопываются в подписи,
+# переносы строк и регистр не важны.
+MATCHER_PATH = (
     Path(__file__).resolve().parent.parent
     / "skills/grounded-citations/scripts/sources.py"
 )
-if REPO_SP.exists():
-    SP = REPO_SP
 
 QUOTE_RE = re.compile(r"«([^»]{20,600})»")
 CYRILLIC = re.compile(r"[Ѐ-ӿ]")
@@ -55,9 +39,10 @@ LATIN = re.compile(r"[A-Za-z]")
 
 
 def load_matcher():
-    if not SP.exists():
-        raise FileNotFoundError(f"Не найден скрипт ledger: {SP}")
-    spec = importlib.util.spec_from_file_location("sources", SP)
+    """Загружает модуль сопоставления цитат."""
+    if not MATCHER_PATH.exists():
+        raise FileNotFoundError(f"Не найден матчер цитат: {MATCHER_PATH}")
+    spec = importlib.util.spec_from_file_location("sources", MATCHER_PATH)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
@@ -76,33 +61,32 @@ def is_quotation(text: str) -> bool:
     return cyr / max(cyr + lat, 1) < 0.35
 
 
-def _normalize(text: str) -> str:
-    """Приводит текст к сравнимому виду.
-
-    Убирает типографские различия, которые не меняют содержания:
-    «ёлочки» против прямых кавычек, лишние пробелы, переносы строк.
-    Многоточие в конце цитаты означает пропуск — такое допустимо.
-    """
-    text = text.replace("\u2018", "'").replace("\u2019", "'")
-    text = text.replace("\u201c", '"').replace("\u201d", '"')
-    text = text.replace("\u2013", "-").replace("\u2014", "-")
-    text = " ".join(text.split())
-    if text.endswith("..."):
-        text = text[:-3].rstrip()
-    elif text.endswith("\u2026"):
-        text = text[:-1].rstrip()
-    return text.rstrip(",;:.")
-
-
-def _matches(quote: str, source: str) -> bool:
+def _matches(quote: str, source: str, mod) -> bool:
     """Проверяет, что цитата дословно есть в источнике.
 
     Допускается многоточие в конце — стандартный приём цитирования.
     """
-    mod = load_matcher()
     if mod.quote_in_evidence(quote, source):
         return True
-    return _normalize(quote) in _normalize(source)
+    # Многоточие в конце цитаты означает пропуск: проверяем без него.
+    trimmed = quote.rstrip(".…").rstrip()
+    if trimmed != quote and mod.quote_in_evidence(trimmed, source):
+        return True
+    return False
+
+
+def load_evidence(book) -> dict[int, str]:
+    """Читает тексты источников из репозитория."""
+    map_path = book.src / "evidence-map.json"
+    if not map_path.exists():
+        return {}
+    filemap: dict[str, str] = json.loads(map_path.read_text(encoding="utf-8"))
+    evidence: dict[int, str] = {}
+    for sid, relative in filemap.items():
+        path = book.src / relative
+        if path.exists():
+            evidence[int(sid)] = path.read_text(encoding="utf-8", errors="replace")
+    return evidence
 
 
 def main() -> int:
@@ -116,35 +100,12 @@ def main() -> int:
         print(f"Книга «{book.title}»: цитаты не проверяются (контракт без цитат).")
         return 0
 
-    if not SP.exists():
-        print(
-            "Проверка цитат пропущена: нет скрипта ledger "
-            f"({SP}). Запускать на машине автора."
-        )
-        return 0
-
-    map_path = book.src / "evidence-map.json"
-    if not map_path.exists():
-        print(
-            f"Проверка цитат пропущена: нет карты извлечений {map_path}. "
-            "Файлы страниц лежат вне репозитория, поэтому проверка "
-            "выполняется только на машине автора."
-        )
-        return 0
-
-    filemap: dict[str, str] = json.loads(map_path.read_text(encoding="utf-8"))
-
     mod = load_matcher()
-    evidence = {
-        int(sid): (SCRATCH / name).read_text(encoding="utf-8")
-        for sid, name in filemap.items()
-        if (SCRATCH / name).exists()
-    }
+    evidence = load_evidence(book)
     if not evidence:
         print(
-            "Проверка цитат пропущена: нет локального кэша извлечений "
-            f"({SCRATCH}). Источники страниц лежат вне репозитория, "
-            "поэтому проверка выполняется только на машине автора."
+            f"Проверка цитат пропущена: нет текстов источников в "
+            f"{book.src / 'evidence'}. Карта: {book.src / 'evidence-map.json'}."
         )
         return 0
 
@@ -154,7 +115,7 @@ def main() -> int:
     for path in book.all_content_files():
         if not path.exists():
             continue
-        if path.name.startswith("app-d-sources"):
+        if path.name.startswith("app-d-sources") or path.name.startswith("app-c-sources"):
             continue
         text = path.read_text(encoding="utf-8")
         original = text
@@ -171,13 +132,13 @@ def main() -> int:
             sid = int(ids[0])
             if sid not in evidence:
                 continue
-            if _matches(quote, evidence[sid]):
+            if _matches(quote, evidence[sid], mod):
                 continue
 
             # ищем, где цитата есть на самом деле
             found_in = [
                 other for other, source in evidence.items()
-                if _matches(quote, source)
+                if _matches(quote, source, mod)
             ]
 
             if len(found_in) == 1 and found_in[0] != sid:

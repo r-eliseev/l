@@ -40,7 +40,7 @@ kubectl top pods
 - **Control plane logging в CloudWatch.** Включается отдельно по типам,
   **по умолчанию выключено**. Типов пять: `api`, `audit`, `authenticator`,
   `controllerManager`, `scheduler`. Логи попадают в группу
-  `/aws/eks/<кластер>/cluster`.
+  `/aws/eks/<кластер>/cluster`.[22]
 
 ```bash
 aws eks update-cluster-config --name my-cluster --logging \
@@ -48,16 +48,16 @@ aws eks update-cluster-config --name my-cluster --logging \
 ```
 
   Особо полезен `authenticator`: он показывает, какая IAM-идентичность
-  пришла в кластер (модуль 04). Включённые логи оплачиваются как обычные
+  пришла в кластер (модуль 04).[22] Включённые логи оплачиваются как обычные
   данные CloudWatch Logs.
 - **CloudWatch Container Insights** (add-on `amazon-cloudwatch-observability`)
   собирает метрики и логи подов в CloudWatch. Это управляемая альтернатива
   Prometheus или дополнение к нему.
 - **Managed-сервисы.** Amazon Managed Service for Prometheus и Amazon
   Managed Grafana дают Prometheus и Grafana без администрирования. Сбор
-  метрик можно делать через add-on ADOT (OpenTelemetry).
+  метрик можно делать через add-on ADOT (OpenTelemetry).[20]
 - **Логи подов на Fargate** собирает встроенный log router: его настраивают
-  ConfigMap в специальном namespace `aws-observability`. DaemonSet для
+  ConfigMap в специальном namespace `aws-observability`.[23] DaemonSet для
   сбора логов на Fargate запустить нельзя (модуль 10).
 - **VPC Flow Logs** показывают сетевой трафик на уровне интерфейсов VPC.
   Это работает, потому что у подов реальные адреса VPC (модуль 02).
@@ -80,3 +80,9 @@ aws eks update-cluster-config --name my-cluster --logging \
   *(`authenticator`.)*
 - Как собирать логи подов на Fargate? *(Встроенный log router через
   ConfigMap в `aws-observability`, либо sidecar.)*
+
+## Источники главы
+
+- [20] Amazon EKS add-ons available for Amazon EKS clusters — https://docs.aws.amazon.com/eks/latest/userguide/workloads-add-ons-available-eks.html
+- [22] Send control plane logs to CloudWatch Logs — https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html
+- [23] Start AWS Fargate logging for your cluster — https://docs.aws.amazon.com/eks/latest/userguide/fargate-logging.html

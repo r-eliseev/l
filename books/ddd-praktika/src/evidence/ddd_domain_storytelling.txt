@@ -1,0 +1,77 @@
+# Appendix. The History of Domain Storytelling - Domain Storytelling: A Collaborative, Visual, and Agile Way to Build Domain-Driven Software [Book]
+URL: https://www.oreilly.com/library/view/domain-storytelling-a/9780137458974/app01.xhtml
+Author: Stefan Hofer, Henning Schwentner
+
+Appendix. The History of Domain Storytelling - Domain Storytelling: A Collaborative, Visual, and Agile Way to Build Domain-Driven Software [Book]
+
+# Domain Storytelling: A Collaborative, Visual, and Agile Way to Build Domain-Driven Software
+
+##### by Stefan Hofer, Henning Schwentner
+
+September 2021
+
+Beginner to intermediate
+
+288 pages
+
+6h 4m
+
+English
+
+Addison-Wesley Professional
+
+### Contents
+
+- ### Cover Page
+- ### About This eBook
+- ### Halftitle Page
+- ### Title Page
+- ### Copyright Page
+- ### Dedication Page
+- ### Contents
+- ### Domain Stories
+- ### Series Editor Foreword
+- ### Foreword
+- ### Preface
+
+Who Should Read This Book This Book in the Software Development Landscape What This Book Covers Conventions Legend for “Opening Stories” Supplementary Materials About the Cover
+- ### Acknowledgments
+- ### About the Authors
+- ### Part I. Domain Storytelling Explained
+- ### Chapter 1. Introduction
+
+What Is Domain Storytelling? Your First Domain Story
+- ### Chapter 2. The Pictographic Language
+
+Actors Work Objects Activities Sequence Numbers Annotations Modeling Canvas Groups Colors No Conditionals Putting It All Together A Grammar for Domain Stories Good Language Style
+- ### Chapter 3. Scenario-Based Modeling
+
+What Are Scenarios? Scenarios in Domain Storytelling Concrete Examples as Scenarios Keeping an Overview
+- ### Chapter 4. Scope
+
+Granularity Point in Time (As-Is vs. To-Be) Domain Purity (Pure vs. Digitalized) Combining the Scope Factors: A Typical Journey
+- ### Chapter 5. Modeling Tools
+
+Modeling on Paper or Boards Modeling with Software Tools Choosing a Tool
+- ### Chapter 6. The Workshop Format
+
+Before the Workshop The Workshop After the Workshop To-Be Workshops Remote Workshops The Moderator The Modeler as Separate Role Moderated Mode vs. Co-Op Mode
+- ### Chapter 7. Relationship to Other Modeling Methods
+
+Domain-Driven Design EventStorming User Story Mapping Example Mapping Storystorming Use Cases UML BPMN Summary
+- ### Part II. Using and Adapting Domain Storytelling for Different Purposes
+- ### Chapter 8. Case Study—Alphorn Auto Leasing Inc.
+
+Explore Alphorn—The Domain as a Whole Drill Down into Risk Assessment—Understanding an Important Subdomain Clear Up Risk Assessment—Avoid Technical Jargon Optimize Risk Assessment—The To-Be Process Introduce New Software—Combine Business Processes with IT Support Summary
+- ### Chapter 9. Learning Domain Language
+
+Speaking and Listening to Understand Each Other Organizations Speak Many Domain Languages Using Natural Languages Lost in Translation What to Read Next?
+- ### Chapter 10. Finding Boundaries
+
+The Joy of Multiple Models A Heuristic for Finding Subdomains From Subdomains to Bounded Contexts From Context Boundaries to Team Boundaries What to Read Next?
+- ### Chapter 11. Working with Requirements
+
+Software Development as a Series of Conversations From Domain Stories to Requirements Adapt the Recipe Limitations What to Read Next?
+- ### Chapter 12. Modeling in Code
+
+From Domain Stories to Domain Mo

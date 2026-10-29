@@ -1,0 +1,85 @@
+[InfoQ Homepage](/)[Articles](/articles)Eric Evans on why DDD Matters Today
+
+# Eric Evans on why DDD Matters Today
+
+ This item in [ japanese ](/jp/articles/eric-evans-ddd-matters-today)
+
+Dec 20, 2006 8 min read
+
+#### Write for InfoQ
+
+**Feed your curiosity.**Help 550k+ global
+senior developers
+each month stay ahead.[Get in touch](https://www.infoq.com/write-for-infoq/)
+
+ This interview is an excerpt (chapter 6) of the free-downloadable book, [Domain-Driven Design Quickly, published here on InfoQ](http://www.infoq.com/minibooks/domain-driven-design-quickly). In this interview, Eric Evans puts DDD into modern context and explains why DDD is relevant today.
+
+**InfoQ:** Why is DDD as important today as ever?
+
+**Eric Evans (EE)**: Fundamentally, DDD is the principle that we should be focusing on the deep issues of the domain our users are engaged in, that the best part of our minds should be devoted to understanding that domain, and collaborating with experts in that domain to wrestle it into a conceptual form that we can use to build powerful, flexible software.
+
+ This is a principle that will not go out of style. It applies whenever we are operating in a complex, intricate domain.
+The long-term trend is toward applying software to more and more complex problems deeper and deeper into the heart of these businesses. It seems to me this trend was interrupted for a few years, as the web burst upon us. Attention was diverted away from rich logic and deep solutions, because there was so much value in just getting data onto the web, along with very simple behavior. There was a lot of that to do, and just doing simple things on the web was difficult for a while, so that absorbed all the development effort.
+
+But now that basic level of web usage has largely been assimilated, and projects are starting to get more ambitious again about business logic.
+
+Very recently, web development platforms have begun to mature enough to make web development productive enough for DDD, and there are a number of positive trends. For example, SOA, when it is used well, provides us a very useful way of isolating the domain.
+
+Meanwhile, Agile processes have had enough influence that most projects now have at least an intention of iterating, working closely with business partners, applying continuous integration, and working in a high-communication environment.
+
+So DDD looks to be increasingly important for the foreseeable future, and some foundations seem to be laid.
+
+InfoQ: Technology platforms (Java, .NET, Ruby, others) are continually evolving. How does Domain Driven Design fit in?
+
+**EE**: In fact, new technologies and processes should be judged on whether they support teams to focus on their domain, rather than distracting them from it. DDD is not specific to a technology platform, but some platforms give more expressive ways of creating business logic, and some platforms have less distracting clutter. In regards to the later, the last few years indicate a hopeful direction, particularly after the awful late 1990s.
+
+Java has been the default choice of the last few years, and as for expressiveness, it is typical of object-oriented languages. As for distracting clutter, the base language is not too bad. It has garbage collection, which, in practice, turns out to be essential. (In contrast to C++, which just demanded too much attention to low-level details.) The Java syntax has some clutter, but plain old java objects (POJOs) can still be made readable. And some of the Java 5 syntax innovations help readability.
+
+But back when the J2EE frameworks first came out, it utterly buried that basic expressiveness under mountains of framework code. Following the early conventions (such as EJB home, get/set prefixed accessors for all variables, etc.) produced terrible objects. The tools were so cumbersome that it absorbed all the capacity of the development teams just to make it work. And it was so difficult to change objects, once the huge mess of generated code and XML had been spewed, that people just didn't change them much. This was a platform that made effective domain modeling almost impossible.
+
+Combine that with the imperative to produce Web UIs mediated by http and html (which were not designed for that purpose) using quite primitive, first-generation tools. During that period, creating and maintaining a decent UI became so difficult that little attention was left for design of complex internal functionality. Ironically, at the very moment that object technology took over, sophisticated modeling and design took a heavy hit.
+
+The situation was similar in the .Net platform, with some issues being handled a little better, and others a little worse.
+
+That was a discouraging period, but trends have turned in the last four years or so. First, looking at Java, there has been a confluence of a new sophistication in the community about how to use frameworks selectively, and a menagerie of new frameworks (mostly open-source) that are incrementally improving. Frameworks such as Hibernate and Spring handle specific jobs that J2EE tried to address, but in a much lighter way. Approaches like AJAX which try to tackle the UI problem, in a less labor-intensive way. And projects are much smarter now about picking and choosing the elements of J2EE that give them value and mixing in some of these newer elements. The term POJO was coined during this era.
+
+The result is an incremental but noticeable decrease in the technical effort of projects, and a distinct improvement in isolating the business logic from the rest of the system so that it can be written in terms of POJOs. This does not automatically produce a domain-driven design, but it makes it a realistic opportunity.
+
+That is the Java world. Then you have the new-comers like Ruby. Ruby has a very expressive syntax, and at this basic level it should be a very good language for DDD (although I haven't heard of much actual use of it in those sorts of applications yet). Rails has generated a lot of excitement because it finally seems to make creation of Web UIs as easy as UIs were back in the early 1990s, before the Web. Right now, this capability has mostly been applied to building some of the vast number of Web applications which don't have much domain richness behind them, since even these have been painfully difficult in the past. But my hope is that, as the UI implementation part of the problem is reduced, that people will see this as an opportunity to focus more of their attention on the domain. If Ruby usage ever starts going in that direction, I think it could provide an excellent platform for DDD. (A few infrastructure pieces would probably have to be filled in.)
+
+More out on the cutting-edge are the efforts in the area of domain-specific languages (DSLs), which I have long believed could be the next big step for DDD. To date, we still don't have a tool that really gives us what we need. But people are experimenting more than ever in this area, and that makes me hopeful.
+
+Right now, as far as I can tell, most people attempting to apply DDD are working in Java or .Net, with a few in Smalltalk. So it is the positive trend in the Java world that is having the immediate effect.
+
+InfoQ: What's been happening in the DDD community since you've written your book?
+
+**EE:** One thing that excites me is when people take the principles I talked about in my book and use them in ways I never expected. An example is the use of strategic design at StatOil, the Norwegian national oil company. The architects there wrote an experience report about it. (You can read it at [http://domaindrivendesign.org/articles/](http://domaindrivendesign.org/articles/).)
+
+Among other things, they took context mapping and applied it to evaluation of off-the-shelf software in build vs. buy decisions.
+
+As a quite different example, some of us have been exploring some issues by developing a Java code library of some fundamental domain objects needed by many projects. People can check that out at:[http://timeandmoney.domainlanguage.com](http://timeandmoney.domainlanguage.com)
+
+We've been exploring, for example, how far can we push the idea of a fluent, domain-specific language, while still implementing objects in Java.
+
+Quite a bit is going on out there. I always appreciate when people contact me to tell me about what they're doing.
+
+InfoQ: Do you have any advice for people trying to learn DDD today?
+
+**EE**: Read my book! ;-) Also, try using timeandmoney on your project. One of our original objectives was to provide a good example that people could learn from by using it.
+
+One thing to keep in mind is that DDD is largely something teams do, so you may have to be an evangelist. Realistically, you may want to go search for a project where they are making an effort to do this.
+
+Keep in mind some of the pitfalls of domain modeling:
+
+1. Stay hands-on. Modelers need to code.
+2. Focus on concrete scenarios. Abstract thinking has to be anchored in concrete cases.
+3. Don't try to apply DDD to everything. Draw a context map and decide on where you will make a push for DDD and where you will not. And then don't worry about it outside those boundaries.
+4. Experiment a lot and expect to make lots of mistakes.Modeling is a creative process.
+
+## About Eric Evans
+
+Eric Evans is the author of *"Domain-Driven Design: Tackling Complexity in Software,"* Addison-Wesley 2004.
+
+Since the early 1990s, he has worked on many projects developing large business systems with objects with many different approaches and many different outcomes. The book is a synthesis of that experience. It presents a system of modeling and design techniques that successful teams have used to align complex software systems with business needs and to keep projects agile as systems grow large.
+
+Eric now leads "Domain Language", a consulting group which coaches and trains teams applying domain-driven design, helping them to make their development work more productive and more valuable to their business.

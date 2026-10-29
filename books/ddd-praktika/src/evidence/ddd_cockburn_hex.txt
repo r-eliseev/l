@@ -1,0 +1,34 @@
+# Courses
+## Hexagonal Architecture
+_"Allow an application to equally be driven by users, programs, automated test or batch scripts, and to be developed and tested in isolation from its eventual run-time devices and databases." -- https://alistair.cockburn.us/hexagonal-architecture/_
+
+### **The Two-Hour Taste Test**
+_Let your senior developers try it on for size_
+For 3-8 experienced and senior developers only, at least one of them already familiar with the pattern.
+Aftr Dr. Cockburn describes the origin and purpose of the pattern (30-40 min), one of participants takes over the screen and connects with their local  development environment. All of the developers contribute, mob-programming style, to implement the driver and driven ports in two micro-slices. They extend the system as time permits to introduce different drivers and different repositories.
+
+...
+
+The purpose of this short session is for these senior programmers to discuss together in a facilitated session what it might mean to implement hexagonal architecture in their organization.
+
+### **The Half-Day Workshop**
+_Learning, implementing and comparing notes_
+For up to 20 programmers, with one or more familiar with the pattern.
+After Dr. Cockburn describes the origin and purpose of the pattern (30-40 min), one of participants takes over and connects with their local  development environment. All of the developers contribute, mob-programming style, to implement just one micro-slice of the problem, so that everyone is on the same page as to how to work. Then, the participants break into teams of 3 per team. Each team implements a solution in their own style for a while.
+Finally, some of the teamsl show the rest how they implemented the architecture. No complete agreement is needed between teams, this is a chance for the teams to show their different approaches.
+The purpose of this session is for the participants to have a chance to program the architecture in their own environment, and to compare notes.
+Pre-work to Maximize the Outcomes for the Workshops:
+* Read the original article:
+  https://alistair.cockburn.us/hexagonal-architecture/
+* Read the longer description by Juan Manuel Garrido de Paz:
+  https://jmgarridopaz.github.io/content/articles.html
+* One of the participants establishes the programming, versioning, testing environments used in the workshop.
+
+...
+
+### Please let me know what courses interest you:
+[web counter](https://www.hitwebcounter.com/)
+[AC logo white on beige](https://alistaircockburn.com/)
+©Alistair Cockburn 2022 All Rights Reserved
+Site design by Pixel Me Pink
+[web counter](https://www.hitwebcounter.com/)

@@ -61,7 +61,7 @@ curl localhost:8080
    к облаку вариант (инструкция в репозитории проекта).
 
 Для Ingress в kind берите контроллер, который сейчас поддерживается. Проект
-ingress-nginx объявлен выводимым из поддержки (с марта 2026), поэтому для
+ingress-nginx объявлен выводимым из поддержки (с марта 2026)[35], поэтому для
 новых лабораторных лучше реализации Gateway API (например, Envoy Gateway) или
 Traefik. Проверьте актуальное состояние проектов.
 
@@ -72,14 +72,14 @@ Traefik. Проверьте актуальное состояние проект
 
 - **Если AWS Load Balancer Controller (LBC) не установлен**, Kubernetes
   использует встроенный устаревший провайдер и для `type=LoadBalancer`
-  создаёт **Classic Load Balancer**. Это не то, что обычно нужно.
+  создаёт **Classic Load Balancer**.[14] Это не то, что обычно нужно.
 - **Если LBC установлен** (версии 2.5 и новее), он по умолчанию делает для
   `type=LoadBalancer` **Network Load Balancer (NLB)**, а для **Ingress**
   создаёт **Application Load Balancer (ALB)**. Версии 2.14 и новее умеют
-  Gateway API. Контроллер ставится отдельно, обычно Helm-чартом, и ему нужна
+  Gateway API.[14] Контроллер ставится отдельно, обычно Helm-чартом, и ему нужна
   IAM-роль (IRSA или Pod Identity, модуль 04).
 - **Подсети должны быть размечены тегами**: `kubernetes.io/role/elb=1` для
-  публичных и `kubernetes.io/role/internal-elb=1` для приватных. Без тегов
+  публичных и `kubernetes.io/role/internal-elb=1` для приватных.[15] Без тегов
   балансировщик не найдёт, где ему создаваться.
 - Поведение задаётся аннотациями, и они AWS-специфичные:
 
@@ -136,3 +136,9 @@ spec:
 - Чем Ingress отличается от Service type=LoadBalancer по результату в AWS?
   *(Ingress через LBC даёт ALB, уровень 7 по host/path; Service даёт NLB,
   уровень 4.)*
+
+## Источники главы
+
+- [14] Route internet traffic with AWS Load Balancer Controller — https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html
+- [15] Route TCP and UDP traffic with Network Load Balancers — https://docs.aws.amazon.com/eks/latest/userguide/network-load-balancing.html
+- [35] Ingress NGINX Retirement (Kubernetes Blog) — https://kubernetes.io/blog/2025/11/11/ingress-nginx-retirement/

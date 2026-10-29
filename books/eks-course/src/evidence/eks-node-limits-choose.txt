@@ -1,0 +1,70 @@
+**Help improve this page**
+
+To contribute to this user guide, choose the **Edit this page on GitHub** link that is located in the right pane of every page.
+
+# Choose an optimal Amazon EC2 node instance type
+
+Amazon EC2 provides a wide selection of instance types for worker nodes. Each instance type offers different compute, memory, storage, and network capabilities. Each instance is also grouped in an instance family based on these capabilities. For a list, see [Available instance types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#AvailableInstanceTypes) in the *Amazon EC2 User Guide*. Amazon EKS releases several variations of Amazon EC2 AMIs to enable support. To make sure that the instance type you select is compatible with Amazon EKS, consider the following criteria.
++ All Amazon EKS AMIs don’t currently support the `mac` family.
++ Arm and non-accelerated Amazon EKS AMIs don’t support the `g3`, `g4`, `inf`, and `p` families.
++ Accelerated Amazon EKS AMIs don’t support the `a`, `c`, `hpc`, `m`, and `t` families.
++ For Arm-based instances, Amazon Linux 2023 (AL2023) only supports instance types that use Graviton2 or later processors. AL2023 doesn’t support `A1` instances.
+
+When choosing between instance types that are supported by Amazon EKS, consider the following capabilities of each type.
+
+**Number of instances in a node group**
+In general, fewer, larger instances are better, especially if you have a lot of Daemonsets. Each instance requires API calls to the API server, so the more instances you have, the more load on the API server.
+
+**Operating system**
+Review the supported instance types for [Linux](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html), [Windows](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/instance-types.html), and [Bottlerocket](https://aws.amazon.com/bottlerocket/faqs/). Before creating Windows instances, review [Deploy Windows nodes on EKS clusters](windows-support.md).
+
+**Hardware architecture**
+Do you need x86 or Arm? Before deploying Arm instances, review [Amazon EKS optimized Arm Amazon Linux AMIs](eks-optimized-ami.md#arm-ami). Do you need instances built on the Nitro System ( [Linux](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances) or [Windows](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/instance-types.html#ec2-nitro-instances)) or that have [Accelerated](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/accelerated-computing-instances.html) capabilities? If you need accelerated capabilities, you can only use Linux with Amazon EKS.
+
+**Maximum number of Pods**
+Since each Pod is assigned its own IP address, the number of IP addresses supported by an instance type is a factor in determining the number of Pods that can run on the instance. To understand how the maximum number of Pods is determined for an instance type, see [How maxPods is determined](#max-pods-precedence).
+[AWS Nitro System](https://aws.amazon.com/ec2/nitro/) instance types optionally support significantly more IP addresses than non-Nitro System instance types. However, not all IP addresses assigned for an instance are available to Pods. To assign a significantly larger number of IP addresses to your instances, you must have version `1.9.0` or later of the Amazon VPC CNI add-on installed in your cluster and configured appropriately. For more information, see [Assign more IP addresses to Amazon EKS nodes with prefixes](cni-increase-ip-addresses.md). To assign the largest number of IP addresses to your instances, you must have version `1.10.1` or later of the Amazon VPC CNI add-on installed in your cluster and deploy the cluster with the `IPv6` family.
+
+**IP family**
+You can use any supported instance type when using the `IPv4` family for a cluster, which allows your cluster to assign private `IPv4` addresses to your Pods and Services. But if you want to use the `IPv6` family for your cluster, then you must use [AWS Nitro System](https://aws.amazon.com/ec2/nitro/) instance types or bare metal instance types. Only `IPv4` is supported for Windows instances. Your cluster must be running version `1.10.1` or later of the Amazon VPC CNI add-on. For more information about using `IPv6`, see [Learn about IPv6 addresses to clusters, Pods, and services](cni-ipv6.md).
+
+**Version of the Amazon VPC CNI add-on that you’re running**
+The latest version of the [Amazon VPC CNI plugin for Kubernetes](https://github.com/aws/amazon-vpc-cni-k8s) supports [these instance types](https://github.com/aws/amazon-vpc-cni-k8s/blob/master/pkg/vpc/vpc_ip_resource_limit.go). You may need to update your Amazon VPC CNI add-on version to take advantage of the latest supported instance types. For more information, see [Assign IPs to Pods with the Amazon VPC CNI](managing-vpc-cni.md). The latest version supports the latest features for use with Amazon EKS. Earlier versions don’t support all features. You can view features supported by different versions in the [Changelog](https://github.com/aws/amazon-vpc-cni-k8s/blob/master/CHANGELOG.md) on GitHub.
+
+** AWS Region that you’re creating your nodes in**
+Not all instance types are available in all AWS Regions.
+
+**Whether you’re using security groups for Pods**
+If you’re using security groups for Pods, only specific instance types are supported. For more information, see [Assign security groups to individual Pods](security-groups-for-pods.md).
+
+## How maxPods is determined
+
+The final `maxPods` value applied to a node depends on several components that interact in a specific order of precedence. Understanding this order helps you avoid unexpected behavior when customizing `maxPods`.
+
+**Order of precedence (highest to lowest):**
+
+1. **Managed node group enforcement** – When you use a managed node group without a [custom AMI](launch-templates.md#launch-template-custom-ami), Amazon EKS enforces a cap on `maxPods` in the node’s user data. For instances with less than 30 vCPUs, the cap is `110`. For instances with greater than 30 vCPUs, the cap is `250`. This value takes precedence over any other `maxPods` configuration, including `maxPodsExpression`.
+
+1. **kubelet `maxPods` configuration** – If you set `maxPods` directly in the kubelet configuration (for example, through a launch template with a custom AMI), this value takes precedence over `maxPodsExpression`.
+
+1. **nodeadm `maxPodsExpression` ** – If you use [`maxPodsExpression`](https://awslabs.github.io/amazon-eks-ami/nodeadm/doc/examples/#defining-a-max-pods-expression) in your `NodeConfig`, nodeadm evaluates the expression to calculate `maxPods`. This is only effective when the value is not already set by a higher-precedence source.
+
+1. **Default ENI-based calculation** – If no other value is set, the AMI calculates `maxPods` based on the number of elastic network interfaces and IP addresses supported by the instance type. This is equivalent to the formula `(number of ENIs × (IPs per ENI − 1)) + 2`. The `+ 2` accounts for the Amazon VPC CNI and `kube-proxy` running on every node, which don’t consume a Pod IP address.
+
+**Important**
+If you use a managed node group and set `maxPodsExpression` in your `NodeConfig`, the managed node group’s enforcement overrides your expression. To use a custom `maxPods` value with managed node groups, you must specify a custom AMI in your launch template and set `maxPods` directly. For more information, see [Customize managed nodes with launch templates](launch-templates.md).
+
+**Managed node groups vs. self-managed nodes**
+
+With managed node groups (without a custom AMI), Amazon EKS injects the `maxPods` value into the node’s bootstrap user data. This means:
++ The `maxPods` value is always capped at `110` or `250` depending on instance size.
++ Any `maxPodsExpression` you configure is overridden by this injected value.
++ To use a different `maxPods` value, specify a custom AMI in your launch template and pass `--use-max-pods false` along with `--kubelet-extra-args '--max-pods={{my-value}}'` to the `bootstrap.sh` script. For examples, see [Customize managed nodes with launch templates](launch-templates.md).
+
+With self-managed nodes, you have full control over the bootstrap process. You can use `maxPodsExpression` in your `NodeConfig` or pass `--max-pods` directly to `bootstrap.sh`.
+
+## Considerations for EKS Auto Mode
+
+EKS Auto Mode limits the number of pods on nodes to the lower of:
++ 110 pods hard cap
++ `number of ENIs × (IPs per ENI − 1)`

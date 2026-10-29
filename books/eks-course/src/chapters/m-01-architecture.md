@@ -32,11 +32,11 @@ kubectl get pods -o wide
 ## В EKS
 
 - **Control plane управляется AWS.** API server и etcd работают у AWS в
-  отдельном аккаунте, в нескольких зонах доступности (AZ). Вы за них не
+  отдельном аккаунте, в нескольких зонах доступности (AZ).[3] Вы за них не
   отвечаете, но и не видите их как EC2. В вашей VPC для связи появляются
   сетевые интерфейсы (ENI), через которые ноды ходят к API.
 - **Доступ к API server** настраивается: публичный endpoint, приватный или
-  оба. Это AWS-настройка кластера, в kind такого понятия нет.
+  оба.[4] Это AWS-настройка кластера, в kind такого понятия нет.
 - **Варианты worker-нод.** В vanilla Kubernetes ноды вы создаёте сами. В EKS
   есть несколько способов получить вычислительные мощности:
   - *Managed node group*: EC2 в Auto Scaling Group, жизненным циклом
@@ -49,7 +49,7 @@ kubectl get pods -o wide
   - *EKS Auto Mode*: AWS сама ведёт и ноды, и базовые компоненты
     (модуль 11).
   - *Hybrid Nodes*: ваши собственные серверы вне AWS подключаются к
-    EKS control plane.
+    EKS control plane.[3]
 - **Версии и обновления.** Control plane и ноды обновляются раздельно через
   AWS API, а не через `kubeadm upgrade` (модуль 09).
 - **SSH на control plane нет в принципе.** На ноды в Auto Mode SSH тоже
@@ -69,3 +69,8 @@ kubectl get pods -o wide
   на стороне AWS.)*
 - Назовите три способа получить worker-ноды в EKS. *(Managed node group,
   self-managed, Fargate; плюс Karpenter и Auto Mode.)*
+
+## Источники главы
+
+- [3] Amazon EKS architecture — https://docs.aws.amazon.com/eks/latest/userguide/eks-architecture.html
+- [4] Cluster API server endpoint — https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html

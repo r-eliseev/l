@@ -35,15 +35,15 @@ kubectl top pods && kubectl get hpa
 Разница в том, что можно масштабировать и **ноды**.
 
 - **Cluster Autoscaler (CA).** Следит за подами в `Pending` из-за нехватки
-  места и увеличивает размер Auto Scaling Group. Недогруженные ноды
+  места и увеличивает размер Auto Scaling Group.[16] Недогруженные ноды
   убирает. Работает в рамках уже созданных node groups с заданными типами
   инстансов. Группы нужно пометить тегами
-  `k8s.io/cluster-autoscaler/enabled` и `k8s.io/cluster-autoscaler/<кластер>`.
+  `k8s.io/cluster-autoscaler/enabled` и `k8s.io/cluster-autoscaler/<кластер>`.[18]
 - **Karpenter.** Не использует заранее заданные группы. Видит Pending-поды,
   сам подбирает подходящий тип и размер EC2 и запускает его напрямую через
-  EC2 API. Обычно работает быстрее и экономнее CA, умеет уплотнять и
+  EC2 API.[16] Обычно работает быстрее и экономнее CA, умеет уплотнять и
   заменять ноды. Настраивается двумя объектами: `NodePool` (какие ноды
-  допустимы) и `EC2NodeClass` (как их создавать: AMI, подсети, роль).
+  допустимы)[17] и `EC2NodeClass` (как их создавать: AMI, подсети, роль).
 
 ```yaml
 apiVersion: karpenter.sh/v1
@@ -96,3 +96,9 @@ spec:
   размер EC2 под Pending-поды.)*
 - Почему HPA и добавление нод — разные уровни? *(HPA меняет число подов;
   ноды добавляет CA, Karpenter или Auto Mode.)*
+
+## Источники главы
+
+- [16] Scale cluster compute with Karpenter and Cluster Autoscaler — https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html
+- [17] Karpenter (Best Practices) — https://docs.aws.amazon.com/eks/latest/best-practices/karpenter.html
+- [18] Auto Scaling (eksctl) — https://docs.aws.amazon.com/eks/latest/eksctl/autoscaling.html

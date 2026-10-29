@@ -1,0 +1,493 @@
+# DDD Debate: Proponents vs Skeptics [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#ddd-debate-proponents-vs-skeptics)
+
+> Two senior developers debate Domain-Driven Design (DDD).
+
+> **About This Document**
+>
+> This document records a debate between two senior developers with different perspectives on DDD. Rather than presenting a definitive answer, its purpose is to help you develop a **balanced view of DDD through diverse perspectives**.
+
+**Participants:**
+
+- **Proponent (Pro-DDD)**: A senior developer who advocates for DDD
+- **Skeptic (Anti-DDD)**: A senior developer who is skeptical of DDD
+
+**Date:** 2026-01-17
+
+* * *
+
+## Debate Begins [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#debate-begins)
+
+### Skeptic’s Opening [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#skeptics-opening)
+
+> Honestly, whenever I see people praising DDD, I worry. The theory sounds great. “Design centered on business logic,” “unify language with domain experts” — who would disagree?
+>
+> But in practice, most DDD I have witnessed was a **‘festival of unnecessary complexity’**.
+>
+> - Spending all their time breaking simple CRUD into complex Aggregates and Value Objects,
+> - Writing thousands of lines of meaningless DTO conversion code just to follow Layered Architecture — it was truly frustrating.
+> - In the end, you end up working at **‘the speed of maintaining the architecture’** rather than the speed of the business. That is the trap of DDD, in my opinion.
+>
+> Creating business value should come first, not treating Eric Evans’ book like a bible and making code look pretty — that is not our job, is it?
+
+* * *
+
+### Proponent’s First Response [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#proponents-first-response)
+
+Welcome, pragmatic senior developer.
+
+I have seen many of the cases you describe. And honestly, **that is not DDD**.
+
+#### Core Rebuttal: DDD Is Not “Applying Tactical Patterns” [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#core-rebuttal-ddd-is-not-applying-tactical-patterns)
+
+Eric Evans’ book is over 500 pages, yet all people remember are a few **tactical patterns** like Aggregate, Repository, and Value Object. The **strategic design** that takes up more than half the book — Bounded Context, Context Mapping, Ubiquitous Language — gets ignored.
+
+Let me address your points one by one:
+
+**1\. “Breaking simple CRUD into Aggregates”**
+
+This is not a problem with DDD but a problem with **judgment in application**. The DDD community clearly states “use Transaction Script for Simple Domains.” Applying DDD everywhere is not DDD — it is **Cargo Cult**.
+
+**2\. “Thousands of lines of DTO conversion code”**
+
+Layered Architecture is not a mandatory element of DDD. Eric Evans himself recommended Hexagonal Architecture more, and nowadays many teams use Clean Architecture or Vertical Slice. DTO hell is the result of **poor architecture choices**, not DDD.
+
+**3\. “Working at the speed of maintaining the architecture”**
+
+This is precisely **not doing DDD**. The core of DDD is “code follows business changes,” but if the architecture is blocking business, that is a failed design.
+
+#### My Question [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#my-question)
+
+> “It could have been done with simple CRUD”
+
+Is this premise really correct?
+
+In my experience, I have seen many systems that started as CRUD but became **monsters with dozens of business rules** two years later. By then, refactoring is already too late, and inevitably someone says “it is legacy” and suggests rewriting from scratch.
+
+DDD is about **selectively applying it to core domains where complexity is expected**. It is not about using it everywhere.
+
+* * *
+
+### Skeptic’s First Rebuttal [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#skeptics-first-rebuttal)
+
+> A “No True Scotsman” argument, I see. Let me offer three rebuttals.
+
+**1\. The difficulty of the methodology itself is a flaw**
+
+If 10 teams try DDD and 9 fail, that is not evidence of developer incompetence — it is evidence that the methodology is disconnected from reality.
+
+**2\. A 3,000-line monster vs a maze of 300 pieces**
+
+A 3,000-line class is at least easy to ‘find things in.’ A system split up with DDD requires navigating dozens of files to understand a single piece of logic. This is not ‘removal of complexity’ but merely ‘distribution of complexity.’
+
+**3\. Strategic design is ‘politics,’ not ’technology’**
+
+In reality, how many organizations have time for domain experts to unify terminology with developers? Eventually developers divide Contexts based on imagination, and later it becomes the even bigger disaster of distributed transactions.
+
+> **Key question**: Is the complexity of maintaining DDD — its abstractions and distributed environment — not greater than the complexity DDD claims to solve?
+
+* * *
+
+### Proponent’s Second Response [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#proponents-second-response)
+
+#### I Will Concede What Should Be Conceded [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#i-will-concede-what-should-be-conceded)
+
+The “No True Scotsman” criticism is partly valid. The DDD community has been evasive about failure cases by saying “that was not real DDD.” And the steep learning curve is also true.
+
+But I disagree with the three rebuttals.
+
+#### 1\. On “Methodology Difficulty Is a Flaw” [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#1-on-methodology-difficulty-is-a-flaw)
+
+By that logic, **Git, Kubernetes, and functional programming are all flawed**. How many teams in practice use Git properly? Most are stuck in an infinite loop of `git pull` -\> conflict -> `git reset --hard`.
+
+The value of a tool is not “is it easy” but **“does the benefit of using it properly outweigh the learning cost”**.
+
+The issue is knowing **when and where** to apply DDD. Not every project needs DDD. For systems where complex business logic is a core competitive advantage — finance, logistics, reservation systems — DDD more than repays the learning cost.
+
+#### 2\. On “3,000 Lines vs 300 Files” [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#2-on-3000-lines-vs-300-files)
+
+This is a **false dichotomy**.
+
+First, “easy to find things in 3,000 lines” is true **only the first time you look**. What about when fixing bugs inside it?
+
+```java
+// A common pattern in a 3,000-line service
+public void processOrder(Order order) {
+    // ... 500 lines of validation logic ...
+    // ... 800 lines of discount calculation ...
+    // ... 400 lines of inventory processing ...
+    // ... 300 lines of payment integration ...
+    // ... Which part do I fix? What is the impact on the rest?
+}
+```
+
+**You cannot determine the impact scope**. Have you never experienced fixing discount logic and breaking inventory processing?
+
+In contrast, well-designed DDD is not 300 files. It is **a few cohesive Aggregates**:
+
+```text
+Order (Aggregate Root)
+├── OrderItem (Entity)
+├── Discount (Value Object)
+└── All related logic exists only within this boundary
+
+Inventory (Separate Aggregate)
+└── Communicates with Order only through domain events
+```
+
+If you fix discount logic, you only need to assess impact within the Order Aggregate. **This is not distribution of complexity but isolation of complexity**.
+
+#### 3\. On “Strategic Design Is Politics” [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#3-on-strategic-design-is-politics)
+
+**That is exactly right. And that is the point.**
+
+The most important lesson DDD teaches is that “things that look like technical problems are actually **organizational/communication problems**.”
+
+No time for domain experts to talk? That is not DDD’s problem — it is an **organizational problem**. No methodology will produce good software in that state.
+
+DDD at least **makes the problem explicit**. It makes you recognize that “we are writing code without understanding the domain.” Without awareness, there is no improvement.
+
+#### My Answer on the Total Amount of Complexity [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#my-answer-on-the-total-amount-of-complexity)
+
+You need to distinguish between Fred Brooks’ **Essential Complexity** and **Accidental Complexity**.
+
+- **Essential Complexity**: The complexity of the business itself. Unavoidable.
+- **Accidental Complexity**: Complexity from our technology/design choices.
+
+A 3,000-line service **hides** Essential Complexity. Business rules are scattered somewhere in the code, but you do not know where.
+
+DDD **makes Essential Complexity explicit**. Aggregate boundaries, domain events, Value Objects — these are signposts saying “business rules live here.”
+
+> **My counter-question**:
+>
+> You said KISS and YAGNI are sufficient, but how do those principles determine **“what is simple”** and **“what is needed”**?
+>
+> That judgment is based on **deep understanding of the domain**. DDD is the methodology for gaining that understanding.
+>
+> If you advocate KISS without understanding the domain, you end up with **“a design that looks simple but is wrong."** When requirements change later, it is a full rewrite.
+
+* * *
+
+### Skeptic’s Second Rebuttal [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#skeptics-second-rebuttal)
+
+**1\. The comparison with Git/Kubernetes is a ‘category error’**
+
+Git is a tool with deterministic results. DDD is a philosophy where 5 developers fight for 5 days over the single question “what is an Aggregate?” This **‘cost of subjective interpretation’** is fundamentally different from tool proficiency.
+
+**2\. ‘Isolation of complexity’ brings a ’tax of technical debt’**
+
+The moment you split Order and Inventory into Aggregates, what could have been a single DB transaction now requires Domain Events, Outbox Pattern, and Saga. This is the ultimate form of Accidental Complexity.
+
+**3\. Diagnosing “organizational problems” is irresponsible**
+
+As senior developers, we should find the best solution within the given environment, not just blame the environment.
+
+**Answer on KISS/YAGNI judgment criteria:**
+
+- The data schema is the domain
+- The measure of simplicity is ’the propagation scope of changes’
+
+> **Counter-question**: Is it justified to triple the architecture complexity to solve business logic complexity? Can you definitively say that a system with 5 classes and 3 events is easier to maintain than 3,000 lines of procedural code?
+
+* * *
+
+### Proponent’s Third Response [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#proponents-third-response)
+
+#### On the Distributed Transaction Problem — I Concede [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#on-the-distributed-transaction-problem--i-concede)
+
+When you mention Saga and Outbox Pattern, it is **half right and half a misconception**.
+
+The correct part first: when combining DDD with microservices, many teams misunderstand Aggregate boundary = service boundary. Then, as you describe, a simple transaction becomes a distributed systems challenge. **This is indeed a common mistake, and some blame lies with DDD community overhype.**
+
+But there is a misconception:
+
+```java
+// Aggregate separation != service separation != DB separation
+
+// Aggregate boundaries are meaningful even within the same DB and same service
+@Transactional
+public void placeOrder(OrderCommand cmd) {
+    Order order = Order.create(cmd);           // Order Aggregate
+    inventory.reserve(order.getItems());       // Inventory Aggregate
+    // Both Aggregates can be manipulated within the same transaction
+    orderRepository.save(order);
+    inventoryRepository.save(inventory);
+}
+```
+
+Aggregate boundaries mean **“these objects must always maintain consistency together”**, not **“they must be separated into different services”**.
+
+Eventual Consistency is needed when **the business is inherently asynchronous**. “Deduct inventory after payment completes” is inherently asynchronous. Forcing it into a single transaction means a payment system failure would paralyze the inventory system.
+
+#### On the Git vs DDD “Category Error” [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#on-the-git-vs-ddd-category-error)
+
+That they are different categories is correct. But **is “5 people arguing for 5 days” a bad thing?**
+
+The essence of that debate is “what is Order,” “does the discount policy belong to Order or is it a separate Policy.” This is **a process that deepens domain understanding**.
+
+What happens when you develop without DDD? The first developer just throws everything into `OrderService` as they see fit. Quick, without debate. Then 6 months later, a second developer creates `DiscountService` wondering “why is this logic here?” A year later, `OrderService`, `DiscountService`, `OrderDiscountHelper`, `DiscountCalculator` proliferate, and nobody understands the full picture.
+
+**5 days of debate** is an investment that prevents **1 year of chaos**.
+
+#### On “Data Schema Is the Domain” [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#on-data-schema-is-the-domain)
+
+Here is where I fundamentally disagree.
+
+Data models and domain models are different:
+
+| Perspective | Data Model | Domain Model |
+| --- | --- | --- |
+| Concern | Storage, normalization, query performance | Business rules, invariants |
+| Example | `discount_amount` column in `orders` table | `Order.applyDiscount(policy)` method |
+| Change Reason | Query optimization, index addition | Business rule change |
+
+You said “with a DB schema, 80% of business rules are clear,” but that is only true for **CRUD apps**.
+
+“If the customer is VIP, it is Friday, and there are 3 or more items from a specific category in the cart, apply an additional 5% discount”
+
+Where is this rule visible in the DB schema? It would be stored as JSON in a `discount_rules` table. And where is the logic to interpret it? Hidden somewhere in a 3,000-line service.
+
+#### Answer to the “3x Complexity” Question [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#answer-to-the-3x-complexity-question)
+
+Let me reframe the question:
+
+> “5 classes, 3 events vs 3,000 lines of procedural code — which is easier to maintain?”
+
+**In the short term**, the 3,000 lines are easier. I concede that.
+
+But **in the long term**, you need to ask:
+
+1. **Testability**: Have you ever written unit tests for a 3,000-line service? You need DB mocking, external API mocking, dozens of setups for a single test. You end up not testing at all.
+
+2. **Fear of change**: When modifying discount logic in 3,000 lines, are you confident “this change will not affect anything else”? If not, you **avoid making changes**. That is the beginning of legacy.
+
+3. **Onboarding**: When a new developer joins, how long does it take to understand the 3,000-line service? Is “just follow the code” the best you can do?
+
+
+5 classes and 3 events each have **clear responsibilities**. You can tell a new developer “discounts are in `DiscountPolicy`, order creation is in `Order.create()`, inventory integration is in the `InventoryReserved` event.”
+
+#### My Final Question [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#my-final-question)
+
+> **You said “find the best within the given environment.” I agree.**
+>
+> But is the standard for “best” **short-term productivity** or **long-term maintainability**?
+>
+> For a startup MVP, 3,000 lines are fine. Validate the market quickly and throw it away.
+>
+> But would you make the same choice for a **core system that will run for 5+ years**?
+>
+> DDD is an investment not for **“fast now”** but for **“still changeable 2 years from now."**
+> If the project does not need that investment, I would not recommend DDD either.
+
+* * *
+
+### Skeptic’s Third Rebuttal [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#skeptics-third-rebuttal)
+
+**1\. “5 days of debate” becomes a “shackle” 6 months later**
+
+Business is a living organism. Boundaries defined over 5 days become ’the hardest wall to change’ when a new business model arrives 6 months later. Simple code can be deleted and rewritten. A ‘solid castle’ built with DDD requires reconstruction from the foundation.
+
+**2\. The illusion of testability**
+
+DDD also drains energy on ‘framework tests’ — Aggregate test setup, event publication verification, etc. It would be more economical to extract just the complex parts from the 3,000 lines into static functions and test those.
+
+**3\. ‘Data schema’ is reality, ‘domain model’ is virtual**
+
+Data is ultimately stored in the DB. Is splitting it into 5 SELECTs to respect Aggregate boundaries efficient? When performance optimization is needed, you inevitably regress to Native Queries.
+
+> **Final question**: ‘Separation of concerns’ and ‘appropriate abstraction’ alone produce good code — why must you convert to the specific religion of ‘DDD’? Can you not ensure long-term maintainability without DDD?
+
+* * *
+
+### Proponent’s Fourth Response (Final) [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#proponents-fourth-response-final)
+
+#### Let me be clear first: I am not a “DDD fundamentalist” [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#let-me-be-clear-first-i-am-not-a-ddd-fundamentalist)
+
+Throughout this debate, I have emphasized **“selective application”**. I have never said to use DDD on every project. In fact, I said “use Transaction Script for Simple Domains.”
+
+So let me re-read the question:
+
+> “‘Separation of concerns’ and ‘appropriate abstraction’ alone produce good code — why must you convert to the specific religion of DDD?”
+
+**I agree.** Doing ‘separation of concerns’ and ‘appropriate abstraction’ well does produce good code.
+
+But let me ask one thing:
+
+> **Where do you get the criteria for “appropriate abstraction”?**
+
+#### DDD Is Not a “Religion” but a “Lens” [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#ddd-is-not-a-religion-but-a-lens)
+
+The core of DDD is not Aggregate, Repository, or Factory. Those are **tactical patterns** and are optional.
+
+The true core of DDD is:
+
+1. **Ubiquitous Language**: Developers and business use the same terminology
+2. **Bounded Context**: The same word can have different meanings depending on context
+3. **Domain-centric thinking**: Understand the business problem first, not the technology
+
+These are **ways of thinking, not code patterns**. You can apply them without using Aggregates.
+
+```java
+// Code applying DDD thinking without tactical patterns
+public class OrderService {
+    // If the team agreed to say 'receive order' instead of 'create order'
+    public Order receiveOrder(OrderRequest request) {  // Not createOrder
+        // Reflecting business terminology in code
+    }
+}
+```
+
+#### My Thoughts on Three Rebuttals [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#my-thoughts-on-three-rebuttals)
+
+**1\. “5 days of debate becomes a shackle”**
+
+Partially correct. But **only if you treat the debate results as “immutable truth”**.
+
+Good DDD teams view Bounded Contexts as **“snapshots of current understanding”**. When business changes, Contexts change too. The problem is not DDD but **the mindset of “once decided, it can never change”**.
+
+**2\. “The illusion of testability”**
+
+I agree to an extent. Testing an entire Aggregate can involve complex setup.
+
+But the testability I am talking about is this:
+
+```java
+// To test this in a 3,000-line service?
+// -> DB mocking, external API mocking, countless dependencies...
+
+// Extract it as a Value Object?
+Money discountedPrice = originalPrice.applyDiscount(discountRate);
+// -> Pure function, no dependencies, 3 lines of test
+```
+
+You said “extract just the complex parts as static functions” — **that is exactly a Value Object**. Just different names, same concept.
+
+**3\. “Data schema is reality”**
+
+It is true that you regress to Native Queries for performance optimization. That is why **CQRS** was created:
+
+- **Command (write)**: Protect business rules with the domain model
+- **Query (read)**: Optimize performance with Native Queries
+
+Separating the two lets you have both “domain model purity” and “query performance.” DDD does not say “solve everything with Aggregates.”
+
+#### Conclusion: Where We Agree [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#conclusion-where-we-agree)
+
+| Topic | Skeptic | Proponent (Me) |
+| --- | --- | --- |
+| DDD for every project? | Against | **Against** |
+| Tactical pattern misuse? | A problem | **A problem** |
+| Separation of concerns is important? | Agree | **Agree** |
+| Understanding business comes first? | Agree | **Agree** |
+| Simplicity is important? | Agree | **Agree** |
+
+What we actually disagree on is **one thing**:
+
+> **“In core systems with high domain complexity, do DDD’s strategic/tactical tools provide long-term value?”**
+
+I believe **“yes."** Selectively.
+The pragmatic senior developer seems to believe **“fundamentals alone are sufficient."**
+
+#### My Final Proposal [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#my-final-proposal)
+
+Instead of viewing DDD as a “religion,” how about seeing it as a **“toolbox”**?
+
+- Ubiquitous Language? -> Use it if it helps team communication
+- Bounded Context? -> Use it if it helps set system boundaries
+- Aggregate? -> Use it if transaction boundaries are complex
+- Value Object? -> Use it if it helps express immutable data (you probably already do)
+
+**It is not a binary choice of using all or none.**
+
+I am also wary of people who shout “you must do DDD!” But dismissing “DDD is useless!” is equally dangerous.
+
+> **A true senior does not discriminate against tools. They simply choose the right tool for the situation.**
+
+* * *
+
+### Skeptic’s Final Closing [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#skeptics-final-closing)
+
+#### 1\. Beware the Trap of “Naming Things” [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#1-beware-the-trap-of-naming-things)
+
+What could simply be “reflect business terms well in code” — the moment you attach the grand name “Ubiquitous Language,” team members fixate on form over substance. Good naming, separation of responsibilities, low coupling — these existed before DDD.
+
+#### 2\. ‘Tools’ should be lightweight to be tools [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#2-tools-should-be-lightweight-to-be-tools)
+
+Value Objects are ‘good abstractions,’ and Bounded Contexts are ‘well-defined module boundaries.’ Rather than selling these as a set under the name ‘DDD,’ we should return them to the domain of **‘engineering common sense’**.
+
+#### 3\. On ‘The Role of a Senior’ [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#3-on-the-role-of-a-senior)
+
+> “A true senior **calculates the ‘cost’** a tool will bring first.”
+
+The possibility of change 2 years from now is important, but deploying today to keep the business alive is a senior’s first duty.
+
+#### Closing [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#closing)
+
+Though our methodologies differ, it was a productive session confirming we share the same **passion for “wanting to build better software."**
+
+* * *
+
+### Proponent’s Final Closing [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#proponents-final-closing)
+
+#### Agreement and Rebuttal on “Naming Things” [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#agreement-and-rebuttal-on-naming-things)
+
+Correct. Names often obscure the essence. “Ubiquitous Language” sounds grand, but it is ultimately **“use the same words in code that you use in specs."**
+
+But names also have value. When there is a **shared vocabulary**, communication between teams speeds up. When someone says “just split it into a Bounded Context,” a 30-minute explanation becomes 30 seconds among people who know DDD.
+
+The problem is not the names but **blind faith in names**.
+
+#### I Fully Agree That “You Calculate Costs First” [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#i-fully-agree-that-you-calculate-costs-first)
+
+I also agree that “deploying today to keep the business alive” is the priority.
+
+Just one addition:
+
+> **You should also calculate whether “today’s fast deployment” creates “tomorrow’s slow deployment."**
+
+Calculating both is the role of a senior, in my opinion.
+
+#### What I Gained from This Debate [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#what-i-gained-from-this-debate)
+
+1. Confirmed again that the DDD community’s **overhype** has backfired in the field
+2. The expression **“fundamentals”** can sometimes convey the same values more effectively than “DDD”
+3. **The importance of cost calculation** — you should not ignore short-term costs by only looking at long-term benefits
+
+#### Closing [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#closing-1)
+
+If the pragmatic senior developer serves as the **“safety mechanism watching the blade,"** I will continue serving as the **“eyes that recognize when the blade is needed."**
+
+Ultimately, we both aim for the same goal: **“helping the team build good software."** Stepping back from the methodology debate, when different perspectives coexist in a team, more balanced decisions become possible.
+
+Thank you for your effort. It was a productive debate.
+
+* * *
+
+## Debate Summary [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#debate-summary)
+
+### Key Points of Contention [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#key-points-of-contention)
+
+| Topic | Skeptic (Pragmatist) | Proponent (DDD Advocate) |
+| --- | --- | --- |
+| Essence of DDD | A methodology that induces excessive complexity | A lens for domain-centric thinking |
+| Tactical patterns | Mostly unnecessary, fundamentals suffice | Selectively useful |
+| Learning cost | A flaw of the methodology | Worth the investment for complex domains |
+| Long-term maintenance | Simple code is more advantageous | DDD provides changeability |
+
+### Points of Agreement [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#points-of-agreement)
+
+1. **DDD should not be applied to every project**
+2. **Misuse of tactical patterns is a problem**
+3. **Separation of concerns and business understanding are key**
+4. **Tools should be chosen to fit the situation**
+5. **Both short-term costs and long-term benefits must be calculated**
+
+### Remaining Differences [\#](https://advanced-beginner.github.io/en/docs/ddd/appendix/ddd-debate/\#remaining-differences)
+
+> “In core systems with high domain complexity, do DDD’s strategic/tactical tools provide additional value beyond ‘fundamentals’?”
+
+- **Skeptic**: Fundamentals (separation of concerns, good abstraction) are sufficient
+- **Proponent**: For complex domains, DDD tools provide additional value
+
+* * *
+
+_Debate concluded: 2026-01-17_

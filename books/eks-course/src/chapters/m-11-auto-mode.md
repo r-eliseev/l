@@ -12,21 +12,21 @@ EKS, где AWS берёт на себя ещё и «рабочую» часть
 ## В EKS: что делает Auto Mode
 
 - **Ноды.** Внутри работает Karpenter, которым управляет AWS. Он добавляет
-  ноды под Pending-поды и убирает ненужные. Группы нод создавать не нужно.
+  ноды под Pending-поды и убирает ненужные.[30] Группы нод создавать не нужно.
 - **Базовые компоненты встроены:** сеть подов, DNS, драйвер EBS, управление
-  балансировщиками. Ставить `vpc-cni`, `coredns`, `kube-proxy`, EBS CSI,
+  балансировщиками.[30] Ставить `vpc-cni`, `coredns`, `kube-proxy`, EBS CSI,
   Pod Identity agent и AWS Load Balancer Controller **не нужно**.
 - **Ноды неизменяемые.** Они работают на Bottlerocket с защищёнными
-  настройками, **без SSH и SSM**. Максимальное время жизни ноды — 21 день,
-  после чего её заменяют (с учётом PDB). Это обновление «из коробки».
+  настройками, **без SSH и SSM**[30]. Максимальное время жизни ноды — 21 день,
+  после чего её заменяют (с учётом PDB).[30] Это обновление «из коробки».
 - **Свои настройки.** Встроенные NodePool и NodeClass не редактируют. Нужен
   особый тип инстансов, Spot или GPU — создаёте свои NodePool и NodeClass.
 - **Что меняется в именах.** StorageClass должен использовать provisioner
-  `ebs.csi.eks.amazonaws.com` (вместо `ebs.csi.aws.com`), а Ingress и Service
+  `ebs.csi.eks.amazonaws.com` (вместо `ebs.csi.aws.com`)[9], а Ingress и Service
   обрабатываются встроенным контроллером. Перенос существующих EBS-томов
   требует снапшотов.
 - **Деньги.** Кроме EC2 вы платите отдельную плату Auto Mode за каждый
-  запущенный инстанс (посекундно, минимум одна минута). Цены смотрите на
+  запущенный инстанс (посекундно, минимум одна минута).[1] Цены смотрите на
   странице EKS pricing.
 - **Включение:** при создании кластера (консоль, eksctl, Terraform) или на
   существующем кластере. В свежих версиях eksctl это флаг
@@ -61,3 +61,9 @@ EKS, где AWS берёт на себя ещё и «рабочую» часть
 - Почему в Auto Mode нельзя «зайти на ноду»? *(Ноды неизменяемые, SSH и SSM
   отключены.)*
 - Через сколько заменяется нода? *(Максимум 21 день.)*
+
+## Источники главы
+
+- [1] Amazon EKS Pricing — https://aws.amazon.com/eks/pricing/
+- [9] Set up the Amazon EBS CSI driver — https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html
+- [30] Automate cluster infrastructure with EKS Auto Mode — https://docs.aws.amazon.com/eks/latest/userguide/automode.html

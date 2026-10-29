@@ -26,7 +26,7 @@ helm install metrics-server metrics-server/metrics-server -n kube-system
 
 - **EKS Add-ons** — AWS-способ управлять компонентами. Это те же самые
   CoreDNS, kube-proxy и так далее, но версией, совместимостью с версией
-  кластера и обновлениями управляет AWS через свой API.
+  кластера и обновлениями управляет AWS через свой API.[19]
 
 ```bash
 aws eks describe-addon-versions --addon-name coredns --kubernetes-version 1.36
@@ -37,13 +37,13 @@ aws eks describe-addon --cluster-name my-cluster --addon-name coredns
 ```
 
 - **Что стоит в новом кластере сразу:** `vpc-cni`, `coredns` и `kube-proxy`
-  появляются при создании кластера. Если вы их не «усыновили» как managed
+  появляются при создании кластера.[19] Если вы их не «усыновили» как managed
   add-ons, их обновляете вы сами.
 - **Параметр `--resolve-conflicts`** решает, что делать, если вы ранее
   вручную меняли настройки компонента: `OVERWRITE` затрёт ваши изменения,
-  `PRESERVE` сохранит.
+  `PRESERVE` сохранит.[21]
 - **Каталог add-ons шире, чем три базовых.** Среди них: драйверы хранилища
-  `aws-ebs-csi-driver`, `aws-efs-csi-driver`, `snapshot-controller`;
+  `aws-ebs-csi-driver`, `aws-efs-csi-driver`, `snapshot-controller`[20];
   `eks-pod-identity-agent` (модуль 04); `amazon-cloudwatch-observability` и
   `adot` (модуль 08); агент GuardDuty; Secrets Store CSI provider. Актуальный
   список смотрите командой `aws eks describe-addon-versions`.
@@ -70,3 +70,9 @@ aws eks describe-addon --cluster-name my-cluster --addon-name coredns
   Версия и жизненный цикл управляются через AWS API.)*
 - Какие add-ons есть в новом кластере без вашего участия? *(vpc-cni,
   coredns, kube-proxy.)*
+
+## Источники главы
+
+- [19] Amazon EKS add-ons — https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html
+- [20] Amazon EKS add-ons available for Amazon EKS clusters — https://docs.aws.amazon.com/eks/latest/userguide/workloads-add-ons-available-eks.html
+- [21] aws eks update-addon (AWS CLI) — https://docs.aws.amazon.com/cli/latest/reference/eks/update-addon.html

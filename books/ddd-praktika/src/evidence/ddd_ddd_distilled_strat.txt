@@ -1,0 +1,25 @@
+# [ddd distilled](https://l-lin.github.io/architecture/ddd/ddd-distilled/ddd-distilled) - Strategic design with Bounded Contexts and the Ubiquitous Language
+## Bounded Context
+A **Bounded Context** is a semantic contextual boundary. This means that within the boundary each component of the software model has a specific meaning and does specific things.
+The component inside a **Bounded Context** are context specific and semantically motivated.
+When getting started in your software modeling efforts, your **Bounded Context** is somewhat conceptual. You could think of it as part of your **problem space** . However, as your model starts to take on deeper meaning and clarity, your **Bounded Context** will quickly transition to your **solution space** .
+A **Bounded Context** is where a model is implemented, and you will have separate software artifacts for each **Bounded Context** .
+
+### What is a Problem Space and a Solution Space?
+Your problem space is where you perform high-level strategic analysis and design steps within the constraints of a given project. You can use simple diagrams as you discuss the high-level project drivers and note important goals and risks.
+
+...
+
+Your solution space is where you actually implement the solution that your problem space discussions identify as your **Core Domain** . When the Bounded Context is being developed as a key strategic initiative of your organization, it’s called the Core Domain.
+You develop your solution in the Bounded Context as code, both main source and test source.
+
+...
+
+### Bounded Contexts, Teams and Source code repositories
+It is especially important to be clear that one team works on a single Bounded Context.
+This completely eliminates the chances of any unwelcome surprises that arise when another team makes a change to your source code. Your team owns the source code and the database and defines the official interfaces through which your Bounded Context must be used. It’s a benefit of using DDD.
+
+### Ubiquitous Language
+The software model inside the context boundary reflects a language that is developed by the team working in the Bounded Context and is spoken by every member of the team that creates the software model that functions within that Bounded Context. The language is called the **Ubiquitous Language** because it is both spoken among the team members and implemented in the software model.
+Thus, it is necessary that the Ubiquitous Language be rigorous—strict, exact, stringent, and tight.
+In the diagram, the boxes inside the Bounded Context represent the concepts of the model, which may be implemented as classes. When the Bounded Context is being developed as a key strategic initiative of your organization, it’s called the **Core Domain** .

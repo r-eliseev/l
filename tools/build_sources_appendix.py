@@ -13,37 +13,13 @@ Ledger лежит вне репозитория (`$HERMES_HOME/cache/citations/l
 from __future__ import annotations
 
 import argparse
-import importlib.util
 import json
-import os
 import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from bookmeta import Book, load_book  # noqa: E402
-
-
-def hermes_home() -> Path:
-    """Каталог Hermes: одинаково на Windows и Linux."""
-    val = os.environ.get("HERMES_HOME", "").strip()
-    if val:
-        return Path(val)
-    if os.name == "nt":
-        return Path.home() / "AppData/Local/hermes"
-    return Path.home() / ".hermes"
-
-
-SP = hermes_home() / "skills/research/grounded-citations/scripts/sources.py"
-
-# Копия ledger-скрипта лежит в репозитории — она приоритетнее: репозиторий
-# должен работать на любой машине, где установлен Hermes, и без него.
-REPO_SP = (
-    Path(__file__).resolve().parent.parent
-    / "skills/grounded-citations/scripts/sources.py"
-)
-if REPO_SP.exists():
-    SP = REPO_SP
 
 DEFAULT_INTRO = """# Приложение. Источники
 
@@ -62,16 +38,15 @@ DEFAULT_HOWTO = (
 )
 
 
-def load_ledger() -> dict | None:
-    """Читает ledger цитат. None — если ledger недоступен (например, в CI)."""
-    if not SP.exists():
-        return None
-    spec = importlib.util.spec_from_file_location("sources", SP)
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    path = mod.resolve_ledger_path(None)
+def load_sources(book: Book) -> dict:
+    """Читает банк источников книги из репозитория.
+
+    Банк лежит в `books/<slug>/src/quotes.json`, поэтому приложение
+    «Источники» собирается одинаково на любой машине и в CI.
+    """
+    path = book.src / "quotes.json"
     if not path.exists():
-        return None
+        return {}
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -88,6 +63,19 @@ def collect_used_ids(book: Book) -> set[int]:
     return used
 
 
+# Ссылка в цитате может вести на соседнюю страницу документации. В книге
+# такая ссылка бессмысленна: читатель не кликает по цитате. Поэтому
+# markdown-ссылки превращаются в подписи, а внешние остаются как есть.
+_MD_LINK = re.compile(r"\[([^\]]*)\]\([^)]*\)")
+
+
+def _clean_quote(text: str) -> str:
+    """Готовит цитату к выводу: однострочная, без markdown-ссылок."""
+    text = text.replace("\n", " ")
+    text = _MD_LINK.sub(r"\1", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
 def render_source(source: dict) -> list[str]:
     lines = [f"### [{source['id']}] {source.get('title') or source['url']}\n"]
     lines.append(f"{source['url']}\n")
@@ -95,7 +83,8 @@ def render_source(source: dict) -> list[str]:
     if quotes:
         lines.append("Ключевые формулировки:\n")
         for quote in quotes:
-            text = quote["text"].replace("\n", " ").strip()
+            text = quote["text"] if isinstance(quote, dict) else quote
+            text = _clean_quote(text)
             lines.append(f"> «{text}»\n")
     else:
         lines.append("Источник используется для общих сведений без прямого цитирования.\n")
@@ -119,16 +108,18 @@ def main() -> int:
     intro = sources_cfg.get("appendix", {}).get("intro", DEFAULT_INTRO)
     howto = sources_cfg.get("appendix", {}).get("howto", DEFAULT_HOWTO)
 
-    ledger = load_ledger()
-    if ledger is None:
+    bank = load_sources(book)
+    if not bank:
         print(
-            "Приложение «Источники» не пересобрано: ledger недоступен "
-            f"({SP}). Ledger лежит вне репозитория, поэтому приложение "
-            "обновляется только на машине автора. Существующий файл сохранён."
+            "Приложение «Источники» не пересобрано: нет банка источников "
+            f"({book.src / 'quotes.json'})."
         )
         return 0
 
-    sources = sorted(ledger["sources"], key=lambda s: s["id"])
+    sources = [
+        {"id": int(sid), **src} for sid, src in bank.items()
+    ]
+    sources.sort(key=lambda s: s["id"])
     used = collect_used_ids(book)
     lines = [intro]
 

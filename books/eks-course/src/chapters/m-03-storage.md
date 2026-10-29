@@ -48,7 +48,7 @@ kubectl get pvc,pv                # теперь Bound
 
 - **EBS CSI driver нужно поставить самому.** В отличие от kind, где
   provisioner уже есть, в обычном EKS-кластере драйвер ставится как
-  add-on `aws-ebs-csi-driver`. В EKS Auto Mode он встроен. В кластере
+  add-on `aws-ebs-csi-driver`. В EKS Auto Mode он встроен.[9] В кластере
   может быть StorageClass `gp2`, но без драйвера PVC будет висеть в
   `Pending`. Проверьте `kubectl get sc` у себя.
 - **Драйверу нужна IAM-роль**, потому что он создаёт тома через AWS API. Без
@@ -62,7 +62,7 @@ kubectl get pvc,pv                # теперь Bound
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata: { name: ebs-gp3 }
-provisioner: ebs.csi.aws.com      # в Auto Mode: ebs.csi.eks.amazonaws.com
+provisioner: ebs.csi.aws.com      # в Auto Mode: ebs.csi.eks.amazonaws.com[9]
 parameters: { type: gp3, encrypted: "true" }
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
@@ -74,14 +74,14 @@ allowVolumeExpansion: true
   Если сделать иначе, под может «застрять» (Pending с ошибкой про volume node
   affinity), даже когда на других нодах полно свободных ресурсов.
 - **EBS даёт только RWO.** Для RWX нужен **EFS CSI driver** (add-on
-  `aws-efs-csi-driver`): общая файловая система, доступная из нескольких AZ.
+  `aws-efs-csi-driver`): общая файловая система, доступная из нескольких AZ.[10]
   В kind полноценного RWX «из коробки» нет.
 - **Снапшоты и шифрование** управляются через AWS: CSI snapshot controller
-  (add-on `snapshot-controller`) и KMS.
+  (add-on `snapshot-controller`)[20] и KMS.
 - **Деньги.** Каждый PV — реальный платный EBS-том, и он может остаться после
   удаления кластера, если политика `Retain` или кластер удалили «грубо».
   Проверяйте диски после экспериментов.
-- **Fargate.** EBS на Fargate подключить нельзя. EFS можно, но только со
+- **Fargate.** EBS на Fargate подключить нельзя.[28] EFS можно, но только со
   статическим PV, динамическое создание томов на Fargate не поддерживается
   (модуль 10).
 
@@ -99,3 +99,10 @@ allowVolumeExpansion: true
 - Какой тип хранилища нужен для RWX в EKS? *(EFS.)*
 - Что нужно сделать в EKS для работы EBS-томов, чего не нужно в kind?
   *(Поставить EBS CSI driver и выдать ему IAM-роль.)*
+
+## Источники главы
+
+- [9] Set up the Amazon EBS CSI driver — https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html
+- [10] Set up the Amazon EFS CSI driver — https://docs.aws.amazon.com/eks/latest/userguide/efs-csi.html
+- [20] Amazon EKS add-ons available for Amazon EKS clusters — https://docs.aws.amazon.com/eks/latest/userguide/workloads-add-ons-available-eks.html
+- [28] Simplify compute management with AWS Fargate — https://docs.aws.amazon.com/eks/latest/userguide/fargate.html

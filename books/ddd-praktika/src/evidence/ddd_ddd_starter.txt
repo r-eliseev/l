@@ -1,0 +1,588 @@
+[Skip to content](https://github.com/ddd-crew/ddd-starter-modelling-process#start-of-content)
+
+You signed in with another tab or window. [Reload](https://github.com/ddd-crew/ddd-starter-modelling-process) to refresh your session.You signed out in another tab or window. [Reload](https://github.com/ddd-crew/ddd-starter-modelling-process) to refresh your session.You switched accounts on another tab or window. [Reload](https://github.com/ddd-crew/ddd-starter-modelling-process) to refresh your session.Dismiss alert
+
+{{ message }}
+
+main
+
+[**2** Branches](https://github.com/ddd-crew/ddd-starter-modelling-process/branches) [**0** Tags](https://github.com/ddd-crew/ddd-starter-modelling-process/tags)
+
+[Go to Branches page](https://github.com/ddd-crew/ddd-starter-modelling-process/branches)[Go to Tags page](https://github.com/ddd-crew/ddd-starter-modelling-process/tags)
+
+Go to file
+
+Code
+
+Open more actions menu
+
+## Latest commit
+
+[![yellowbrickc](https://avatars.githubusercontent.com/u/9782965?v=4&size=40)](https://github.com/yellowbrickc)[yellowbrickc](https://github.com/ddd-crew/ddd-starter-modelling-process/commits?author=yellowbrickc)
+
+[Update README.md](https://github.com/ddd-crew/ddd-starter-modelling-process/commit/1eff6def298d4212ceaf297e00970b0505347b5a)
+
+success
+
+2 months agoAug 23, 2026
+
+[1eff6de](https://github.com/ddd-crew/ddd-starter-modelling-process/commit/1eff6def298d4212ceaf297e00970b0505347b5a) · 2 months agoAug 23, 2026
+
+## History
+
+[139 Commits](https://github.com/ddd-crew/ddd-starter-modelling-process/commits/main/)
+
+Open commit details
+
+[View commit history for this file.](https://github.com/ddd-crew/ddd-starter-modelling-process/commits/main/) 139 Commits
+
+## Folders and files
+
+| Name | Name | Last commit message | Last commit date |
+| --- | --- | --- | --- |
+| [case-studies](https://github.com/ddd-crew/ddd-starter-modelling-process/tree/main/case-studies "case-studies") | [case-studies](https://github.com/ddd-crew/ddd-starter-modelling-process/tree/main/case-studies "case-studies") | [add up korean translation by jpkim](https://github.com/ddd-crew/ddd-starter-modelling-process/commit/7c879f51b956f568e26b0bffef5ae4247db95216 "add up korean translation by jpkim") | 10 months agoDec 31, 2025 |
+| [resources](https://github.com/ddd-crew/ddd-starter-modelling-process/tree/main/resources "resources") | [resources](https://github.com/ddd-crew/ddd-starter-modelling-process/tree/main/resources "resources") | [Replace starter kit image with one matching the labels. (](https://github.com/ddd-crew/ddd-starter-modelling-process/commit/c25bd24a5ff2a9edcba662e6c052807409f208e1 "Replace starter kit image with one matching the labels.  (#70)") [#70](https://github.com/ddd-crew/ddd-starter-modelling-process/pull/70) [)](https://github.com/ddd-crew/ddd-starter-modelling-process/commit/c25bd24a5ff2a9edcba662e6c052807409f208e1 "Replace starter kit image with one matching the labels.  (#70)") | 10 months agoDec 28, 2025 |
+| [translations](https://github.com/ddd-crew/ddd-starter-modelling-process/tree/main/translations "translations") | [translations](https://github.com/ddd-crew/ddd-starter-modelling-process/tree/main/translations "translations") | [docs(pt-br): link related resources in Portuguese](https://github.com/ddd-crew/ddd-starter-modelling-process/commit/a5637dc38c6b1a4b313df8313c9ecc71d198eb2e "docs(pt-br): link related resources in Portuguese") | 2 months agoAug 3, 2026 |
+| [.gitignore](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/.gitignore ".gitignore") | [.gitignore](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/.gitignore ".gitignore") | [#34](https://github.com/ddd-crew/ddd-starter-modelling-process/issues/34) [Prepare the structure for case-studies](https://github.com/ddd-crew/ddd-starter-modelling-process/commit/725d0206aa477d1bd60d1c1cc4e88be93842d8e3 "#34 Prepare the structure for case-studies") | 3 years agoDec 27, 2023 |
+| [LICENCE.md](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/LICENCE.md "LICENCE.md") | [LICENCE.md](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/LICENCE.md "LICENCE.md") | [initial project with licence and readme](https://github.com/ddd-crew/ddd-starter-modelling-process/commit/a4408ac15b4ce815e19af7d5a0a3d76b10c3fab9 "initial project with licence and readme") | 6 years agoMay 7, 2020 |
+| [README.md](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/README.md "README.md") | [README.md](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/README.md "README.md") | [Update README.md](https://github.com/ddd-crew/ddd-starter-modelling-process/commit/1eff6def298d4212ceaf297e00970b0505347b5a "Update README.md") | 2 months agoAug 23, 2026 |
+| [\_config.yml](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/_config.yml "_config.yml") | [\_config.yml](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/_config.yml "_config.yml") | [Remove obsolete jekyll-config file](https://github.com/ddd-crew/ddd-starter-modelling-process/commit/6ff8454bc9e904fbf6164665323229852f144865 "Remove obsolete jekyll-config file") | 3 years agoDec 27, 2023 |
+| View all files |
+
+## Repository files navigation
+
+# Domain-Driven Design Starter Modelling Process
+
+[Permalink: Domain-Driven Design Starter Modelling Process](https://github.com/ddd-crew/ddd-starter-modelling-process#domain-driven-design-starter-modelling-process)
+
+This process gives you a step-by-step guide for learning and practically applying each aspect of Domain-Driven Design (DDD) - from orienting around an organisation's business model to coding a domain model.
+
+Using this process will guide you through each of the essential steps in designing a software system with the DDD mindset, so you can focus on your business challenges and not be overwhelmed by learning DDD at the same time.
+
+Once you have been through a few iterations of the process you will have the foundational DDD theory and practical experience to go deeper into DDD. Then you will be able to adapt and improve the process to suit your needs in any context. On a real project you'll often be jumping back and forth between these steps.
+
+> This process is for beginners. It is not a linear sequence of steps that you should standardise as a best practice. Domain-Driven Design is an evolutionary design process which necessitates continuous iteration on all aspects of knowledge and design.
+
+[![DDD Starter Modelling Process](https://github.com/ddd-crew/ddd-starter-modelling-process/raw/main/resources/ddd-crew-modeling-process--cirlces-feed-each-other.svg)](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/resources/ddd-crew-modeling-process--cirlces-feed-each-other.svg)
+
+**Navigation:**
+
+- [Domain-Driven Design Starter Modelling Process](https://github.com/ddd-crew/ddd-starter-modelling-process#domain-driven-design-starter-modelling-process)
+  - [When to use the DDD Starter Modelling Process?](https://github.com/ddd-crew/ddd-starter-modelling-process#when-to-use-the-ddd-starter-modelling-process)
+    - [Kicking Off a Greenfield Project](https://github.com/ddd-crew/ddd-starter-modelling-process#kicking-off-a-greenfield-project)
+    - [Beginning a Brownfield Migration](https://github.com/ddd-crew/ddd-starter-modelling-process#beginning-a-brownfield-migration)
+    - [Kicking Off a Major Program of Work](https://github.com/ddd-crew/ddd-starter-modelling-process#kicking-off-a-major-program-of-work)
+    - [Explore Your Domain for New Learning Opportunities](https://github.com/ddd-crew/ddd-starter-modelling-process#explore-your-domain-for-new-learning-opportunities)
+    - [Assess Current State of Your Project](https://github.com/ddd-crew/ddd-starter-modelling-process#assess-current-state-of-your-project)
+    - [Re-organising Teams](https://github.com/ddd-crew/ddd-starter-modelling-process#re-organising-teams)
+    - [Practicing or Learning DDD](https://github.com/ddd-crew/ddd-starter-modelling-process#practicing-or-learning-ddd)
+  - [How to Adapt the Process?](https://github.com/ddd-crew/ddd-starter-modelling-process#how-to-adapt-the-process)
+    - [Start with Collaborative Modelling](https://github.com/ddd-crew/ddd-starter-modelling-process#start-with-collaborative-modelling)
+    - [Start by Assessing IT Landscape](https://github.com/ddd-crew/ddd-starter-modelling-process#start-by-assessing-it-landscape)
+    - [Code Before Confirming Architecture and Team Boundaries](https://github.com/ddd-crew/ddd-starter-modelling-process#code-before-confirming-architecture-and-team-boundaries)
+    - [Repeat Steps 2 (Discover) - 6 (Organise) Before Moving to 7 (Define)](https://github.com/ddd-crew/ddd-starter-modelling-process#repeat-steps-2-discover---6-organise-before-moving-to-7-define)
+    - [Organise Teams Before Designing Contexts](https://github.com/ddd-crew/ddd-starter-modelling-process#organise-teams-before-designing-contexts)
+    - [Blending Definition and Coding](https://github.com/ddd-crew/ddd-starter-modelling-process#blending-definition-and-coding)
+  - [The Process](https://github.com/ddd-crew/ddd-starter-modelling-process#the-process)
+    - [Understand](https://github.com/ddd-crew/ddd-starter-modelling-process#understand)
+      - [Tools](https://github.com/ddd-crew/ddd-starter-modelling-process#tools)
+      - [Who to Involve](https://github.com/ddd-crew/ddd-starter-modelling-process#who-to-involve)
+    - [Discover](https://github.com/ddd-crew/ddd-starter-modelling-process#discover)
+      - [Tools](https://github.com/ddd-crew/ddd-starter-modelling-process#tools-1)
+      - [Who to Involve](https://github.com/ddd-crew/ddd-starter-modelling-process#who-to-involve-1)
+    - [Decompose](https://github.com/ddd-crew/ddd-starter-modelling-process#decompose)
+      - [Tools](https://github.com/ddd-crew/ddd-starter-modelling-process#tools-2)
+      - [Who to Involve](https://github.com/ddd-crew/ddd-starter-modelling-process#who-to-involve-2)
+    - [Strategize](https://github.com/ddd-crew/ddd-starter-modelling-process#strategize)
+      - [Tools/Resources](https://github.com/ddd-crew/ddd-starter-modelling-process#toolsresources)
+      - [Who to Involve](https://github.com/ddd-crew/ddd-starter-modelling-process#who-to-involve-3)
+    - [Connect](https://github.com/ddd-crew/ddd-starter-modelling-process#connect)
+      - [Tools](https://github.com/ddd-crew/ddd-starter-modelling-process#tools-3)
+      - [Who to Involve](https://github.com/ddd-crew/ddd-starter-modelling-process#who-to-involve-4)
+    - [Organise](https://github.com/ddd-crew/ddd-starter-modelling-process#organise)
+      - [Tools](https://github.com/ddd-crew/ddd-starter-modelling-process#tools-4)
+      - [Who to Involve](https://github.com/ddd-crew/ddd-starter-modelling-process#who-to-involve-5)
+    - [Define](https://github.com/ddd-crew/ddd-starter-modelling-process#define)
+      - [Tools](https://github.com/ddd-crew/ddd-starter-modelling-process#tools-5)
+      - [Who to Involve](https://github.com/ddd-crew/ddd-starter-modelling-process#who-to-involve-6)
+    - [Code](https://github.com/ddd-crew/ddd-starter-modelling-process#code)
+      - [Tools](https://github.com/ddd-crew/ddd-starter-modelling-process#tools-6)
+      - [Who to Involve](https://github.com/ddd-crew/ddd-starter-modelling-process#who-to-involve-7)
+    - [How the DDD Starter Modelling Process relates to the Whirlpool Process](https://github.com/ddd-crew/ddd-starter-modelling-process#how-the-ddd-starter-modelling-process-relates-to-the-whirlpool-process)
+  - [Translations](https://github.com/ddd-crew/ddd-starter-modelling-process#translations)
+  - [Contributors](https://github.com/ddd-crew/ddd-starter-modelling-process#contributors)
+  - [Contributions and Feedback](https://github.com/ddd-crew/ddd-starter-modelling-process#contributions-and-feedback)
+
+## When to use the DDD Starter Modelling Process?
+
+[Permalink: When to use the DDD Starter Modelling Process?](https://github.com/ddd-crew/ddd-starter-modelling-process#when-to-use-the-ddd-starter-modelling-process)
+
+If you're new to DDD or just not sure where to start, this process can reduce your cognitive load. It will guide you through following scenarios, and possibly others:
+
+### Kicking Off a Greenfield Project
+
+[Permalink: Kicking Off a Greenfield Project](https://github.com/ddd-crew/ddd-starter-modelling-process#kicking-off-a-greenfield-project)
+
+At the start of a new project the number of things you need to think about can be overwhelming. One or two iterations of this process can help you put the foundations in place.
+
+### Beginning a Brownfield Migration
+
+[Permalink: Beginning a Brownfield Migration](https://github.com/ddd-crew/ddd-starter-modelling-process#beginning-a-brownfield-migration)
+
+Before getting to work on modernising your legacy system, a few iterations of this process can help you to uncover essential information needed to create a vision for your target architecture.
+
+### Kicking Off a Major Program of Work
+
+[Permalink: Kicking Off a Major Program of Work](https://github.com/ddd-crew/ddd-starter-modelling-process#kicking-off-a-major-program-of-work)
+
+When starting a new initiative involves a significant investment across many teams, it is essential to cover the 8 steps in the process. This process can guide you through the first few iterations.
+
+### Explore Your Domain for New Learning Opportunities
+
+[Permalink: Explore Your Domain for New Learning Opportunities](https://github.com/ddd-crew/ddd-starter-modelling-process#explore-your-domain-for-new-learning-opportunities)
+
+Software development is a learning process. You can apply the DDD Starter Modelling Process at any time to uncover new insights, identify new opportunities, or simply share knowledge around the team.
+
+### Assess Current State of Your Project
+
+[Permalink: Assess Current State of Your Project](https://github.com/ddd-crew/ddd-starter-modelling-process#assess-current-state-of-your-project)
+
+This process can be the foundation for assessing how well your current system is aligned to the domain and business model.
+
+### Re-organising Teams
+
+[Permalink: Re-organising Teams](https://github.com/ddd-crew/ddd-starter-modelling-process#re-organising-teams)
+
+A loosely-coupled architecture enables teams to work in parallel without being blocked. A loosely-coupled architecture also must be aligned to coupling in the domain. This process will help you to design a software architecture, and a team structure aligned with your domain.
+
+### Practicing or Learning DDD
+
+[Permalink: Practicing or Learning DDD](https://github.com/ddd-crew/ddd-starter-modelling-process#practicing-or-learning-ddd)
+
+This process is ideal when you are new to DDD and want to practice, or you want to teach others the different aspects of modelling a domain. It's important to communicate that this linear process is not a realistic process. It's just a starting point to reduce cognitive load until you are confident with DDD.
+
+If you want to try it out yourself, colleagues at SAP have created a [DDD Kata](https://github.com/SAP/curated-resources-for-domain-driven-design/blob/main/ddd-kata.md) to educate teams, how to apply the DDD Modelling Process in your team. Based upon a set of requirements, you can try out how EventStorming, Domain Message Flow, Bounded Context Canvas and Aggregate Canvas work together and help you to validate your design decisions.
+
+## How to Adapt the Process?
+
+[Permalink: How to Adapt the Process?](https://github.com/ddd-crew/ddd-starter-modelling-process#how-to-adapt-the-process)
+
+This process can be customised in many ways. On a real project, you'll be switching between all 8 steps based on the new insights you gain or need to gain.
+
+Below are a few reasons for deciding when to change the order or switch between steps.
+
+### Start with Collaborative Modelling
+
+[Permalink: Start with Collaborative Modelling](https://github.com/ddd-crew/ddd-starter-modelling-process#start-with-collaborative-modelling)
+
+If you want to get your whole team collaborating immediately, modelling the domain which they are familiar with might be more comfortable than talking about business models and strategy which they are less comfortable with.
+
+### Start by Assessing IT Landscape
+
+[Permalink: Start by Assessing IT Landscape](https://github.com/ddd-crew/ddd-starter-modelling-process#start-by-assessing-it-landscape)
+
+Before looking forward to the business vision and going deep into the domain, it might be better to visualise the existing architecture first. Start with step 5 and map out your strategic portfolio to see what the major constraints you will face are.
+
+### Code Before Confirming Architecture and Team Boundaries
+
+[Permalink: Code Before Confirming Architecture and Team Boundaries](https://github.com/ddd-crew/ddd-starter-modelling-process#code-before-confirming-architecture-and-team-boundaries)
+
+On some projects it makes sense to start by writing code sooner. Perhaps you need to deliver an MVP or the domain is so complex that creating a model in code is necessary before you can consider the architecture.
+
+### Repeat Steps 2 (Discover) - 6 (Organise) Before Moving to 7 (Define)
+
+[Permalink: Repeat Steps 2 (Discover) - 6 (Organise) Before Moving to 7 (Define)](https://github.com/ddd-crew/ddd-starter-modelling-process#repeat-steps-2-discover---6-organise-before-moving-to-7-define)
+
+Before you dive into the definition of individual bounded contexts, it may be beneficial to model the domain multiple times and look for different ways to decompose your system into sub-domains and teams.
+
+### Organise Teams Before Designing Contexts
+
+[Permalink: Organise Teams Before Designing Contexts](https://github.com/ddd-crew/ddd-starter-modelling-process#organise-teams-before-designing-contexts)
+
+For a great deal of projects there are organisational constraints that we need to take into account. If this is the case, you should consider identifying possible team structures before designing architectures that you will never be able to implement.
+
+### Blending Definition and Coding
+
+[Permalink: Blending Definition and Coding](https://github.com/ddd-crew/ddd-starter-modelling-process#blending-definition-and-coding)
+
+Steps 7 (Define) and 8 (Code) can occur concurrently. This may happen when you are coding a bounded context, and the insights you get from writing code make you change the high-level design.
+
+## The Process
+
+[Permalink: The Process](https://github.com/ddd-crew/ddd-starter-modelling-process#the-process)
+
+The modelling process is composed of 8 steps which are introduced below.
+
+A good talk that gives an overview of the process in the context of typical phases of designing sociotechnical architectures is ["Sociotechnical Architecture: co-designing technical & organizational architecture to maximize impact"](https://www.youtube.com/watch?v=ekMPm78KFj0&feature=youtu.be&t=1820) by [Eduardo da Silva](https://twitter.com/emgsilva). Eduardo groups the activities of the process and its 8 steps in [four distinct phases](https://speakerdeck.com/emgsilva/intro-to-sociotechnical-architecture-co-designing-technical-and-organizational-architecture-to-maximize-impact?slide=31), namely:
+
+1. Align & Understand
+2. Strategic Architecture
+3. Strategy & Org Design
+4. Tactical Architecture.
+
+### Understand
+
+[Permalink: Understand](https://github.com/ddd-crew/ddd-starter-modelling-process#understand)
+
+Align our focus with the organisation's business model, the needs of its users, and its short, medium, and long-term goals.
+
+Every decision we take regarding the architecture, the code, or the organisation has business and user consequences. In order to design, build, and evolve software systems most effectively, our decisions need to create the optimal business impact, which can only be achieved if we are aligned to the business goals, as well as supporting the users current and potential future needs.
+
+Badly designed architecture and/or boundaries can have a negative impact or even make it impossible to achieve these goals.
+
+As a starting point, we recommend [The Business Model Canvas](https://www.strategyzer.com/canvas/business-model-canvas) for the business perspective, [User Story Mapping](https://www.jpattonassociates.com/user-story-mapping/) for understanding the user vantage point.
+
+[![The Business Model Canvas](https://github.com/ddd-crew/ddd-starter-modelling-process/raw/main/resources/business-model-canvas.png)](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/resources/business-model-canvas.png)
+
+#### Tools
+
+[Permalink: Tools](https://github.com/ddd-crew/ddd-starter-modelling-process#tools)
+
+- [Impact Mapping](https://www.impactmapping.org/)
+- [The Business Model Canvas](https://www.strategyzer.com/canvas/business-model-canvas)
+- [The Product Strategy Canvas](https://melissaperri.com/blog/2016/07/14/what-is-good-product-strategy)
+- [Wardley Mapping](https://learnwardleymapping.com/)
+- [User Story Mapping](https://www.jpattonassociates.com/user-story-mapping/)
+
+#### Who to Involve
+
+[Permalink: Who to Involve](https://github.com/ddd-crew/ddd-starter-modelling-process#who-to-involve)
+
+- People who design, build, test software
+- People who have domain knowledge
+- People who understand the product and business strategy
+- Real end users, not only their representatives in your organisation
+
+### Discover
+
+[Permalink: Discover](https://github.com/ddd-crew/ddd-starter-modelling-process#discover)
+
+Discover the domain visually and collaboratively.
+
+This is the most crucial aspect of DDD. You cannot skip discovery. If your whole team doesn't build up a good understanding of the domain, all software decisions will be misguided.
+
+Spreading domain knowledge through the whole team will create a shared understanding. It enables the developers to build a software system aligned to the domain which can be more flexible to incorporate future business changes.
+
+Ensuring that domain knowledge is spread across the whole team enables its members to contribute with ideas for improving the product.
+
+> #### Discovery is Continuous
+>
+> [Permalink: Discovery is Continuous](https://github.com/ddd-crew/ddd-starter-modelling-process#discovery-is-continuous)
+>
+> Teams who are successful with DDD are practicing discovery techniques on a frequent basis. There is always more to learn about the domain.
+>
+> When first attempting discovery, a facilitator who is experienced with techniques like EventStorming can help a team to see the true benefits of discovery beyond a superficial level.
+>
+> We strongly encourage you to check out [Visual Collaboration Tools](https://leanpub.com/visualcollaborationtools).
+
+As a starting point, we recommend [EventStorming](https://www.eventstorming.com/).
+
+[![EventStorming](https://github.com/ddd-crew/ddd-starter-modelling-process/raw/main/resources/event_storming.jpeg)](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/resources/event_storming.jpeg)
+
+#### Tools
+
+[Permalink: Tools](https://github.com/ddd-crew/ddd-starter-modelling-process#tools-1)
+
+- [Domain Storytelling](https://domainstorytelling.org/)
+- [Example Mapping](https://cucumber.io/blog/bdd/example-mapping-introduction/)
+- [EventStorming](https://www.eventstorming.com/)
+- [User Journey Mapping](https://boagworld.com/audio/customer-journey-mapping/)
+- [User Story Mapping](https://www.jpattonassociates.com/user-story-mapping/)
+
+#### Who to Involve
+
+[Permalink: Who to Involve](https://github.com/ddd-crew/ddd-starter-modelling-process#who-to-involve-1)
+
+- People who design, build, test software
+- People who have domain knowledge
+- People who understand product and business strategy
+- People who understand the customers' needs and problems
+- Real end users
+
+### Decompose
+
+[Permalink: Decompose](https://github.com/ddd-crew/ddd-starter-modelling-process#decompose)
+
+Decompose the domain into sub-domains - loosely-coupled parts of the domain.
+
+We decompose a large problem domain into sub-domains for a few key reasons:
+
+- reduced cognitive load, so that we can reason about parts of the domain independently,
+- give development teams autonomy, so that they can work on separate parts of the solution,
+- identifying loose-coupling and high-cohesion in the domain which carries over to our software architecture and team structure.
+
+As a starting point, we recommend carving up your event storm into sub-domains and [Context Maps](https://speakerdeck.com/mploed/visualizing-sociotechnical-architectures-with-context-maps).
+
+[![Sub-domains on an EventStorm](https://github.com/ddd-crew/ddd-starter-modelling-process/raw/main/resources/event_storm_sub_domains.png)](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/resources/event_storm_sub_domains.png)_Credit: Alberto Brandolini_
+
+#### Tools
+
+[Permalink: Tools](https://github.com/ddd-crew/ddd-starter-modelling-process#tools-2)
+
+- [Business Capability Modelling](https://www.slideshare.net/trondhr/from-capabilities-to-services-modelling-for-businessit-alignment-v2)
+- [Design Heuristics](https://www.dddheuristics.com/)
+- [EventStorming with sub-domains](https://www.eventstorming.com/)
+- [Independent Service Heuristics](https://github.com/TeamTopologies/Independent-Service-Heuristics)
+- [Visualising Sociotechnical Architecture with Context Maps](https://speakerdeck.com/mploed/visualizing-sociotechnical-architectures-with-context-maps)
+
+#### Who to Involve
+
+[Permalink: Who to Involve](https://github.com/ddd-crew/ddd-starter-modelling-process#who-to-involve-2)
+
+- People who design, build, test software
+- People who have domain knowledge
+
+### Strategize
+
+[Permalink: Strategize](https://github.com/ddd-crew/ddd-starter-modelling-process#strategize)
+
+Strategically map out your sub-domains to identify core domains: the parts of the domain which have the greatest potential for business differentiation or strategic significance.
+
+Time and resources are limited, so understanding which parts of the domain to focus on is critical to delivering optimal business impact.
+
+By analysing what your core domains are, you will have a better idea of how much quality and rigour is required to build each part of your system, and you'll be able to make highly-educated build vs buy vs outsource decisions.
+
+As a starting point, we recommend [Core Domain Charts](https://github.com/ddd-crew/core-domain-charts).
+
+[![Core Domain Charts](https://github.com/ddd-crew/ddd-starter-modelling-process/raw/main/resources/core-domain-chart.jpg)](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/resources/core-domain-chart.jpg)
+
+#### Tools/Resources
+
+[Permalink: Tools/Resources](https://github.com/ddd-crew/ddd-starter-modelling-process#toolsresources)
+
+- [Core Domain Charts](https://github.com/ddd-crew/core-domain-charts)
+- [Purpose Alignment Model](https://web.archive.org/web/20241202160527/https://www.informit.com/articles/article.aspx?p=1384195&seqNum=2)
+- [Wardley Mapping](https://learnwardleymapping.com/)
+- [Revisiting the Basics of Domain-Driven Design](https://vladikk.com/2018/01/26/revisiting-the-basics-of-ddd/)
+
+#### Who to Involve
+
+[Permalink: Who to Involve](https://github.com/ddd-crew/ddd-starter-modelling-process#who-to-involve-3)
+
+- People who understand product and business strategy
+- People who design, build, test software
+- People who have domain knowledge
+
+### Connect
+
+[Permalink: Connect](https://github.com/ddd-crew/ddd-starter-modelling-process#connect)
+
+Connect the sub-domains into a loosely-coupled architecture which fulfills end-to-end business use-cases.
+
+It is imperative to not only decompose a large domain into parts but to also carefully design the interactions between those parts to minimise unwanted coupling and complexity. It is necessary to challenge the initial design by applying concrete use-cases to uncover hidden complexity.
+
+As a starting point, we recommend [Domain Message Flow Modelling](https://github.com/ddd-crew/domain-message-flow-modelling).
+
+[![Domain Message Flow Modelling](https://github.com/ddd-crew/ddd-starter-modelling-process/raw/main/resources/domain-message-flow.jpg)](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/resources/domain-message-flow.jpg)
+
+#### Tools
+
+[Permalink: Tools](https://github.com/ddd-crew/ddd-starter-modelling-process#tools-3)
+
+- [Business Process Model and Notation](https://en.wikipedia.org/wiki/Business_Process_Model_and_Notation)
+- [Domain Message Flow Modelling](https://github.com/ddd-crew/domain-message-flow-modelling)
+- [Process Modelling EventStorming](https://www.eventstorming.com/)
+- [Sequence Diagrams](https://en.wikipedia.org/wiki/Sequence_diagram)
+
+#### Who to Involve
+
+[Permalink: Who to Involve](https://github.com/ddd-crew/ddd-starter-modelling-process#who-to-involve-4)
+
+- People who design, build, test software
+- People who have domain knowledge
+
+### Organise
+
+[Permalink: Organise](https://github.com/ddd-crew/ddd-starter-modelling-process#organise)
+
+Organise autonomous teams that are optimised for fast flow and aligned with context boundaries.
+
+Teams need to be organised to have autonomy, clear goals and sense of purpose. In order to do that we need to take into account organisational constraints, so that teams organise themselves for fast flow.
+
+> #### Team Self-organisation
+>
+> [Permalink: Team Self-organisation](https://github.com/ddd-crew/ddd-starter-modelling-process#team-self-organisation)
+>
+> Organisation is not something that is done to teams, rather teams should be involved in the process of defining their boundaries, interactions, and responsibilities.
+>
+> Some companies like Red Gate Software empower and trust their teams to [fully organise themselves](https://medium.com/ingeniouslysimple/how-redgate-ran-its-first-team-self-selection-process-4bfac721ae2).
+
+We can optimise how people collaborate with each other if we align teams with context boundaries. In order to right-size the teams we need to take into account available talent, cognitive load, communication overhead, and bus factor.
+
+As a starting point, we recommend visualising sociotechnical architecture with the [Context Maps](https://speakerdeck.com/mploed/visualizing-sociotechnical-architectures-with-context-maps). A brief overview of the most important patterns can be found under the [context-mapping](https://github.com/ddd-crew/context-mapping) GitHub Project.
+
+[![Context Map](https://github.com/ddd-crew/ddd-starter-modelling-process/raw/main/resources/context-map-cheat-sheet.png)](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/resources/context-map-cheat-sheet.png)_Credit: Michael Plöd_
+
+#### Tools
+
+[Permalink: Tools](https://github.com/ddd-crew/ddd-starter-modelling-process#tools-4)
+
+- [Dynamic Reteaming](https://leanpub.com/dynamicreteaming)
+- [Explorers, Villagers & Town Planners](https://medium.com/mappingpractice/how-to-organise-yourself-f36f084a611b)
+- [Team Topologies](https://teamtopologies.com/)
+- [Visualising Sociotechnical Architecture with Context Maps](https://speakerdeck.com/mploed/visualizing-sociotechnical-architectures-with-context-maps)
+
+#### Who to Involve
+
+[Permalink: Who to Involve](https://github.com/ddd-crew/ddd-starter-modelling-process#who-to-involve-5)
+
+- People who design, build, test software
+- People who have domain knowledge
+- People who understand the product and business strategy
+
+### Define
+
+[Permalink: Define](https://github.com/ddd-crew/ddd-starter-modelling-process#define)
+
+Define the roles and responsibilities of each [bounded context](https://martinfowler.com/bliki/BoundedContext.html).
+
+Before committing to a design, make explicit decisions about the choices which can have a significant impact on the overall design. Have these conversations early while it is still easy to change your mind and explore alternative models.
+
+Design collaboratively and visually, and start to consider the technical limitations so that you can uncover constraints or opportunities.
+
+As a starting point, we recommend the [Bounded Context Canvas](https://github.com/ddd-crew/bounded-context-canvas).
+
+[![Bounded Context Canvas](https://github.com/ddd-crew/ddd-starter-modelling-process/raw/main/resources/bounded-context-canvas-v5.jpg)](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/resources/bounded-context-canvas-v5.jpg)
+
+#### Tools
+
+[Permalink: Tools](https://github.com/ddd-crew/ddd-starter-modelling-process#tools-5)
+
+- [Bounded Context Canvas](https://github.com/ddd-crew/bounded-context-canvas)
+- [C4 System Context Diagram](https://c4model.com/#SystemContextDiagram)
+- [Quality Storming](https://speakerdeck.com/mploed/quality-storming)
+
+#### Who to Involve
+
+[Permalink: Who to Involve](https://github.com/ddd-crew/ddd-starter-modelling-process#who-to-involve-6)
+
+- People who design, build, test software
+- People who have domain knowledge
+- People who are responsible for the product
+
+### Code
+
+[Permalink: Code](https://github.com/ddd-crew/ddd-starter-modelling-process#code)
+
+Code the domain model.
+
+Aligning the code to the domain makes it easier to change the code when the domain changes. By collaboratively modelling the problem space with experts, the developers have a chance to learn about the domain and minimise misunderstandings.
+
+As a starting point, we recommend the [Aggregate Design Canvas](https://github.com/ddd-crew/aggregate-design-canvas).
+
+[![Aggregate Design Canvas](https://github.com/ddd-crew/ddd-starter-modelling-process/raw/main/resources/aggregate-design-canvas-v1.jpg)](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/resources/aggregate-design-canvas-v1.jpg)
+
+#### Tools
+
+[Permalink: Tools](https://github.com/ddd-crew/ddd-starter-modelling-process#tools-6)
+
+- [Aggregate Design Canvas](https://github.com/ddd-crew/aggregate-design-canvas)
+- [C4 Component Diagrams](https://c4model.com/#ComponentDiagram)
+- [Design-Level EventStorming](https://www.eventstorming.com/)
+- [Event Modeling](https://eventmodeling.org/posts/what-is-event-modeling/)
+- [Hexagonal Architecture](https://en.wikipedia.org/wiki/Hexagonal_architecture_(software))
+- [Mob Programming](https://mobprogramming.org/)
+- [Model Exploration Whirlpool](https://domainlanguage.com/ddd/whirlpool/)
+- [Onion Architecture](https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/)
+- [Unified Modelling Language](https://en.wikipedia.org/wiki/Unified_Modeling_Language)
+
+#### Who to Involve
+
+[Permalink: Who to Involve](https://github.com/ddd-crew/ddd-starter-modelling-process#who-to-involve-7)
+
+- People who design, build, test software
+
+### How the DDD Starter Modelling Process relates to the Whirlpool Process
+
+[Permalink: How the DDD Starter Modelling Process relates to the Whirlpool Process](https://github.com/ddd-crew/ddd-starter-modelling-process#how-the-ddd-starter-modelling-process-relates-to-the-whirlpool-process)
+
+Some of you might have noticed some similarities with Eric Evans' [Whirlpool Process](https://www.domainlanguage.com/ddd/whirlpool/). And indeed, both are guides and not rigid best-practices. They're also both continuous and iterative.
+
+But the DDD Starter Modelling Process covers more than the Whirlpool process by aiming at building a socio-technical architecture.
+
+The picture below shows a possible overlap between the two processes.
+
+[![WhirlpoolVSStarter](https://github.com/ddd-crew/ddd-starter-modelling-process/raw/main/resources/ENWhirlpoolVSStarter.jpg)](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/resources/ENWhirlpoolVSStarter.jpg)
+
+Needless to say that Eric Evan's Whirlpool process remains totally relevant today and gives people highly valuable insights and guidance on how to explore models.
+
+## Translations
+
+[Permalink: Translations](https://github.com/ddd-crew/ddd-starter-modelling-process#translations)
+
+- [Spanish visual resources](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/translations/es/resources)
+- [French visual resources](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/translations/fr/resources)
+- [Italian visual resources](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/translations/it/resources)
+- [Korean visual resources](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/translations/kr/resources)
+- [Brazilian Portuguese (pt-BR) documentation](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/translations/pt-br/README.md)
+- [Taiwanese (zh-TW) documentation](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/translations/zh-tw/README.md)
+
+## Contributors
+
+[Permalink: Contributors](https://github.com/ddd-crew/ddd-starter-modelling-process#contributors)
+
+Thanks to all [existing and future contributors](https://github.com/ddd-crew/ddd-starter-modelling-process/graphs/contributors) and to the following individuals who have all contributed to the DDD Starter Modelling Process:
+
+- [Ciaran McNulty](https://github.com/ciaranmcnulty)
+- [Eduardo da Silva](https://github.com/emgsilva)
+- [Gien Verschatse](https://github.com/selketjah)
+- [James Morcom](https://github.com/morcs)
+- [Maxime Sanglan-Charlier](https://github.com/Max-Git)
+- [Javiera Javichi](https://github.com/javujavichi)
+
+## Contributions and Feedback
+
+[Permalink: Contributions and Feedback](https://github.com/ddd-crew/ddd-starter-modelling-process#contributions-and-feedback)
+
+The Domain-Driven Design Starter Modelling Process is freely available for you to use. In addition, your feedback and ideas are welcome to improve the technique or to create alternative versions.
+
+If you have questions you can ping us or open an [Issue](https://github.com/ddd-crew/ddd-starter-modelling-process/issues/new/choose).
+
+Feel free to also send us pull requests with your [case studies](https://github.com/ddd-crew/ddd-starter-modelling-process/blob/main/case-studies).
+
+[![CC BY 4.0](https://camo.githubusercontent.com/59896db2b47e60cf6b6cdd3af4bc9ec3e8d290389a9d3ce7cdb95a955e9d0923/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c6963656e73652d43432532304259253230342e302d6c69676874677265792e737667)](http://creativecommons.org/licenses/by/4.0/)
+
+This work is licensed under a [Creative Commons Attribution 4.0 International\\
+License](http://creativecommons.org/licenses/by/4.0/).
+
+[![CC BY 4.0](https://camo.githubusercontent.com/dde62adfa88dac8de0fd193fd531088d21a3b388e69f6eb17dfa6294dbc4bdef/68747470733a2f2f692e6372656174697665636f6d6d6f6e732e6f72672f6c2f62792f342e302f38387833312e706e67)](http://creativecommons.org/licenses/by/4.0/)
+
+## About
+
+If you're new to DDD and not sure where to start, this process will guide you step-by-step
+
+### Topics
+
+[domain-driven-design](https://github.com/topics/domain-driven-design)
+
+### Resources
+
+[Readme](https://github.com/ddd-crew/ddd-starter-modelling-process#readme-ov-file)
+
+[CC-BY-SA-4.0 license](https://github.com/ddd-crew/ddd-starter-modelling-process#CC-BY-SA-4.0-1-ov-file)
+
+[Activity](https://github.com/ddd-crew/ddd-starter-modelling-process/activity)
+
+[Custom properties](https://github.com/ddd-crew/ddd-starter-modelling-process/custom-properties)
+
+### Stars
+
+**6.1k** stars
+
+### Watchers
+
+**173** watching
+
+### Forks
+
+[**572** forks](https://github.com/ddd-crew/ddd-starter-modelling-process/forks)
+
+[Report repository](https://github.com/contact/report-content?content_url=https%3A%2F%2Fgithub.com%2Fddd-crew%2Fddd-starter-modelling-process&report=ddd-crew+%28user%29)
+
+## Releases
+
+## Packages
+
+## Contributors
+
+You can’t perform that action at this time.

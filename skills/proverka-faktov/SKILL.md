@@ -68,7 +68,7 @@ PY
   "url": "https://docs.aws.amazon.com/eks/latest/userguide/...",
   "title": "Amazon EKS — что это",
   "quotes": [
-    "Amazon EKS is a managed Kubernetes service that makes it easier to run Kubernetes on AWS."
+    {"text": "Amazon EKS is a managed Kubernetes service that makes it easier to run Kubernetes on AWS."}
   ]
 }
 ```
@@ -89,6 +89,10 @@ VPC CNI выдаёт поду настоящий IP из VPC, а не адрес
 Номера в списке совпадают с номерами, реально встречающимися в тексте.
 
 ### 5. Проверить
+
+Где хранить: банк источников — `src/quotes.json`, текст страницы —
+`src/evidence/<имя>.txt`, связь между ними — `src/evidence-map.json`. Всё
+в репозитории, поэтому проверка работает на любой машине и в CI.
 
 ```bash
 python tools/lint_book.py --book <slug>       # номера разрешаются, ссылки не висят

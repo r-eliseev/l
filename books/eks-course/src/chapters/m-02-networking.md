@@ -80,11 +80,11 @@ spec:
 EC2 свой лимит интерфейсов и адресов на интерфейс. По умолчанию:
 
 ```
-макс. подов = ENI × (IP на ENI − 1) + 2
+макс. подов = ENI × (IP на ENI − 1) + 2[5]
 ```
 
-Для `m5.large` (3 ENI, 10 IP на ENI) это 3 × 9 + 2 = **29 подов**. В kind такого
-ограничения нет: там лимит обычный, около 110 подов.
+Для `m5.large` (3 ENI, 10 IP на ENI) это 3 × 9 + 2 = **29 подов**[6]. В kind такого
+ограничения нет: там лимит обычный, около 110 подов.[33]
 
 Посмотреть лимиты типа инстанса:
 
@@ -96,13 +96,13 @@ aws ec2 describe-instance-types --instance-types m5.large \
 ### Как увеличить число подов и сэкономить адреса
 
 - **Prefix delegation** (`ENABLE_PREFIX_DELEGATION=true`). Вместо отдельных IP
-  интерфейсу выдаются блоки по 16 адресов (/28). Подов на ноду становится
+  интерфейсу выдаются блоки по 16 адресов (/28).[7] Подов на ноду становится
   намного больше. Нужны Nitro-инстансы и достаточно свободных непрерывных
   блоков в подсети, иначе будет ошибка `InsufficientCidrBlocks`. Лимит подов
   при этом нужно явно передать kubelet (`max-pods`), иначе действует старая
   формула.
 - **Custom networking.** Поды берут адреса из отдельных подсетей (например,
-  из дополнительного CIDR VPC), а не из тех, где стоят ноды.
+  из дополнительного CIDR VPC), а не из тех, где стоят ноды.[6]
 - **IPv6-кластер.** Поды получают IPv6-адреса, проблема нехватки IPv4 уходит.
 - **Security groups для подов.** Отдельная security group на конкретный под
   вместо одной на всю ноду.
@@ -112,7 +112,7 @@ aws ec2 describe-instance-types --instance-types m5.large \
 VPC CNI умеет NetworkPolicy сам (через eBPF), но функцию надо включить:
 в настройках add-on `vpc-cni` значение `{"enableNetworkPolicy": "true"}`.
 Требуется ядро Linux 5.10 и выше (в актуальных EKS-оптимизированных AMI оно
-есть). По умолчанию (режим standard) новый под сначала открыт, пока к нему не
+есть).[8] По умолчанию (режим standard) новый под сначала открыт, пока к нему не
 применятся политики. Режим strict закрывает всё до применения политик.
 Вместо этого можно поставить Calico или Cilium. Но на Fargate альтернативный
 CNI использовать нельзя.
@@ -121,7 +121,7 @@ CNI использовать нельзя.
 
 CoreDNS и kube-proxy работают как обычно (в EKS они ставятся как add-ons,
 модуль 07). Service CIDR (адреса сервисов) задаётся при создании кластера и
-**потом не меняется**, поэтому выбирайте его заранее так, чтобы он не
+**потом не меняется**[34], поэтому выбирайте его заранее так, чтобы он не
 пересекался с вашими сетями.
 
 ## Частые ошибки
@@ -139,3 +139,12 @@ CoreDNS и kube-proxy работают как обычно (в EKS они ста
 - Сколько подов поместится на `m5.large` без prefix delegation? *(29.)*
 - Почему маленькая подсеть — риск для EKS? *(Каждый под занимает реальный
   IP из подсети.)*
+
+## Источники главы
+
+- [5] Amazon VPC CNI (Best Practices) — https://docs.aws.amazon.com/eks/latest/best-practices/vpc-cni.html
+- [6] Custom Networking (Best Practices) — https://docs.aws.amazon.com/eks/latest/best-practices/custom-networking.html
+- [7] Prefix Mode for Linux (Best Practices) — https://docs.aws.amazon.com/eks/latest/best-practices/prefix-mode-linux.html
+- [8] Configure network policy for the Amazon VPC CNI — https://docs.aws.amazon.com/eks/latest/userguide/cni-network-policy-configure.html
+- [33] Operating Large Clusters (Kubernetes) — https://kubernetes.io/docs/setup/best-practices/cluster-large/
+- [34] Create an Amazon EKS cluster — https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html

@@ -38,7 +38,7 @@ kubectl auth can-i delete pods --as=system:serviceaccount:default:demo-sa   # no
 Связывает конкретный ServiceAccount с конкретной IAM-ролью через OIDC:
 
 1. У каждого EKS-кластера есть собственный OIDC-издатель токенов. Но в IAM его
-   нужно **зарегистрировать вручную, один раз на кластер**:
+   нужно **зарегистрировать вручную, один раз на кластер**[11]:
    `eksctl utils associate-iam-oidc-provider --cluster my-cluster --approve`.
    Автоматически этого не происходит.
 2. Создаётся IAM-роль, в trust policy которой указан этот OIDC-провайдер и
@@ -85,9 +85,9 @@ aws eks create-pod-identity-association --cluster-name my-cluster \
 ```
 
 - В trust policy роли указывается сервис `pods.eks.amazonaws.com`, поэтому
-  одну роль удобно использовать в нескольких кластерах.
+  одну роль удобно использовать в нескольких кластерах.[12]
 - **Ограничения:** только Linux-ноды на EC2. **На Fargate не работает**, там
-  используйте IRSA. Нельзя указать роль из другого аккаунта (для этого
+  используйте IRSA.[12] Нельзя указать роль из другого аккаунта (для этого
   цепочка ролей).
 - В EKS Auto Mode агент ставить не нужно.
 
@@ -120,7 +120,7 @@ aws eks associate-access-policy --cluster-name my-cluster \
 - **ConfigMap `aws-auth`** — старый способ (запись в `kube-system`). Он
   считается устаревшим, новые кластеры лучше вести через access entries.
   Режимы аутентификации кластера: `CONFIG_MAP`, `API_AND_CONFIG_MAP`, `API`.
-  Переход к режиму API односторонний. Проверьте режим своего кластера в
+  Переход к режиму API односторонний.[13] Проверьте режим своего кластера в
   консоли или `aws eks describe-cluster`.
 - Тот, кто **создал** кластер, получает администраторский доступ. Если эту
   роль потом удалят, вы можете остаться без доступа. Заведите отдельный
@@ -145,3 +145,9 @@ aws eks associate-access-policy --cluster-name my-cluster \
 - Где не работает Pod Identity? *(На Fargate и Windows-нодах.)*
 - Что такое access entry? *(Запись, которая связывает IAM-роль с правами в
   Kubernetes API.)*
+
+## Источники главы
+
+- [11] IAM roles for service accounts — https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html
+- [12] EKS Pod Identity — https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html
+- [13] Grant IAM users and roles access to Kubernetes APIs — https://docs.aws.amazon.com/eks/latest/userguide/grant-k8s-access.html

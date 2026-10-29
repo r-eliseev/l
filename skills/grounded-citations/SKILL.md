@@ -53,6 +53,11 @@ Retrieval comes from whatever is configured: `web_search`, `web_extract`,
 Ledger location: `$HERMES_HOME/cache/citations/ledger.json` (profile-aware).
 Override per task with `--ledger <path>` or `HERMES_CITATION_LEDGER`.
 
+**В этом репозитории** рабочий ledger — не нужен: банк источников и тексты
+страниц лежат в самой книге (`books/<slug>/src/quotes.json` и
+`books/<slug>/src/evidence/`), и проверка дословности работает через
+`tools/check_quotes.py --book <slug>`.
+
 ## How to Run
 
 ```bash

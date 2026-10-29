@@ -6,9 +6,9 @@
 версий (skew policy):
 
 - **kubelet** на нодах может быть **старше** API server не более чем на три
-  минорные версии и не может быть новее его;
+  минорные версии и не может быть новее его[27];
 - **kubectl** может отличаться от API server не более чем на одну минорную
-  версию;
+  версию[27];
 - обновлять кластер нужно **по одной минорной версии за раз**.
 
 ```bash
@@ -50,7 +50,7 @@ kubectl drain eks-lab-worker --ignore-daemonsets --delete-emptydir-data
 
 - **Обновление control plane** делает AWS, одной командой или кликом. По
   одной минорной версии за раз. После обновления в течение 7 дней можно
-  откатиться на предыдущую минорную версию (для кластеров, обновлённых
+  откатиться на предыдущую минорную версию[25] (для кластеров, обновлённых
   вручную; автоматически обновлённые откатить нельзя).
 
 ```bash
@@ -75,7 +75,7 @@ aws eks update-nodegroup-version --cluster-name my-cluster --nodegroup-name work
   непланируемыми, поды выселяются (drain) с учётом PDB, затем старые ноды
   удаляются. За раз обновляется не больше `maxUnavailable` нод (по умолчанию
   **одна**, максимум 100). Если поды не ушли с ноды за 15 минут, обновление
-  падает с ошибкой `PodEvictionFailure`, если не указать `--force`
+  падает с ошибкой `PodEvictionFailure`[26], если не указать `--force`
   (тогда поды будут удалены принудительно).
 - **PDB здесь работает в обе стороны.** Без PDB, если все реплики сервиса
   оказались на одной ноде, их выселят разом, и будет простой. Слишком
@@ -89,9 +89,9 @@ aws eks update-nodegroup-version --cluster-name my-cluster --nodegroup-name work
   с учётом PDB (модуль 11).
 - **Поддержка версий.** Версия получает стандартную поддержку 14 месяцев,
   затем 12 месяцев extended support за дополнительную плату ($0.60 вместо
-  $0.10 в час за кластер). После этого control plane принудительно
+  $0.10 в час за кластер)[24]. После этого control plane принудительно
   обновляется. На октябрь 2026: стандартная поддержка — 1.34–1.37,
-  extended — 1.31–1.33. Свежие даты: `aws eks describe-cluster-versions`.
+  extended — 1.31–1.33.[24] Свежие даты: `aws eks describe-cluster-versions`.
 - **Объекты API.** Устаревшие версии API выводятся по расписанию апстрима.
   EKS повторяет его, так что манифесты надо поддерживать актуальными.
 
@@ -111,3 +111,10 @@ aws eks update-nodegroup-version --cluster-name my-cluster --nodegroup-name work
 - Сколько нод по умолчанию обновляется одновременно? *(Одна.)*
 - Что произойдёт, если версия вышла из extended support? *(Control plane
   будет автоматически обновлён, ноды останутся на старой версии.)*
+
+## Источники главы
+
+- [24] Understand the Kubernetes version lifecycle on EKS — https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html
+- [25] Update the Kubernetes version for your Amazon EKS cluster — https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html
+- [26] Update managed node group behavior — https://docs.aws.amazon.com/eks/latest/userguide/managed-node-update-behavior.html
+- [27] Kubernetes Version and Version Skew Support Policy — https://kubernetes.io/releases/version-skew-policy/

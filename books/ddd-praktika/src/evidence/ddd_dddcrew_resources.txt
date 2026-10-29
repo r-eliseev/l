@@ -1,0 +1,124 @@
+# ddd-crew/free-ddd-learning-resources
+URL: https://github.com/ddd-crew/free-ddd-learning-resources
+
+# ddd-crew/free-ddd-learning-resources
+
+A collection of resources for learning DDD. All are free to access.
+
+- Stars: 875
+- Forks: 80
+- Watchers: 875
+- Open issues: 0
+- License: Creative Commons Attribution Share Alike 4.0 International
+- Default branch: main
+- Created: 2020-05-23T16:45:21Z
+
+## Topics
+
+- domain-driven-design
+- resources
+
+## Top Contributors
+
+- NTCoding (7 contributions)
+- Baasie (3 contributions)
+- yellowbrickc (2 contributions)
+- hjwp (1 contributions)
+- marc-bouvier (1 contributions)
+- skleanthous (1 contributions)
+
+---
+
+## README
+
+# Free Domain-Driven Design Learning Resources
+
+This repository contains a collection of blog posts, videos and other resources for learning Domain-Driven Design. All resources are free to access. 
+
+> Please raise an issue if there is a resource you think should be added to this collection.
+
+*Table of Contents*
+1. DDD Introductions & Fundamentals
+2. Collaborative Modelling
+3. Strategic Design
+4. Tactical DDD / Domain-as-code
+5. Case Studies
+6. DDD Blogs
+
+## DDD Introductions and Fundamentals
+
+These resources are typically aimed at beginners providing an overview of DDD as a whole and how the individual concepts fit together.
+
+### EBooks
+
+- Domain-Driven Design Reference, Eric Evans
+
+- The Anatomy of Domain-Driven Design, Scott Millett and Samuel Knight
+
+- DDD: The First 15 Years, Various Authors
+
+- Domain-Driven Design Quickly, Abel Avram and Floyd Marinescu
+
+### Written Articles
+
+- Domain-Driven Design, Martin Fowler
+
+- Domain-driven design needn't be hard. Here's how to start, Andrew Hamel-law
+
+- DDD Starter Modelling Process
+
+### Videos
+
+- What is DDD?, Eric Evans
+
+- Tackling Complexity in the Heart of Software, Eric Evans
+
+- Getting to DDD: Pragmatic or Principled?, Julie Lerman
+
+### Other Resources
+
+- DDD from Product people's perspective, Zsofia Herendi
+
+- Virtual DDD Meetup Group
+
+- DDD-CQRS-ES Discord Server is a very active community to ask questions about anything relating to DDD, and get answers from practitioners in different contexts
+
+## Collaborative Modelling
+
+These resources teach and show how software development practitioners and domain experts can work together to model business domains.
+
+### Written Articles
+
+- Event Storming, Open Practice Library
+
+- Domain Storytelling, Open Practice Library
+
+### Videos
+
+- 100,000 Orange Stickies Later, Alberto Brandolini
+
+### Other Resources
+
+- Visual Collaboration Tools, Kenny Baas-Schwegler & João Roasa
+
+- Awesome EventStorming, Mariusz Gil
+
+## Strategic Design
+
+These resources teach how to decompose a large domain into sub-domains and represent them as high-level architectural components called Bounded Contexts.
+
+### Written Articles
+
+- Bounded Context, Martin Fowler
+
+- Tackling business complexity with strategic domain-driven design, Leandro Lages 
+
+### Videos
+
+- Bounded Contexts, Cyrille Martraire
+
+- Practical DDD: Bounded Contexts + Events, Indu Alagarsamy
+
+- Emergent Boundaries, Matthias Verraes
+
+- Socio-technical architecture, Ora Egozi

@@ -1,0 +1,305 @@
+{
+  "1": {
+    "url": "https://aws.amazon.com/eks/pricing/",
+    "title": "Amazon EKS Pricing",
+    "quotes": [
+      "Standard Kubernetes version support\n\n$0.10 per cluster per hour",
+      "You pay $0.10 per hour during the first 14 months when the version is in standard support. After 14 months, the Kubernetes version transitions to extended support. You now pay $0.60 per hour for the remaining 12 months.",
+      "Like EC2 instance charges, EKS Auto Mode charges are billed per-second, with a one-minute minimum."
+    ]
+  },
+  "2": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html",
+    "title": "What is Amazon EKS?",
+    "quotes": [
+      "**EKS standard**: AWS manages the [Kubernetes control plane](https://kubernetes.io/docs/concepts/overview/components/#control-plane-components) when you create a cluster with EKS. Components that manage nodes, schedule workloads, integrate with the AWS cloud, and store and scale control plane information to keep your clusters up and running, are handled for you automatically.",
+      "**EKS Auto Mode**: Using the [EKS Auto Mode](automode.md) feature, EKS extends its control to manage [Nodes](https://kubernetes.io/docs/concepts/overview/components/#node-components) (Kubernetes data plane) as well. It simplifies Kubernetes management by automatically provisioning infrastructure, selecting optimal compute instances, dynamically scaling resources, continuously optimizing costs, patching operating systems, and integrating with AWS security services."
+    ]
+  },
+  "3": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/eks-architecture.html",
+    "title": "Amazon EKS architecture",
+    "quotes": [
+      "Amazon EKS ensures every cluster has its own unique Kubernetes control plane.",
+      "The control plane positions at least two API server instances and three [etcd](https://etcd.io/) instances across three AWS Availability Zones within an AWS Region.",
+      "With [Amazon EKS Hybrid Nodes](hybrid-nodes-overview.md), you can use your on-premises and edge infrastructure as nodes in Amazon EKS clusters. Amazon EKS Hybrid Nodes unifies Kubernetes management across environments and offloads Kubernetes control plane management to AWS for your on-premises and edge applications."
+    ]
+  },
+  "4": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html",
+    "title": "Cluster API server endpoint",
+    "quotes": [
+      "By default, this API server endpoint is public to the internet, and access to the API server is secured using a combination of AWS Identity and Access Management (IAM) and native Kubernetes Role Based Access Control (RBAC). This endpoint is known as the cluster public endpoint.",
+      "You can enable private access to the Kubernetes API server so that all communication between your nodes and the API server stays within your VPC."
+    ]
+  },
+  "5": {
+    "url": "https://docs.aws.amazon.com/eks/latest/best-practices/vpc-cni.html",
+    "title": "Amazon VPC CNI (Best Practices)",
+    "quotes": [
+      "(Number of network interfaces for the instance type * (the number of IP addresses per network interface - 1)) + 2",
+      "The VPC CNI checks the [limits](https://github.com/aws/amazon-vpc-resource-controller-k8s/blob/master/pkg/aws/vpc/limits.go) file to find out how many ENIs and IP addresses are allowed for each type of instance."
+    ]
+  },
+  "6": {
+    "url": "https://docs.aws.amazon.com/eks/latest/best-practices/custom-networking.html",
+    "title": "Custom Networking (Best Practices)",
+    "quotes": [
+      "The maximum number of Pods you can run without prefix assignment is 29",
+      "With prefix assignment, each secondary IP is replaced with a /28 prefix on secondary ENIs."
+    ]
+  },
+  "7": {
+    "url": "https://docs.aws.amazon.com/eks/latest/best-practices/prefix-mode-linux.html",
+    "title": "Prefix Mode for Linux (Best Practices)",
+    "quotes": [
+      "you can now configure Amazon VPC CNI to assign /28 (16 IP addresses) IPv4 address prefixes, instead of assigning individual IPv4 addresses to the slots on network interfaces",
+      "When `ENABLE_PREFIX_DELEGATION` is set to true VPC CNI allocates an IP address to a Pod from the prefix assigned to an ENI."
+    ]
+  },
+  "8": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/cni-network-policy-configure.html",
+    "title": "Configure network policy for the Amazon VPC CNI",
+    "quotes": [
+      "Your nodes must have Linux kernel version `5.10` or later."
+    ]
+  },
+  "9": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html",
+    "title": "Set up the Amazon EBS CSI driver",
+    "quotes": [
+      "You do not need to install the Amazon EBS CSI controller on EKS Auto Mode clusters.",
+      "attempting to install the add-on and running `kubectl describe pvc` will show `failed to provision volume with StorageClass` along with a `could not create volume in EC2: UnauthorizedOperation` error",
+      "EKS Auto Mode requires storage classes to use `ebs.csi.eks.amazonaws.com` as the provisioner. The standard Amazon EBS CSI Driver (`ebs.csi.aws.com`) manages its own volumes separately."
+    ]
+  },
+  "10": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/efs-csi.html",
+    "title": "Set up the Amazon EFS CSI driver",
+    "quotes": [
+      "The Amazon EFS CSI driver requires IAM permissions to interact with your file system."
+    ]
+  },
+  "11": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html",
+    "title": "IAM roles for service accounts",
+    "quotes": [
+      "Create an IAM OIDC provider for your cluster – You only complete this procedure once for each cluster."
+    ]
+  },
+  "12": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html",
+    "title": "EKS Pod Identity",
+    "quotes": [
+      "\"Principal\": {\n\"Service\": \"pods.eks.amazonaws.com\"",
+      "You can’t use EKS Pod Identities with:\n+ Pods that run anywhere except Linux Amazon EC2 instances. Linux and Windows pods that run on AWS Fargate (Fargate) aren’t supported."
+    ]
+  },
+  "13": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/grant-k8s-access.html",
+    "title": "Grant IAM users and roles access to Kubernetes APIs",
+    "quotes": [
+      "Once the access entry method is enabled, it cannot be disabled.",
+      "| `ConfigMap` only (`CONFIG_MAP`) | `aws-auth` `ConfigMap` |\n| EKS API and `ConfigMap` (`API_AND_CONFIG_MAP`) | access entries in the EKS API, AWS Command Line Interface, AWS SDKs, AWS CloudFormation, and AWS Management Console and `aws-auth` `ConfigMap` |\n| EKS API only (`API`) | access entries in the EKS API, AWS Command Line Interface, AWS SDKs, AWS CloudFormation, and AWS Management Console |"
+    ]
+  },
+  "14": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html",
+    "title": "Route internet traffic with AWS Load Balancer Controller",
+    "quotes": [
+      "The LBC creates an [AWS Application Load Balancer (ALB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) when you create a Kubernetes `Ingress`.",
+      "The LBC creates an [AWS Network Load Balancer (NLB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) when you create a Kubernetes service of type `LoadBalancer`.",
+      "In versions 2.5 and newer, the AWS Load Balancer Controller becomes the default controller for Kubernetes *service* resources with the `type: LoadBalancer` and makes an AWS Network Load Balancer (NLB) for each service.",
+      "With the AWS Load Balancer Controller version `2.14.0` or later, the LBC creates an [AWS Application Load Balancer (ALB)](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) when you create a Kubernetes `Gateway`.",
+      "The legacy cloud provider creates Classic Load Balancers. If you do not install the AWS Load Balancer Controller, Kubernetes will default to using the legacy cloud provider."
+    ]
+  },
+  "15": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/network-load-balancing.html",
+    "title": "Route TCP and UDP traffic with Network Load Balancers",
+    "quotes": [
+      "When you create a Kubernetes `Service` of type `LoadBalancer`, the AWS cloud provider load balancer controller creates AWS [Classic Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/introduction.html) by default, but can also create AWS",
+      "**Key** – `kubernetes.io/role/internal-elb`\n+ **Value** – `1`",
+      "**Key** – `kubernetes.io/role/elb`\n+ **Value** – `1`"
+    ]
+  },
+  "16": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html",
+    "title": "Scale cluster compute with Karpenter and Cluster Autoscaler",
+    "quotes": [
+      "Karpenter is a flexible, high-performance Kubernetes cluster autoscaler that helps improve application availability and cluster efficiency.",
+      "Karpenter launches right-sized compute resources (for example, Amazon EC2 instances) in response to changing application load in under a minute."
+    ]
+  },
+  "17": {
+    "url": "https://docs.aws.amazon.com/eks/latest/best-practices/karpenter.html",
+    "title": "Karpenter (Best Practices)",
+    "quotes": [
+      "Monitor pods that the Kubernetes scheduler cannot\nschedule due to resource constraints.",
+      "With Karpenter, you can define NodePools with constraints on node\nprovisioning like taints, labels, requirements (instance types, zones,\netc.), and limits on total provisioned resources.",
+      "Karpenter was designed to overcome some of the challenges presented by\nCluster Autoscaler"
+    ]
+  },
+  "18": {
+    "url": "https://docs.aws.amazon.com/eks/latest/eksctl/autoscaling.html",
+    "title": "Auto Scaling (eksctl)",
+    "quotes": [
+      "This flag also sets `k8s.io/cluster-autoscaler/enabled` and `k8s.io/cluster-autoscaler/` tags, so nodegroup discovery should work."
+    ]
+  },
+  "19": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html",
+    "title": "Amazon EKS add-ons",
+    "quotes": [
+      "Amazon EKS automatically installs self-managed add-ons such as the Amazon VPC CNI plugin for Kubernetes, `kube-proxy`, and CoreDNS for every cluster.",
+      "Amazon EKS add-ons provide installation and management of a curated set of add-ons for Amazon EKS clusters."
+    ]
+  },
+  "20": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/workloads-add-ons-available-eks.html",
+    "title": "Amazon EKS add-ons available for Amazon EKS clusters",
+    "quotes": [
+      "The Amazon EKS add-on name is `snapshot-controller`.",
+      "The Amazon EKS add-on name is `adot`.",
+      "This add-on installs the CloudWatch Agent and enables both CloudWatch Application Signals and CloudWatch Container Insights with enhanced observability for Amazon EKS"
+    ]
+  },
+  "21": {
+    "url": "https://docs.aws.amazon.com/cli/latest/reference/eks/update-addon.html",
+    "title": "aws eks update-addon (AWS CLI)",
+    "quotes": [
+      "None – Amazon EKS doesn’t change the value. The update might fail.\n\nOverwrite – Amazon EKS overwrites the changed value back to the Amazon EKS default value.\n\nPreserve – Amazon EKS preserves the value.",
+      "Possible values:\n\nOVERWRITE\n\nNONE\n\nPRESERVE"
+    ]
+  },
+  "22": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html",
+    "title": "Send control plane logs to CloudWatch Logs",
+    "quotes": [
+      "You can select the exact log types you need, and logs are sent as log streams to a group for each Amazon EKS cluster in CloudWatch.",
+      "The log group name format is `/aws/eks/{{my-cluster}}/cluster`.",
+      "**Authenticator (`authenticator`)**\nAuthenticator logs are unique to Amazon EKS. These logs represent the control plane component that Amazon EKS uses for Kubernetes [Role Based Access Control](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) (RBAC) authentication using IAM credentials."
+    ]
+  },
+  "23": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/fargate-logging.html",
+    "title": "Start AWS Fargate logging for your cluster",
+    "quotes": [
+      "Amazon EKS on Fargate offers a built-in log router based on Fluent Bit. This means that you don’t explicitly run a Fluent Bit container as a sidecar, but Amazon runs it for you.",
+      "Named `aws-logging`\n+ Created in a dedicated namespace called `aws-observability`"
+    ]
+  },
+  "24": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html",
+    "title": "Understand the Kubernetes version lifecycle on EKS",
+    "quotes": [
+      "A minor version is under standard support in Amazon EKS for the first 14 months after it’s released. Once a version is past the end of standard support date, it enters extended support for the next 12 months.",
+      "The following Kubernetes versions are currently available in Amazon EKS standard support:\n+ `1.37`\n+ `1.36`\n+ `1.35`\n+ `1.34`",
+      "Clusters upgraded through in-place upgrade can be rolled back to the previous minor version within 7 days of the upgrade completing."
+    ]
+  },
+  "25": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html",
+    "title": "Update the Kubernetes version for your Amazon EKS cluster",
+    "quotes": [
+      "After upgrading, you can roll back to the previous version within 7 days if issues arise.",
+      "Because Amazon EKS runs a highly available control plane, you can update only one minor version at a time."
+    ]
+  },
+  "26": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/managed-node-update-behavior.html",
+    "title": "Update managed node group behavior",
+    "quotes": [
+      "It drains the Pods from the node. If the Pods don’t leave the node within 15 minutes and there’s no force flag, the upgrade phase fails with a `PodEvictionFailure` error.",
+      "**Each node must bootstrap within 15 minutes**"
+    ]
+  },
+  "27": {
+    "url": "https://kubernetes.io/releases/version-skew-policy/",
+    "title": "Kubernetes Version and Version Skew Support Policy",
+    "quotes": [
+      "kubelet\nmust not be newer than\nkube-apiserver\n.",
+      "kubelet\nmay be up to three minor versions older than\nkube-apiserver",
+      "kubectl\nis supported within one minor version (older or newer) of\nkube-apiserver\n."
+    ]
+  },
+  "28": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/fargate.html",
+    "title": "Simplify compute management with AWS Fargate",
+    "quotes": [
+      "Each Pod that runs on Fargate has its own compute boundary. They don’t share the underlying kernel, CPU resources, memory resources, or elastic network interface with another Pod.",
+      "Daemonsets aren’t supported on Fargate. If your application requires a daemon, reconfigure that daemon to run as a sidecar container in your Pods.",
+      "Pods running on Fargate can’t specify `HostPort` or `HostNetwork` in the Pod manifest.",
+      "GPUs aren’t currently available on Fargate.",
+      "Pods that run on Fargate are only supported on private subnets (with NAT gateway access to AWS services, but not a direct route to an Internet Gateway), so your cluster’s VPC must have private subnets available.",
+      "Amazon EKS doesn’t support Fargate Spot.",
+      "You can’t mount Amazon EBS volumes to Fargate Pods.",
+      "Network Load Balancers and Application Load Balancers (ALBs) can be used with Fargate with IP targets only.",
+      "To automatically delete the related Pods after a Job completes or fails, you can specify a time period using the time-to-live (TTL) controller. The following example shows specifying `.spec.ttlSecondsAfterFinished` in your Job manifest."
+    ]
+  },
+  "29": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/fargate-pod-configuration.html",
+    "title": "Configure your Amazon EKS cluster for AWS Fargate",
+    "quotes": [
+      "A Pod running on Fargate automatically mounts an Amazon EFS file system, without needing manual driver installation steps. You can’t use dynamic persistent volume provisioning with Fargate nodes, but you can use static provisioning."
+    ]
+  },
+  "30": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/automode.html",
+    "title": "Automate cluster infrastructure with EKS Auto Mode",
+    "quotes": [
+      "**Managed Components**: EKS Auto Mode includes Kubernetes and AWS cloud features as core components that would otherwise have to be managed as add-ons. This includes built-in support for Pod IP address assignments, Pod network policies, local DNS services, GPU plug-ins, health checkers, and EBS CSI storage.",
+      "nodes launched by EKS Auto Mode have a maximum lifetime of 21 days (which you can reduce), after which they are automatically replaced with new nodes.",
+      "The Bottlerocket AMIs have locked-down software, immutable root file systems, and secure network access (to prevent direct communications through SSH or SSM).",
+      "**Auto scaling**: Relying on [Karpenter](https://karpenter.sh/docs/) auto scaling, EKS Auto Mode monitors for unschedulable Pods and makes it possible for new nodes to be deployed to run those Pods.",
+      "EKS Auto Mode enforces a 21-day maximum node lifetime to ensure up-to-date software and APIs."
+    ]
+  },
+  "31": {
+    "url": "https://kind.sigs.k8s.io/docs/user/quick-start/",
+    "title": "Quick Start (kind)",
+    "quotes": [
+      "kind runs a local Kubernetes cluster by using Docker containers as “nodes”.",
+      "Stable tagged releases (currently v0.33.0) are generally strongly recommended for CI usage in particular.",
+      "[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.33.0/kind-linux-amd64"
+    ]
+  },
+  "32": {
+    "url": "https://kind.sigs.k8s.io/docs/user/configuration/",
+    "title": "Configuring Your kind Cluster (kind)",
+    "quotes": [
+      "KIND ships with a simple networking implementation (“kindnetd”) based around\nstandard CNI plugins (\nptp\n,\nhost-local\n, …) and simple netlink routes.",
+      "You may disable the default to install a different CNI. This is a power user\nfeature with limited support, but many common CNI manifests are known to work,\ne.g. Calico."
+    ]
+  },
+  "33": {
+    "url": "https://kubernetes.io/docs/setup/best-practices/cluster-large/",
+    "title": "Operating Large Clusters (Kubernetes)",
+    "quotes": [
+      "No more than 110 pods per node"
+    ]
+  },
+  "34": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html",
+    "title": "Create an Amazon EKS cluster",
+    "quotes": [
+      "You can only specify this option when using the\nIPv4\naddress family and only at cluster creation.",
+      "This includes the Amazon VPC CNI, CoreDNS, and kube-proxy."
+    ]
+  },
+  "35": {
+    "url": "https://kubernetes.io/blog/2025/11/11/ingress-nginx-retirement/",
+    "title": "Ingress NGINX Retirement (Kubernetes Blog)",
+    "quotes": [
+      "Best-effort maintenance will continue until March 2026. Afterward, there will be no further releases, no bugfixes, and no updates to resolve any security vulnerabilities that may be discovered."
+    ]
+  },
+  "36": {
+    "url": "https://docs.aws.amazon.com/eks/latest/userguide/choosing-instance-type.html",
+    "title": "Maximum number of Pods for your Amazon EKS nodes",
+    "quotes": [
+      "The `maxPods` value is always capped at `110` or `250` depending on instance size."
+    ]
+  }
+}

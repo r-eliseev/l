@@ -1,0 +1,37 @@
+* [Documentation](https://contextmapper.org/docs/home/)
+* [Project Background](https://contextmapper.org/background-and-publications/)
+* [Getting Involved](https://contextmapper.org/getting-involved/)
+* [News](https://contextmapper.org/news/2024/08/30/v6.12.0-released/)
+* [](https://github.com/ContextMapper)
+
+# A Modeling Framework for Strategic Domain-driven Design
+ContextMapper is an open source project providing a Domain-specific Language and Tools for Strategic Domain-driven Design (DDD), Context Mapping, Bounded Context Modeling, and Service Decomposition.
+
+## Quick Start
+* [What is Context Mapper?](https://contextmapper.org/docs/home/) Learn more about the [project's background](https://contextmapper.org/background-and-publications) .
+* Installation Links: [Eclipse Plugin](https://marketplace.eclipse.org/content/context-mapper/) , [Visual Studio Code Extension](https://marketplace.visualstudio.com/items?itemName=contextmapper.context-mapper-vscode-extension)
+* [Example Models](https://contextmapper.org/docs/examples/)
+
+...
+
+### Context Mapping DSL (CML)
+CML is an easy to understand, Xtext-based, **DSL for DDD context mapping** . The language supports modeling Bounded Contexts and their relationships with tactic and strategic DDD patterns.
+[Learn more](https://contextmapper.org/docs/language-reference/)
+
+...
+
+### Diagram and Contract Generation
+Use your CML Context Maps to generate other representations of the architecture, such as **graphical Context Maps** , **PlantUML** component and class diagrams, **MDSL (micro-)service contracts** , or **code** .
+
+...
+
+### Context Map Discovery Library
+Use our Java discovery library to **reverse engineer a DDD Context Map** from your existing monolith or microservice application (extensible library based on strategy pattern).
+[Learn more](https://contextmapper.org/docs/reverse-engineering/)
+
+...
+
+### Code (Microservice) Generation
+[Learn more](https://contextmapper.org/docs/jhipster-microservice-generation/)
+© Context Mapper 2025 |
+Powered by [Jekyll Doc Theme](https://github.com/aksakalli/jekyll-doc-theme)
