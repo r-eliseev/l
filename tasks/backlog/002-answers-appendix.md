@@ -25,14 +25,14 @@ created: 2026-10-28
 - Решение владельца зафиксировано в `docs/status.md` и в комментариях задачи.
 - Если ответы добавляются: приложение «Ответы», 20 разделов по главам,
   ответ краткий (1–3 предложения) и не повторяет текст главы.
-- Нумерация приложения обновлена в `book/src/structure.json`.
-- `python book/tools/lint_book.py` и `python book/tools/build_epub.py` проходят.
+- Нумерация приложения обновлена в `books/ddd-praktika/src/structure.json`.
+- `python tools/lint_book.py --book ddd-praktika` и `python tools/build_epub.py --book ddd-praktika` проходят.
 
 ## Анализ
 
 ## План
 
-Файлы: `book/src/structure.json`, `book/src/chapters/app-*.md`, `docs/status.md`
+Файлы: `books/ddd-praktika/src/structure.json`, `books/ddd-praktika/src/chapters/app-*.md`, `docs/status.md`
 
 ## Отчёт
 
