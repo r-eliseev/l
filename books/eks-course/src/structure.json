@@ -8,48 +8,109 @@
       "n": 1,
       "title": "Часть I. Подготовка и архитектура",
       "chapters": [
-        {"file": "m-00-setup", "title": "Модуль 00. Подготовка", "minutes": 12},
-        {"file": "m-01-architecture", "title": "Модуль 01. Архитектура кластера", "minutes": 12}
+        {
+          "file": "m-00-setup",
+          "title": "Модуль 00. Подготовка",
+          "minutes": 12
+        },
+        {
+          "file": "m-01-architecture",
+          "title": "Модуль 01. Архитектура кластера",
+          "minutes": 12
+        }
       ]
     },
     {
       "n": 2,
       "title": "Часть II. Сеть, хранилище, доступ",
       "chapters": [
-        {"file": "m-02-networking", "title": "Модуль 02. Сеть и CNI", "minutes": 16},
-        {"file": "m-03-storage", "title": "Модуль 03. Хранилище", "minutes": 14},
-        {"file": "m-04-iam-irsa", "title": "Модуль 04. IAM, IRSA, Pod Identity и доступ к кластеру", "minutes": 18}
+        {
+          "file": "m-02-networking",
+          "title": "Модуль 02. Сеть и CNI",
+          "minutes": 16
+        },
+        {
+          "file": "m-03-storage",
+          "title": "Модуль 03. Хранилище",
+          "minutes": 14
+        },
+        {
+          "file": "m-04-iam-irsa",
+          "title": "Модуль 04. IAM, IRSA, Pod Identity и доступ к кластеру",
+          "minutes": 18
+        }
       ]
     },
     {
       "n": 3,
       "title": "Часть III. Балансировка и масштабирование",
       "chapters": [
-        {"file": "m-05-load-balancing", "title": "Модуль 05. Балансировщики и Ingress", "minutes": 16},
-        {"file": "m-06-autoscaling", "title": "Модуль 06. Автоскейлинг", "minutes": 16}
+        {
+          "file": "m-05-load-balancing",
+          "title": "Модуль 05. Балансировщики и Ingress",
+          "minutes": 16
+        },
+        {
+          "file": "m-06-autoscaling",
+          "title": "Модуль 06. Автоскейлинг",
+          "minutes": 16
+        }
       ]
     },
     {
       "n": 4,
       "title": "Часть IV. Наблюдаемость и жизненный цикл",
       "chapters": [
-        {"file": "m-07-addons", "title": "Модуль 07. Аддоны", "minutes": 12},
-        {"file": "m-08-observability", "title": "Модуль 08. Наблюдаемость", "minutes": 14},
-        {"file": "m-09-lifecycle-upgrades", "title": "Модуль 09. Жизненный цикл и обновления", "minutes": 16}
+        {
+          "file": "m-07-addons",
+          "title": "Модуль 07. Аддоны",
+          "minutes": 12
+        },
+        {
+          "file": "m-08-observability",
+          "title": "Модуль 08. Наблюдаемость",
+          "minutes": 14
+        },
+        {
+          "file": "m-09-lifecycle-upgrades",
+          "title": "Модуль 09. Жизненный цикл и обновления",
+          "minutes": 16
+        }
       ]
     },
     {
       "n": 5,
       "title": "Часть V. Без своих нод",
       "chapters": [
-        {"file": "m-10-fargate", "title": "Модуль 10. Fargate", "minutes": 18},
-        {"file": "m-11-auto-mode", "title": "Модуль 11. EKS Auto Mode", "minutes": 14}
+        {
+          "file": "m-10-fargate",
+          "title": "Модуль 10. Fargate",
+          "minutes": 18
+        },
+        {
+          "file": "m-11-auto-mode",
+          "title": "Модуль 11. EKS Auto Mode",
+          "minutes": 14
+        }
       ]
     }
   ],
   "appendices": [
-    {"file": "app-a-real-eks-lab", "title": "Приложение А. Короткая практика на реальном EKS"},
-    {"file": "app-b-cheatsheet", "title": "Приложение Б. Шпаргалка: vanilla Kubernetes против EKS"},
-    {"file": "app-c-sources", "title": "Приложение В. Источники"}
+    {
+      "file": "app-a-real-eks-lab",
+      "title": "Приложение А. Короткая практика на реальном EKS"
+    },
+    {
+      "file": "app-b-cheatsheet",
+      "title": "Приложение Б. Шпаргалка: vanilla Kubernetes против EKS"
+    },
+    {
+      "file": "app-c-changelog",
+      "title": "Приложение В. Что изменилось в исходной версии курса"
+    },
+    {
+      "file": "app-d-sources",
+      "title": "Приложение Г. Источники"
+    }
   ]
 }

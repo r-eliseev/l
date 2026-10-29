@@ -1,4 +1,4 @@
-# Приложение В. Источники
+# Приложение Г. Источники
 
 *Все утверждения о версиях, ценах и поведении сервисов AWS в курсе снабжены
 номером в квадратных скобках. Ниже — перечень источников с адресами и
@@ -213,3 +213,7 @@ https://docs.aws.amazon.com/eks/latest/userguide/network-load-balancing.html
 - **[34]** Create an Amazon EKS cluster — https://docs.aws.amazon.com/eks/latest/userguide/create-cluster.html
 - **[35]** Ingress NGINX Retirement (Kubernetes Blog) — https://kubernetes.io/blog/2025/11/11/ingress-nginx-retirement/
 - **[36]** Maximum number of Pods for your Amazon EKS nodes — https://docs.aws.amazon.com/eks/latest/userguide/choosing-instance-type.html
+
+## Источники, не процитированные в тексте
+
+Эти материалы были изучены при подготовке книги, но прямой ссылки на них в главах нет: [32], [36]
